@@ -126,7 +126,7 @@ public class Level2ScreenFloor2 extends PlayGameScreen { // level 2 part 2 is tr
         Gdx.gl.glClearColor(0, 0, 0, 1); // cleanup
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // cleanup
         renderer.render();
-        b2dr.render(world, cam.combined); // you can turn this off if you don’t want to see a green outline around world objects
+        //b2dr.render(world, cam.combined); // you can turn this on if you want to see a green outline around objects of world
         batch.setProjectionMatrix(cam.combined);
         collision();
         batch.begin();
