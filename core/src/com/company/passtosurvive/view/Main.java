@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Main extends Game { // the very first class at startup
 	public static float width, height; // dimensions of the screen on which we launch
-	public static final float PPM=100; // for maps
+	public static final float PPM=100; // for conversions, pixels per meter
 	public static int hit; // to determine what the player encountered
 	public static float HumanX=0; // to save the player's coordinates after a pause
 	public static float HumanY=0;
