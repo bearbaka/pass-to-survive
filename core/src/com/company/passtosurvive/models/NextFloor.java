@@ -10,9 +10,4 @@ public class NextFloor extends TileObject{
         super(world, map, bounds);
         fixture.setUserData(this); // add so that WorldContactListener can recognize
     }
-
-    @Override
-    public void hit() {
-        Main.hit=8;
-    } // each heir puts a different number
 }

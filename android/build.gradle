@@ -1,6 +1,6 @@
 android {
     buildToolsVersion "32.0.0"
-    compileSdkVersion 32
+    compileSdk 35
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -14,20 +14,26 @@ android {
 
     }
     packagingOptions {
-        exclude 'META-INF/robovm/ios/robovm.xml'
+        resources {
+            excludes += ['META-INF/robovm/ios/robovm.xml']
+        }
     }
     defaultConfig {
         applicationId "com.company.passtosurvive"
         namespace "com.company.passtosurvive"
         minSdkVersion 14
-        targetSdkVersion 32
+        targetSdk 35
         versionCode 1
-        versionName "1.0"
+        versionName '2.0'
     }
     buildTypes {
         release {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    buildFeatures {
+        renderScript true
+        aidl true
     }
 }
 

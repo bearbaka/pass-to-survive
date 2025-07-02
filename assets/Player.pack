@@ -1,87 +1,87 @@
 
-Human.png
+Player.png
 size: 1024, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-deadfall
+ghoulfall
   rotate: false
   xy: 82, 2
   size: 78, 93
   orig: 78, 93
   offset: 0, 0
   index: -1
-deadrun1
+ghoulrun1
   rotate: false
   xy: 310, 29
   size: 72, 66
   orig: 72, 66
   offset: 0, 0
   index: -1
-deadrun2
+ghoulrun2
   rotate: false
   xy: 162, 22
   size: 72, 73
   orig: 72, 73
   offset: 0, 0
   index: -1
-deadstay
+ghoulstay
   rotate: false
   xy: 718, 23
   size: 63, 72
   orig: 63, 72
   offset: 0, 0
   index: -1
-deadstay1
+ghoulstay1
   rotate: false
   xy: 653, 23
   size: 63, 72
   orig: 63, 72
   offset: 0, 0
   index: -1
-deadstay2
+ghoulstay2
   rotate: false
   xy: 523, 23
   size: 63, 72
   orig: 63, 72
   offset: 0, 0
   index: -1
-humanfall
+playerfall
   rotate: false
   xy: 2, 2
   size: 78, 93
   orig: 78, 93
   offset: 0, 0
   index: -1
-humanrun1
+playerrun1
   rotate: false
   xy: 384, 29
   size: 72, 66
   orig: 72, 66
   offset: 0, 0
   index: -1
-humanrun2
+playerrun2
   rotate: false
   xy: 236, 22
   size: 72, 73
   orig: 72, 73
   offset: 0, 0
   index: -1
-humanstay
+playerstay
   rotate: false
   xy: 458, 23
   size: 63, 72
   orig: 63, 72
   offset: 0, 0
   index: -1
-humanstay1
+playerstay1
   rotate: false
   xy: 588, 23
   size: 63, 72
   orig: 63, 72
   offset: 0, 0
   index: -1
-humanstay2
+playerstay2
   rotate: false
   xy: 783, 23
   size: 63, 72

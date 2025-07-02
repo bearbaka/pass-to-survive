@@ -1,227 +1,227 @@
 
-DeadSpikes.png
+BloodySpikes.png
 size: 2048, 256
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-deadSpikes1
+spike1
   rotate: false
   xy: 688, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes11
+spike11
   rotate: false
   xy: 884, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes13
+spike13
   rotate: false
   xy: 1276, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes15
+spike15
   rotate: false
   xy: 100, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes17
+spike17
   rotate: false
   xy: 394, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes19
+spike19
   rotate: false
   xy: 884, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes21
+spike21
   rotate: false
   xy: 1178, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes23
+spike23
   rotate: false
   xy: 2, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes25
+spike25
   rotate: false
   xy: 296, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes27
+spike27
   rotate: false
   xy: 786, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes29
+spike29
   rotate: false
   xy: 1080, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes3
+spike3
   rotate: false
   xy: 1080, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes31
+spike31
   rotate: false
   xy: 1472, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes33
+spike33
   rotate: false
   xy: 198, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes35
+spike35
   rotate: false
   xy: 590, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes37
+spike37
   rotate: false
   xy: 982, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes38
+spike38
   rotate: false
   xy: 394, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes39
+spike39
   rotate: false
   xy: 1374, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes40
+spike40
   rotate: false
   xy: 688, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes41
+spike41
   rotate: false
   xy: 100, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes42
+spike42
   rotate: false
   xy: 1178, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes43
+spike43
   rotate: false
   xy: 492, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes44
+spike44
   rotate: false
   xy: 1472, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes45
+spike45
   rotate: false
   xy: 786, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes46
+spike46
   rotate: false
   xy: 296, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes47
+spike47
   rotate: false
   xy: 1276, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes48
+spike48
   rotate: false
   xy: 590, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes49
+spike49
   rotate: false
   xy: 2, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes5
+spike5
   rotate: false
   xy: 1374, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes50
+spike50
   rotate: false
   xy: 982, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes7
+spike7
   rotate: false
   xy: 198, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-deadSpikes9
+spike9
   rotate: false
   xy: 492, 2
   size: 96, 96
