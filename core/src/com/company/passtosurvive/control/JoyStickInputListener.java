@@ -36,8 +36,5 @@ public class JoyStickInputListener extends InputListener {
                                                                               // and its cursor is
                                                                               // dragged
     joyStick.changeCursor(x, y);
-    if (joyStick.isJoyStickDown()) { // check pressing
-      joyStick.handleChangeListener();
-    }
   }
 }

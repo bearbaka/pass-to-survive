@@ -37,7 +37,7 @@ public class PauseScreen
     Texture blackBackground = new Texture(pixmap);
     pixmap.dispose();
     Image transparentBlackBackground = new Image(blackBackground);
-    transparentBlackBackground.setSize(Main.getWidth(), Main.getHeight());
+    transparentBlackBackground.setSize(Main.getScreenWidth(), Main.getScreenHeight());
     transparentBlackBackground.getColor().a = .1f;
     stage.addActor(transparentBlackBackground);
     stage.addActor(restart);
@@ -83,22 +83,22 @@ public class PauseScreen
   @Override
   public void resize(int width,
                      int height) { // in the presentation I explained
-                                   // why I divide 1794 by Main.getWidth()
-    resume.setSize(700 / (1794 / Main.getWidth()),
-                   234f / (1794 / Main.getWidth()));
-    restart.setSize(700 / (1794 / Main.getWidth()),
-                    234f / (1794 / Main.getWidth()));
-    mainMenu.setSize(700 / (1794 / Main.getWidth()),
-                     234f / (1794 / Main.getWidth()));
-    resume.setPosition((Main.getWidth() / 2) - ((resume.getWidth()) / 2),
-                       (Main.getHeight() / 2) +
-                           150f / (1794 / Main.getWidth()));
-    restart.setPosition((Main.getWidth() / 2) - ((resume.getWidth()) / 2),
-                        (Main.getHeight() / 2) -
-                            100f / (1794 / Main.getWidth()));
-    mainMenu.setPosition((Main.getWidth() / 2) - ((resume.getWidth()) / 2),
-                         (Main.getHeight() / 2) -
-                             350f / (1794 / Main.getWidth()));
+                                   // why I divide 1794 by Main.getScreenWidth()
+    resume.setSize(700 / (1794 / Main.getScreenWidth()),
+                   234f / (1794 / Main.getScreenWidth()));
+    restart.setSize(700 / (1794 / Main.getScreenWidth()),
+                    234f / (1794 / Main.getScreenWidth()));
+    mainMenu.setSize(700 / (1794 / Main.getScreenWidth()),
+                     234f / (1794 / Main.getScreenWidth()));
+    resume.setPosition((Main.getScreenWidth() / 2) - ((resume.getWidth()) / 2),
+                       (Main.getScreenHeight() / 2) +
+                           150f / (1794 / Main.getScreenWidth()));
+    restart.setPosition((Main.getScreenWidth() / 2) - ((resume.getWidth()) / 2),
+                        (Main.getScreenHeight() / 2) -
+                            100f / (1794 / Main.getScreenWidth()));
+    mainMenu.setPosition((Main.getScreenWidth() / 2) - ((resume.getWidth()) / 2),
+                         (Main.getScreenHeight() / 2) -
+                             350f / (1794 / Main.getScreenWidth()));
   }
 
   @Override

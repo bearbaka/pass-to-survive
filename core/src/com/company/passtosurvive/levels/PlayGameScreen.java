@@ -10,25 +10,33 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.company.passtosurvive.control.PlayButtons;
 import com.company.passtosurvive.models.Player;
 import com.company.passtosurvive.models.Player.State;
+import com.company.passtosurvive.tools.WorldContactListener;
 import com.company.passtosurvive.view.Main;
 
 public abstract class PlayGameScreen implements Screen { // children of this class are only level
-                                                         // screens
+  // screens
   private static PlayGameScreen lastScreen;
 
-  private static boolean cheatsEnabled;
+  private static boolean cheatsEnabled, statsEnabled;
+
+  public static boolean isStatsEnabled() {
+    return statsEnabled;
+  }
+
   public static boolean isCheatsEnabled() {
     return cheatsEnabled;
   }
 
   static {
     cheatsEnabled = false;
+    statsEnabled = false;
   }
 
   public static PlayGameScreen getLastScreen() {
@@ -51,11 +59,12 @@ public abstract class PlayGameScreen implements Screen { // children of this cla
   World world;
   SpriteBatch batch;
   TiledMap map;
+  WorldContactListener worldContactListener;
   TmxMapLoader mapLoader;
-  PlayButtons buttons;
+  static PlayButtons buttons;
   OrthographicCamera cam;
   OrthogonalTiledMapRenderer renderer;
-  Viewport mapPort;
+  Viewport mapPort; // Viewport is still required by tiled maps
   final float xMaxSpeed, xMaxAccel, yMaxAccel, bouncerYMaxAccel, gravity;
 
   static class Builder {
@@ -86,11 +95,11 @@ public abstract class PlayGameScreen implements Screen { // children of this cla
       this.bouncerYMaxAccel = bouncerYMaxAccel;
       return this;
     }
+
     Builder setGravity(float gravity) {
       this.gravity = gravity;
       return this;
     }
-
   }
 
   PlayGameScreen(Builder builder) {
@@ -100,42 +109,49 @@ public abstract class PlayGameScreen implements Screen { // children of this cla
     this.xMaxAccel = builder.xMaxAccel;
     this.yMaxAccel = builder.yMaxAccel;
     this.bouncerYMaxAccel = builder.bouncerYMaxAccel;
-    this.gravity=builder.gravity;
+    this.gravity = builder.gravity;
     batch = new SpriteBatch();
   }
 
   // needed to update the textures of the
   // Player sprite, camera, buttons, physics, collision, music, etc.
   public void update(float delta) {
-    if(Gdx.input.isKeyJustPressed(Keys.C)){
-      if(cheatsEnabled) world.setGravity(new Vector2(0, gravity));
-      else world.setGravity(new Vector2(0,0));
-      cheatsEnabled=!cheatsEnabled;
+    if (Gdx.input.isKeyJustPressed(Keys.S)) {
+      if (buttons.getStats().getStage() == null) buttons.getStage().addActor(buttons.getStats());
+      else buttons.getStats().remove();
+      statsEnabled = !statsEnabled;
+    }
+    if (Gdx.input.isKeyJustPressed(Keys.C)) {
+      if (cheatsEnabled) {
+        for (Fixture fixture : player.getPlayerBody().getFixtureList()) fixture.setSensor(false);
+        world.setGravity(new Vector2(0, gravity));
+        world.setContactListener(worldContactListener);
+      } else {
+        for (Fixture fixture : player.getPlayerBody().getFixtureList()) fixture.setSensor(true);
+        world.setGravity(new Vector2(0, 0));
+        world.setContactListener(null);
+      }
+      cheatsEnabled = !cheatsEnabled;
     }
     if (Main.musicIsOn && !Main.getMusic().isAnyMusicPlaying()) {
-      if (Main.screen <= 2)
-        Main.getMusic().level1MusicPlay();
-      else
-        Main.getMusic().level2MusicPlay();
+      if (Main.screen <= 2) Main.getMusic().level1MusicPlay();
+      else Main.getMusic().level2MusicPlay();
     }
     world.step(1 / 60f, 6, 2);
     if (Main.nextFloor) { // on this map the last bouncers at the end of this
-                          // part of the level are marked as nextfloor and when
-                          // we fall on them Main.nextFloor is set to true
-      if (player.playerBody.getLinearVelocity().y == 0)
-        player.performJump(10f);
-      cam.position.y = player.playerBody.getPosition().y;
+      // part of the level are marked as nextfloor and when
+      // we fall on them Main.nextFloor is set to true
+      if (player.getCurrentState() != State.JUMPING) player.performJump(10f);
+      cam.position.y = player.getPlayerBody().getPosition().y;
     } else { // after we fall on something else this will start
       cam.position.y = mapPort.getWorldHeight() / 2; // camera returns to original position Y
     }
-    cam.position.x = player.playerBody.getPosition().x; // camera moves with player
-    player.update(delta);
+    cam.position.x = player.getPlayerBody().getPosition().x; // camera moves with player
+    player.update(delta, buttons.getJoyStick().getValueX());
     cam.update();
     renderer.setView(cam);
-    if (Main.touchedBouncer && player.getCurrentState() != State.JUMPING) {
-      player.setCurrentState(State.JUMPING);
+    if (Main.touchedBouncer && player.getCurrentState() != State.JUMPING)
       player.performJump(bouncerYMaxAccel);
-    }
   }
 
   @Override
@@ -148,10 +164,9 @@ public abstract class PlayGameScreen implements Screen { // children of this cla
     batch.begin();
     player.draw(batch);
     batch.end();
-    buttons.stage.act(delta);
-    buttons.stage.draw();
-    if (player.isDead())
-      dispose();
+    buttons.getStage().act(delta);
+    buttons.getStage().draw();
+    if (player.isDead()) dispose();
   }
 
   @Override
@@ -169,11 +184,12 @@ public abstract class PlayGameScreen implements Screen { // children of this cla
     renderer.dispose();
     world.dispose();
     game.dispose();
+    player.dispose();
   }
 
   @Override
   public void show() {
-    Gdx.input.setInputProcessor(buttons.stage); // so that clicks are processed only by stage
+    Gdx.input.setInputProcessor(buttons.getStage()); // so that clicks are processed only by stage
   }
 
   @Override

@@ -90,7 +90,7 @@ public class WinScreen
   public void winRender() {
     stateTime += Gdx.graphics.getDeltaTime();
     batch.draw(animation.getKeyFrame(stateTime, true), 0,
-               Main.getHeight() / 2, Main.getWidth(), Main.getHeight() / 3f);
+               Main.getScreenHeight() / 2, Main.getScreenWidth(), Main.getScreenHeight() / 3f);
   }
 
   @Override
@@ -106,21 +106,21 @@ public class WinScreen
       winRender();
       if (stateTimer >= 3) {
         batch.draw(label,
-                   Main.getWidth() / 2 - ((1266.7f / (1794 / Main.getWidth())) / 2),
-                   Main.getHeight() / 2 - 80 / (1080 / Main.getHeight()) -
-                       66.6f / (1794 / Main.getWidth()) - 50 / (1080 / Main.getHeight()),
-                   1266.7f / (1794 / Main.getWidth()), 66.6f / (1794 / Main.getWidth()));
+                   Main.getScreenWidth() / 2 - ((1266.7f / (1794 / Main.getScreenWidth())) / 2),
+                   Main.getScreenHeight() / 2 - 80 / (1080 / Main.getScreenHeight()) -
+                       66.6f / (1794 / Main.getScreenWidth()) - 50 / (1080 / Main.getScreenHeight()),
+                   1266.7f / (1794 / Main.getScreenWidth()), 66.6f / (1794 / Main.getScreenWidth()));
       }
     } else if (Main.level1IsFinished && Main.level2IsFinished) {
-      batch.draw(label, 0, Main.getHeight() / 2, Main.getWidth(),
-                 203 / (1794 / Main.getWidth()));
+      batch.draw(label, 0, Main.getScreenHeight() / 2, Main.getScreenWidth(),
+                 203 / (1794 / Main.getScreenWidth()));
       if (stateTimer >= 7) {
         if (stateTimer==7) Main.getMusic().endSoundPlay();
         batch.draw(Thanks,
-                   Main.getWidth() / 2 - ((1266.7f / (1794 / Main.getWidth())) / 2),
-                   Main.getHeight() / 2 - 80 / (1080 / Main.getHeight()) -
-                       66.6f / (1794 / Main.getWidth()) - 50 / (1080 / Main.getHeight()),
-                   1266.7f / (1794 / Main.getWidth()), 66.6f / (1794 / Main.getWidth()));
+                   Main.getScreenWidth() / 2 - ((1266.7f / (1794 / Main.getScreenWidth())) / 2),
+                   Main.getScreenHeight() / 2 - 80 / (1080 / Main.getScreenHeight()) -
+                       66.6f / (1794 / Main.getScreenWidth()) - 50 / (1080 / Main.getScreenHeight()),
+                   1266.7f / (1794 / Main.getScreenWidth()), 66.6f / (1794 / Main.getScreenWidth()));
       }
     }
     batch.end();
@@ -143,16 +143,16 @@ public class WinScreen
   @Override
   public void resize(int width,
                      int height) { // I explained this in slides (.pptx file)
-    Yes.setSize(141.5f / (1794 / Main.getWidth()), 50 / (1794 / Main.getWidth()));
-    No.setSize(141.5f / (1794 / Main.getWidth()), 50 / (1794 / Main.getWidth()));
-    Yes.setPosition((Main.getWidth() / 2) - (341.5f / (1794 / Main.getWidth())),
-                    (Main.getHeight() / 2) - (66.6f / (1794 / Main.getWidth())) -
-                        (180 / (1080 / Main.getHeight())) -
-                        (100 / (1080 / Main.getHeight())));
-    No.setPosition((Main.getWidth() / 2) + (200f / (1794 / Main.getWidth())),
-                   (Main.getHeight() / 2) - (66.6f / (1794 / Main.getWidth())) -
-                       (180 / (1080 / Main.getHeight())) -
-                       (100 / (1080 / Main.getHeight())));
+    Yes.setSize(141.5f / (1794 / Main.getScreenWidth()), 50 / (1794 / Main.getScreenWidth()));
+    No.setSize(141.5f / (1794 / Main.getScreenWidth()), 50 / (1794 / Main.getScreenWidth()));
+    Yes.setPosition((Main.getScreenWidth() / 2) - (341.5f / (1794 / Main.getScreenWidth())),
+                    (Main.getScreenHeight() / 2) - (66.6f / (1794 / Main.getScreenWidth())) -
+                        (180 / (1080 / Main.getScreenHeight())) -
+                        (100 / (1080 / Main.getScreenHeight())));
+    No.setPosition((Main.getScreenWidth() / 2) + (200f / (1794 / Main.getScreenWidth())),
+                   (Main.getScreenHeight() / 2) - (66.6f / (1794 / Main.getScreenWidth())) -
+                       (180 / (1080 / Main.getScreenHeight())) -
+                       (100 / (1080 / Main.getScreenHeight())));
   }
 
   @Override

@@ -21,7 +21,7 @@ public class Level2ScreenFloor2
   private Texture background; // needed so that the person is not visible when
                               // he goes to the finish line
 
-  public Level2ScreenFloor2(final Main game) {
+  public Level2ScreenFloor2(final Main game, float playerTransitX) {
     super(new Builder(game, 4)
               .setXMaxSpeed(3f)
               .setXMaxAccel(0.3f)
@@ -29,14 +29,14 @@ public class Level2ScreenFloor2
               .setBouncerYMaxAccel(8f).setGravity(-21));
     background = new Texture("mapBackground.png");
     cam = new OrthographicCamera();
-    if (Main.getWidth() == 1794 &&
-        Main.getHeight() == 1080) { // I explained this in slides
+    if (Main.getScreenWidth() == 1794 &&
+        Main.getScreenHeight() == 1080) { // I explained this in slides
                                     // (.pptx file)
       Main.worldHeight = 672f;
       Main.worldWidth = 1116f;
     } else {
       Main.worldHeight = 672f;
-      Main.worldWidth = 1116f / (1.66f / (Main.getWidth() / Main.getHeight()));
+      Main.worldWidth = 1116f / (1.66f / (Main.getScreenWidth() / Main.getScreenHeight()));
     }
     mapPort = new FitViewport(Main.worldWidth / Main.PPM,
                               Main.worldHeight / Main.PPM, cam);
@@ -50,46 +50,26 @@ public class Level2ScreenFloor2
     cam.position.set(mapPort.getWorldWidth() / 2, mapPort.getWorldHeight() / 2,
                      0);
     world = new World(new Vector2(0, gravity), true);
-    if (Main.playerX != 0 && Main.playerY != 0) {
-      player = new Player(world, Main.playerX, Main.playerY); // increase due to
-                                                              // the fact that
-                                                              // the player does
-                                                              // not spawn
-                                                              // exactly in the
-                                                              // center
-    } else if (Main.playerX == 0 && Main.playerY == 0 &&
-               Main.playerCheckpointY == 0 && Main.playerCheckpointX == 0) {
-      player = new Player(world, 14272 / Main.PPM, 704 / Main.PPM);
-    } else if (Main.playerX == 0 && Main.playerY == 0) {
-      player = new Player(world, Main.playerCheckpointX,
-                          Main.playerCheckpointY + 0.3f); // increase
-                                                          // Y by
-                                                          // 0.3f
-                                                          // so
-                                                          // that
-                                                          // the
-                                                          // player
-                                                          // spawns
-                                                          // slightly
-                                                          // higher
-                                                          // than
-                                                          // the
-                                                          // checkpoint
-                                                          // itself
+    if (Main.playerCheckpointY == 0 && Main.playerCheckpointX == 0) {
+      player = new Player(world, playerTransitX, 704/Main.PPM); // save the height of the
+      // previous person to make
+      // it more realistic
+    } else {
+      player = new Player(world, Main.playerCheckpointX, Main.playerCheckpointY);
     }
     buttons = new PlayButtons.Builder(game, player)
-                  .setXMaxAccel(xMaxAccel)
                   .setXMaxSpeed(xMaxSpeed)
                   .setYMaxAccel(yMaxAccel)
                   .build();
     b2dr = new Box2DDebugRenderer();
     new b2WorldCreator(world, map, this);
-    world.setContactListener(new WorldContactListener(this));
+    worldContactListener=new WorldContactListener(this);
+    world.setContactListener(worldContactListener);
   }
 
   @Override
   public void render(float delta) {
-    buttons.handling();
+    buttons.update();
     update(delta);
     batch.draw(background, -127, -375); // this texture is near the finish
     super.render(delta);

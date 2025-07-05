@@ -19,18 +19,14 @@ public class NextPart extends TileObject {
     super.inContactAct(playGameScreen);
     Player player = playGameScreen.getPlayer();
     final Main game = playGameScreen.getGame();
-    Main.playerX = 0;
-    Main.playerY = 0;
     Main.playerCheckpointX = 0;
     Main.playerCheckpointY = 0;
     if (Main.screen <= 2) {
-      Main.playerTransitY = player.getPosY();
+      game.setScreen(new Level1ScreenPart2(game, player.getPosY()));
       playGameScreen.getPlayer().setDead(true);
-      game.setScreen(new Level1ScreenPart2(game));
     } else {
-      Main.playerX = player.getPosX();
+      game.setScreen(new Level2ScreenFloor2(game, player.getPosX()));
       playGameScreen.getPlayer().setDead(true);
-      game.setScreen(new Level2ScreenFloor2(game));
     }
   }
 }

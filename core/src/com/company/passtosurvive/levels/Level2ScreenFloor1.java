@@ -23,14 +23,14 @@ public class Level2ScreenFloor1
               .setYMaxAccel(8f)
               .setBouncerYMaxAccel(10f).setGravity(-21));
     cam = new OrthographicCamera();
-    if (Main.getWidth() == 1794 &&
-        Main.getHeight() == 1080) { // I explained this in slides
+    if (Main.getScreenWidth() == 1794 &&
+        Main.getScreenHeight() == 1080) { // I explained this in slides
                                     // (.pptx file)
       Main.worldHeight = 672f;
       Main.worldWidth = 1116f;
     } else {
       Main.worldHeight = 672f;
-      Main.worldWidth = 1116f / (1.66f / (Main.getWidth() / Main.getHeight()));
+      Main.worldWidth = 1116f / (1.66f / (Main.getScreenWidth() / Main.getScreenHeight()));
     }
     mapPort = new FitViewport(Main.worldWidth / Main.PPM,
                               Main.worldHeight / Main.PPM, cam);
@@ -79,18 +79,18 @@ public class Level2ScreenFloor1
                                                           // itself
     }
     buttons = new PlayButtons.Builder(game, player)
-                  .setXMaxAccel(xMaxAccel)
                   .setXMaxSpeed(xMaxSpeed)
                   .setYMaxAccel(yMaxAccel)
                   .build();
     b2dr = new Box2DDebugRenderer();
     new b2WorldCreator(world, map, this);
-    world.setContactListener(new WorldContactListener(this));
+    worldContactListener=new WorldContactListener(this);
+    world.setContactListener(worldContactListener);
   }
 
   @Override
   public void render(float delta) {
-    buttons.handling();
+    buttons.update();
     update(delta);
     super.render(delta);
   }

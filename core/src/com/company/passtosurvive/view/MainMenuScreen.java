@@ -141,9 +141,9 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
                                        // / by the screen size of the device on which I run
     stateTime += Gdx.graphics.getDeltaTime();
     batch.draw(animation.getKeyFrame(stateTime, true),
-        Main.getWidth() / 2 - (936 / (1920 / Main.getWidth())) / 2,
-        Main.getHeight() / 2 + 250 / (1080 / Main.getHeight()), 936 / (1920 / Main.getWidth()),
-        144 / (1920 / Main.getWidth()));
+        Main.getScreenWidth() / 2 - (936 / (1920 / Main.getScreenWidth())) / 2,
+        Main.getScreenHeight() / 2 + 250 / (1080 / Main.getScreenHeight()), 936 / (1920 / Main.getScreenWidth()),
+        144 / (1920 / Main.getScreenWidth()));
   }
 
   @Override
@@ -156,13 +156,13 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
   public void render(float delta) {
     ScreenUtils.clear(0, 0, 0, 1, true); // clean up
     batch.begin();
-    batch.draw(background, 0, 0, Main.getWidth(), Main.getHeight());
+    batch.draw(background, 0, 0, Main.getScreenWidth(), Main.getScreenHeight());
     if (!infoIsPressed) {
       titleAnimationRender();
     } else {
-      batch.draw(information, Main.getWidth() / 2 - ((1500 / (1794 / Main.getWidth())) / 2),
-          Main.getHeight() / 2 - ((225 / (1794 / Main.getWidth())) / 2),
-          1500 / (1794 / Main.getWidth()), 225 / (1794 / Main.getWidth()));
+      batch.draw(information, Main.getScreenWidth() / 2 - ((1500 / (1794 / Main.getScreenWidth())) / 2),
+          Main.getScreenHeight() / 2 - ((225 / (1794 / Main.getScreenWidth())) / 2),
+          1500 / (1794 / Main.getScreenWidth()), 225 / (1794 / Main.getScreenWidth()));
     }
     batch.end();
     stage.act(delta);
@@ -172,30 +172,28 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
   @Override
   public void resize(int width, int height) { // in the presentation I explained why I optimize the
                                               // sizes of buttons for the screen in my own way
-    Main.setWidth(width);
-    Main.setHeight(height);
-    sound.setSize(150 / (1794 / Main.getWidth()), 117 / (1794 / Main.getWidth()));
-    sound.setPosition(0, Main.getHeight() / 2 + 100 / (1080 / Main.getHeight()));
-    soundIsOff.setSize(150 / (1794 / Main.getWidth()), 117 / (1794 / Main.getWidth()));
-    soundIsOff.setPosition(0, Main.getHeight() / 2 + 100 / (1080 / Main.getHeight()));
-    info.setSize(150 / (1794 / Main.getWidth()), 117 / (1794 / Main.getWidth()));
-    info.setPosition(0, Main.getHeight() / 2 - 50 / (1080 / Main.getHeight()));
-    play.setSize((875 / (2880 / Main.getWidth())), (350 / (2880 / Main.getWidth())));
-    play.setPosition((Main.getWidth() / 2) - ((play.getWidth()) / 2),
-        ((Main.getHeight() / 2) - 200 / (2880 / Main.getWidth())));
-    exit.setSize((875 / (2880 / Main.getWidth())), (350 / (2880 / Main.getWidth())));
-    exit.setPosition((Main.getWidth() / 2) - ((exit.getWidth()) / 2),
-        ((Main.getHeight() / 2) - 600 / (2880 / Main.getWidth())));
-    level1.setSize(525 / (1794 / Main.getWidth()), 525 / (1794 / Main.getWidth()));
-    level2.setSize(525 / (1794 / Main.getWidth()), 525 / (1794 / Main.getWidth()));
+    sound.setSize(150 / (1794 / Main.getScreenWidth()), 117 / (1794 / Main.getScreenWidth()));
+    sound.setPosition(0, Main.getScreenHeight() / 2 + 100 / (1080 / Main.getScreenHeight()));
+    soundIsOff.setSize(150 / (1794 / Main.getScreenWidth()), 117 / (1794 / Main.getScreenWidth()));
+    soundIsOff.setPosition(0, Main.getScreenHeight() / 2 + 100 / (1080 / Main.getScreenHeight()));
+    info.setSize(150 / (1794 / Main.getScreenWidth()), 117 / (1794 / Main.getScreenWidth()));
+    info.setPosition(0, Main.getScreenHeight() / 2 - 50 / (1080 / Main.getScreenHeight()));
+    play.setSize((875 / (2880 / Main.getScreenWidth())), (350 / (2880 / Main.getScreenWidth())));
+    play.setPosition((Main.getScreenWidth() / 2) - ((play.getWidth()) / 2),
+        ((Main.getScreenHeight() / 2) - 200 / (2880 / Main.getScreenWidth())));
+    exit.setSize((875 / (2880 / Main.getScreenWidth())), (350 / (2880 / Main.getScreenWidth())));
+    exit.setPosition((Main.getScreenWidth() / 2) - ((exit.getWidth()) / 2),
+        ((Main.getScreenHeight() / 2) - 600 / (2880 / Main.getScreenWidth())));
+    level1.setSize(525 / (1794 / Main.getScreenWidth()), 525 / (1794 / Main.getScreenWidth()));
+    level2.setSize(525 / (1794 / Main.getScreenWidth()), 525 / (1794 / Main.getScreenWidth()));
     level1.setPosition(
-        Main.getWidth() / 2 - (525 / (1794 / Main.getWidth())) / 2 - 350 / (1794 / Main.getWidth()),
-        Main.getHeight() / 2 - (525 / (1794 / Main.getWidth())) / 2
-            - 100 / (1080 / Main.getHeight()));
+        Main.getScreenWidth() / 2 - (525 / (1794 / Main.getScreenWidth())) / 2 - 350 / (1794 / Main.getScreenWidth()),
+        Main.getScreenHeight() / 2 - (525 / (1794 / Main.getScreenWidth())) / 2
+            - 100 / (1080 / Main.getScreenHeight()));
     level2.setPosition(
-        Main.getWidth() / 2 - (525 / (1794 / Main.getWidth())) / 2 + 350 / (1794 / Main.getWidth()),
-        Main.getHeight() / 2 - (525 / (1794 / Main.getWidth())) / 2
-            - 100 / (1080 / Main.getHeight()));
+        Main.getScreenWidth() / 2 - (525 / (1794 / Main.getScreenWidth())) / 2 + 350 / (1794 / Main.getScreenWidth()),
+        Main.getScreenHeight() / 2 - (525 / (1794 / Main.getScreenWidth())) / 2
+            - 100 / (1080 / Main.getScreenHeight()));
   }
 
   @Override

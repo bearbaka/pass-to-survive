@@ -18,13 +18,13 @@ public class Level1ScreenPart1 extends PlayGameScreen { // level 1 part 1 starts
   public Level1ScreenPart1(final Main game) {
     super(new Builder(game, 1).setXMaxSpeed(2.5f).setXMaxAccel(0.3f).setYMaxAccel(5f).setGravity(-11));
     cam = new OrthographicCamera();
-    if (Main.getWidth() == 1794 && Main.getHeight() == 1080) { // I explained this in slides
+    if (Main.getScreenWidth() == 1794 && Main.getScreenHeight() == 1080) { // I explained this in slides
                                                                // (.pptx file)
       Main.worldHeight = 544f;
       Main.worldWidth = 904f;
     } else {
       Main.worldHeight = 544f;
-      Main.worldWidth = 904f / (1.66f / (Main.getWidth() / Main.getHeight())); // ratio of the FHD
+      Main.worldWidth = 904f / (1.66f / (Main.getScreenWidth() / Main.getScreenHeight())); // ratio of the FHD
                                                                                // screen to the
                                                                                // aspect ratio
                                                                                // of the screen of
@@ -70,16 +70,17 @@ public class Level1ScreenPart1 extends PlayGameScreen { // level 1 part 1 starts
                                                                                          // checkpoint
                                                                                          // itself
     }
-    buttons = new PlayButtons.Builder(game, player).setXMaxAccel(xMaxAccel).setXMaxSpeed(xMaxSpeed)
+    buttons = new PlayButtons.Builder(game, player).setXMaxSpeed(xMaxSpeed)
         .setYMaxAccel(yMaxAccel).build();
     b2dr = new Box2DDebugRenderer();
     new b2WorldCreator(world, map, this);
-    world.setContactListener(new WorldContactListener(this));
+    worldContactListener=new WorldContactListener(this);
+    world.setContactListener(worldContactListener);
   }
 
   @Override
   public void render(float delta) {
-    buttons.handling();
+    buttons.update();
     update(delta);
     super.render(delta);
   }
