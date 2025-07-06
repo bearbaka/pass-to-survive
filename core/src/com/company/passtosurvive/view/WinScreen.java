@@ -18,7 +18,6 @@ import com.company.passtosurvive.levels.Level1Part1Screen;
 import com.company.passtosurvive.levels.Level1Part2Screen;
 import com.company.passtosurvive.levels.Level2Part1Screen;
 import com.company.passtosurvive.levels.Level2Part2Screen;
-import com.company.passtosurvive.levels.PlayGameScreen;
 
 public class WinScreen
     implements Screen { // the victory screen is launched after completing the
@@ -41,9 +40,8 @@ public class WinScreen
                                  // the game
       label = new Texture("GameOverThanks.png");
       Thanks = new Texture("thforpl.png");
-    } else if (Level1Part2Screen.isFinished() && !Level2Part2Screen.isFinished() ||
-               Level2Part2Screen.isFinished() &&
-                   !Level1Part2Screen.isFinished()) { // when one of the levels has
+    } else if (Level1Part2Screen.isFinished() ^
+               Level2Part2Screen.isFinished()) { // when one of the levels has
                                              // passed
       stage = new Stage();
       label = new Texture("continueWhite.png");
@@ -80,8 +78,8 @@ public class WinScreen
       Gdx.input.setInputProcessor(
           stage); // so that clicks are processed only by stage
     }
-    if (Level1Part2Screen.isFinished() && !Level2Part2Screen.isFinished() ||
-        Level2Part2Screen.isFinished() && !Level1Part2Screen.isFinished()) {
+    if (Level1Part2Screen.isFinished() ^
+        Level2Part2Screen.isFinished()) {
       Main.getMusic().winSoundPlay();
     }
   }
@@ -100,8 +98,8 @@ public class WinScreen
     ScreenUtils.clear(0, 0, 0, 1, true); // clean up
     batch.begin();
     stateTimer += delta;
-    if (Level1Part2Screen.isFinished() && !Level2Part2Screen.isFinished() ||
-        Level2Part2Screen.isFinished() && !Level1Part2Screen.isFinished()) {
+    if (Level1Part2Screen.isFinished() ^
+        Level2Part2Screen.isFinished()) {
       winRender();
       if (stateTimer >= 3) {
         batch.draw(label,
@@ -123,14 +121,12 @@ public class WinScreen
       }
     }
     batch.end();
-    if (Level1Part2Screen.isFinished() && !Level2Part2Screen.isFinished() ||
-        Level2Part2Screen.isFinished() && !Level1Part2Screen.isFinished()) {
-      if (Level1Part2Screen.isFinished() && !Level2Part2Screen.isFinished() && stateTimer >= 3 ||
-          Level2Part2Screen.isFinished() && !Level1Part2Screen.isFinished() && stateTimer >= 3) {
+    if (Level1Part2Screen.isFinished() ^
+        Level2Part2Screen.isFinished()) {
+      if (stateTimer >= 3) {
         Yes.setVisible(true);
         No.setVisible(true);
-      } else if (Level1Part2Screen.isFinished() && Level2Part2Screen.isFinished() ||
-                 stateTimer < 3) {
+      } else {
         Yes.setVisible(false);
         No.setVisible(false);
       }
@@ -142,6 +138,8 @@ public class WinScreen
   @Override
   public void resize(int width,
                      int height) { // I explained this in slides (.pptx file)
+    if (Level1Part2Screen.isFinished() ^
+        Level2Part2Screen.isFinished()) {
     Yes.setSize(141.5f / (1794 / Main.getScreenWidth()), 50 / (1794 / Main.getScreenWidth()));
     No.setSize(141.5f / (1794 / Main.getScreenWidth()), 50 / (1794 / Main.getScreenWidth()));
     Yes.setPosition((Main.getScreenWidth() / 2) - (341.5f / (1794 / Main.getScreenWidth())),
@@ -152,6 +150,7 @@ public class WinScreen
                    (Main.getScreenHeight() / 2) - (66.6f / (1794 / Main.getScreenWidth())) -
                        (180 / (1080 / Main.getScreenHeight())) -
                        (100 / (1080 / Main.getScreenHeight())));
+    }
   }
 
   @Override
@@ -170,8 +169,8 @@ public class WinScreen
     label.dispose();
     if (Level1Part2Screen.isFinished() && Level2Part2Screen.isFinished()) {
       Thanks.dispose();
-    } else if (Level1Part2Screen.isFinished() && !Level2Part2Screen.isFinished() ||
-               Level2Part2Screen.isFinished() && !Level1Part2Screen.isFinished()) {
+    } else if (Level1Part2Screen.isFinished() ^
+               Level2Part2Screen.isFinished()) {
       atlas.dispose();
       stage.dispose();
       skin.dispose();

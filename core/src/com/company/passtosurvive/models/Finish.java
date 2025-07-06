@@ -1,6 +1,5 @@
 package com.company.passtosurvive.models;
 
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import com.company.passtosurvive.levels.Level1Part2Screen;
@@ -10,9 +9,8 @@ import com.company.passtosurvive.view.Main;
 import com.company.passtosurvive.view.WinScreen;
 
 public class Finish extends TileObject {
-  public Finish(World world, TiledMap map, Rectangle bounds) {
-    super(world, map, bounds);
-    fixture.setUserData(this); // add so that WorldContactListener can recognize
+  public Finish(World world, Rectangle rect) {
+    super(world, rect);
   }
 
   @Override

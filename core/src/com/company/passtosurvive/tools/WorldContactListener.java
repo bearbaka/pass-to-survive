@@ -23,16 +23,15 @@ public class WorldContactListener implements ContactListener { // Serves as a Co
   public void beginContact(Contact contact) { // the start of collision
     Fixture fixA = contact.getFixtureA(); // first object
     Fixture fixB = contact.getFixtureB(); // second object
-    if (fixA.getUserData()!=null && Pattern.matches("Player.*", fixA.getUserData().toString())
-        || fixB.getUserData()!=null && Pattern.matches("Player.*", fixB.getUserData().toString())) { // check if one of the
+    if (Pattern.matches("Player.*", fixA.getUserData().toString())
+        || Pattern.matches("Player.*", fixB.getUserData().toString())) { // check if one of the
       // objects is player
-      Fixture player = fixA.getUserData()!=null && Pattern.matches("Player.*", fixA.getUserData().toString()) ? fixA : fixB; // which
+      Fixture player = Pattern.matches("Player.*", fixA.getUserData().toString()) ? fixA : fixB; // which
                                                                                                  // one
                                                                                                  // is
                                                                                                  // player
       Fixture object = player == fixA ? fixB : fixA; // which one is not player
-      if (object.getUserData() != null
-          && TileObject.class.isAssignableFrom(object.getUserData().getClass())) { // is not the
+      if (TileObject.class.isAssignableFrom(object.getUserData().getClass())) { // is not the
                                                                                    // object
                                                                                    // equal to
                                                                                    // nothing and
@@ -51,12 +50,11 @@ public class WorldContactListener implements ContactListener { // Serves as a Co
   public void endContact(Contact contact) { // end of collision
     Fixture fixA = contact.getFixtureA();
     Fixture fixB = contact.getFixtureB();
-    if (fixA.getUserData()!=null && Pattern.matches("Player.*", fixA.getUserData().toString())
-        || fixB.getUserData()!=null && Pattern.matches("Player.*", fixB.getUserData().toString())) {
-      Fixture player = fixA.getUserData()!=null && Pattern.matches("Player.*", fixA.getUserData().toString()) ? fixA : fixB;
+    if (Pattern.matches("Player.*", fixA.getUserData().toString())
+        || Pattern.matches("Player.*", fixB.getUserData().toString())) {
+      Fixture player = Pattern.matches("Player.*", fixA.getUserData().toString()) ? fixA : fixB;
       Fixture object = player == fixA ? fixB : fixA;
-      if (object.getUserData() != null
-          && TileObject.class.isAssignableFrom(object.getUserData().getClass())) {
+      if (TileObject.class.isAssignableFrom(object.getUserData().getClass())) {
         if (player.getUserData() == "PlayerHead" && playGameScreen.getPlayer().isHeadInContact()) { // if
                                                                                                     // the
                                                                                                     // player's

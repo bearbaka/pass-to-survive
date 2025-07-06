@@ -49,6 +49,7 @@ public class Level1Part1Screen extends PlayGameScreen { // level 1 part 1 starts
 
   @Override
   public void restart() {
+    super.restart();
     player.reset(world, playerCheckpointX, playerCheckpointY);
   }
 
@@ -61,7 +62,7 @@ public class Level1Part1Screen extends PlayGameScreen { // level 1 part 1 starts
     renderer = new OrthogonalTiledMapRenderer(map, 1 / Main.PPM); // I divide almost all values
                                                                   // associated with the map by
                                                                   // PPM so that there are no
-                                                                  // problems with physics
+                                                                  // problems with units of vector2, force, velocity, etc
     cam.position.set(mapPort.getWorldWidth() / 2, mapPort.getWorldHeight() / 2, 0);
     world = new World(new Vector2(0, gravity), true);
       player = new Player(world, playerCheckpointX, playerCheckpointY);

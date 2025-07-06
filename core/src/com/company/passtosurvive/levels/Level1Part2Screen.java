@@ -40,6 +40,7 @@ public class Level1Part2Screen extends PlayGameScreen { // level 1 part 2 is tri
 
   @Override
   public void restart() {
+    super.restart();
     player.reset(world, playerCheckpointX, playerCheckpointY);
   }
 

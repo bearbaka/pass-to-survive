@@ -23,118 +23,118 @@ public class b2WorldCreator { // creates objects from maps for the world and its
         // creating grass
         for(MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new Ground(world, map, rect);
+            new Ground(world, rect);
         }
         // creating lava
         for(MapObject object: map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new Lava(world, map, rect);
+            new Lava(world, rect);
         }
         // creating spikes
         for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new Spike(world, map, rect);
+            new Spike(world, rect);
         }
         // creating the other spikes
         for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new Spike(world, map, rect);
+            new Spike(world, rect);
         }
         // We create an object that serves as a trigger for going to the next part of the level
         for(MapObject object: map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new NextPart(world, map, rect);
+            new NextPart(world, rect);
         }
         // creating checkpoints
         for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new CheckPoint(world, map, rect);
+            new CheckPoint(world, rect);
         }
     }
     public b2WorldCreator(World world, TiledMap map, Level1Part2Screen screen){
         // creating grass
         for(MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new Ground(world, map, rect);
+            new Ground(world, rect);
         }
         // creating spikes
         for(MapObject object: map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new Spike(world, map, rect);
+            new Spike(world, rect);
         }
         // creating chest
         for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new Finish(world, map, rect);
+            new Finish(world, rect);
         }
         // creating checkpoints
         for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new CheckPoint(world, map, rect);
+            new CheckPoint(world, rect);
         }
         // creating lava
         for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new Lava(world, map, rect);
+            new Lava(world, rect);
         }
     }
     public b2WorldCreator(World world, TiledMap map, Level2Part1Screen screen){
         // creating bouncers
         for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new Bouncer(world, map, rect);
+            new Bouncer(world, rect);
         }
         // creating grass
         for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new Ground(world, map, rect);
+            new Ground(world, rect);
         }
         // creating lava
         for(MapObject object: map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new Lava(world, map, rect);
+            new Lava(world, rect);
         }
         // create an object that serves to run the script (in Level2ScreenFloor1)
         for(MapObject object: map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new NextFloor(world, map, rect);
+            new NextFloor(world, rect);
         }
         // creating checkpoints
         for(MapObject object: map.getLayers().get(9).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new CheckPoint(world, map, rect);
+            new CheckPoint(world, rect);
         }
         // We create an object that serves as a trigger for going to the next part of the level
         for(MapObject object: map.getLayers().get(10).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new NextPart(world, map, rect);
+            new NextPart(world, rect);
         }
     }
     public b2WorldCreator(World world, TiledMap map, Level2Part2Screen screen){
         // creating bouncers
         for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new Bouncer(world, map, rect);
+            new Bouncer(world, rect);
         }
         // creating grass
         for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new Ground(world, map, rect);
+            new Ground(world, rect);
         }
         // creating lava
         for(MapObject object: map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new Lava(world, map, rect);
+            new Lava(world, rect);
         }
         // creating finish
         for(MapObject object: map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new Finish(world, map, rect);
+            new Finish(world, rect);
         }
         // creating checkpoints
         for(MapObject object: map.getLayers().get(9).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new CheckPoint(world, map, rect);
+            new CheckPoint(world, rect);
         }
     }
 }

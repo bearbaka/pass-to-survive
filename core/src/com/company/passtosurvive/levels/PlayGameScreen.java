@@ -118,7 +118,7 @@ public abstract class PlayGameScreen implements Screen { // children of this cla
       else Main.getMusic().level2MusicPlay();
     }
     world.step(1 / 60f, 6, 2);
-    if (Player.isNextFloor()) { // on this map the last bouncers at the end of this
+    if (Player.isEndingBouncer()) { // on this map the last bouncers at the end of this
       // part of the level are marked as nextfloor and when
       // we fall on them Main.nextFloor is set to true
       if (player.getCurrentState() != State.JUMPING) player.performJump(10f);
@@ -138,7 +138,7 @@ public abstract class PlayGameScreen implements Screen { // children of this cla
   public void render(float delta) {
     ScreenUtils.clear(0, 0, 0, 1, true); // clean up
     renderer.render();
-    b2dr.render(world, cam.combined); // you can turn this on if you want to
+    if(statsEnabled) b2dr.render(world, cam.combined); // you can turn this on if you want to
     // see a green outline around objects of world
     batch.setProjectionMatrix(cam.combined);
     batch.begin();
@@ -204,7 +204,9 @@ public abstract class PlayGameScreen implements Screen { // children of this cla
   @Override
   public void resume() {}
 
-  public abstract void restart();
+  public void restart(){
+    buttons.updateDeaths();
+  }
 
   public abstract void setCheckpoint(float x, float y);
 }

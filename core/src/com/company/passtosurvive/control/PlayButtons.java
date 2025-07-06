@@ -49,7 +49,7 @@ public class PlayButtons
     Label label =
         new Label("DEATHS", new Label.LabelStyle(new BitmapFont(), new Color(0, 191, 0, 1)));
     label.setFontScale(4f * Main.getScreenHeight() / 1080);
-    deaths = new Label("", new Label.LabelStyle(new BitmapFont(), new Color(253, 238, 0, 1)));
+    deaths = new Label(Integer.toString(Player.getDeaths()), new Label.LabelStyle(new BitmapFont(), new Color(253, 238, 0, 1)));
     deaths.setFontScale(4f * Main.getScreenHeight() / 1080);
     table = new Table();
     table.right().top();
@@ -109,7 +109,6 @@ public class PlayButtons
             game.setScreen(new PauseScreen(game));
           }
         });
-    updateDeaths();
   }
 
   public void updateDeaths(){
