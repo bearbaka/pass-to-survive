@@ -14,8 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.company.passtosurvive.levels.Level1ScreenPart1;
-import com.company.passtosurvive.levels.Level2ScreenFloor1;
+import com.company.passtosurvive.levels.Level1Part1Screen;
+import com.company.passtosurvive.levels.Level1Part2Screen;
+import com.company.passtosurvive.levels.Level2Part1Screen;
+import com.company.passtosurvive.levels.Level2Part2Screen;
+import com.company.passtosurvive.levels.PlayGameScreen;
 
 public class WinScreen
     implements Screen { // the victory screen is launched after completing the
@@ -33,14 +36,14 @@ public class WinScreen
   public WinScreen(final Main game) {
     this.game = game;
     batch = new SpriteBatch();
-    if (Main.level1IsFinished &&
-        Main.level2IsFinished) { // when player have completely completed
+    if (Level1Part2Screen.isFinished() &&
+        Level2Part2Screen.isFinished()) { // when player have completely completed
                                  // the game
       label = new Texture("GameOverThanks.png");
       Thanks = new Texture("thforpl.png");
-    } else if (Main.level1IsFinished && !Main.level2IsFinished ||
-               Main.level2IsFinished &&
-                   !Main.level1IsFinished) { // when one of the levels has
+    } else if (Level1Part2Screen.isFinished() && !Level2Part2Screen.isFinished() ||
+               Level2Part2Screen.isFinished() &&
+                   !Level1Part2Screen.isFinished()) { // when one of the levels has
                                              // passed
       stage = new Stage();
       label = new Texture("continueWhite.png");
@@ -56,15 +59,11 @@ public class WinScreen
       Yes.addListener(new ClickListener() {
         @Override
         public void clicked(InputEvent event, float x, float y) {
-          Main.playerY = 0;
-          Main.playerX = 0;
-          Main.playerCheckpointX = 0;
-          Main.playerCheckpointY = 0;
           dispose();
-          if (Main.level1IsFinished) {
-            game.setScreen(new Level2ScreenFloor1(game));
-          } else if (Main.level2IsFinished) {
-            game.setScreen(new Level1ScreenPart1(game));
+          if (Level1Part2Screen.isFinished()) {
+            game.setScreen(new Level2Part1Screen(game));
+          } else if (Level2Part2Screen.isFinished()) {
+            game.setScreen(new Level1Part1Screen(game));
           }
         }
       });
@@ -81,8 +80,8 @@ public class WinScreen
       Gdx.input.setInputProcessor(
           stage); // so that clicks are processed only by stage
     }
-    if (Main.level1IsFinished && !Main.level2IsFinished ||
-        Main.level2IsFinished && !Main.level1IsFinished) {
+    if (Level1Part2Screen.isFinished() && !Level2Part2Screen.isFinished() ||
+        Level2Part2Screen.isFinished() && !Level1Part2Screen.isFinished()) {
       Main.getMusic().winSoundPlay();
     }
   }
@@ -101,8 +100,8 @@ public class WinScreen
     ScreenUtils.clear(0, 0, 0, 1, true); // clean up
     batch.begin();
     stateTimer += delta;
-    if (Main.level1IsFinished && !Main.level2IsFinished ||
-        Main.level2IsFinished && !Main.level1IsFinished) {
+    if (Level1Part2Screen.isFinished() && !Level2Part2Screen.isFinished() ||
+        Level2Part2Screen.isFinished() && !Level1Part2Screen.isFinished()) {
       winRender();
       if (stateTimer >= 3) {
         batch.draw(label,
@@ -111,7 +110,7 @@ public class WinScreen
                        66.6f / (1794 / Main.getScreenWidth()) - 50 / (1080 / Main.getScreenHeight()),
                    1266.7f / (1794 / Main.getScreenWidth()), 66.6f / (1794 / Main.getScreenWidth()));
       }
-    } else if (Main.level1IsFinished && Main.level2IsFinished) {
+    } else if (Level1Part2Screen.isFinished() && Level2Part2Screen.isFinished()) {
       batch.draw(label, 0, Main.getScreenHeight() / 2, Main.getScreenWidth(),
                  203 / (1794 / Main.getScreenWidth()));
       if (stateTimer >= 7) {
@@ -124,13 +123,13 @@ public class WinScreen
       }
     }
     batch.end();
-    if (Main.level1IsFinished && !Main.level2IsFinished ||
-        Main.level2IsFinished && !Main.level1IsFinished) {
-      if (Main.level1IsFinished && !Main.level2IsFinished && stateTimer >= 3 ||
-          Main.level2IsFinished && !Main.level1IsFinished && stateTimer >= 3) {
+    if (Level1Part2Screen.isFinished() && !Level2Part2Screen.isFinished() ||
+        Level2Part2Screen.isFinished() && !Level1Part2Screen.isFinished()) {
+      if (Level1Part2Screen.isFinished() && !Level2Part2Screen.isFinished() && stateTimer >= 3 ||
+          Level2Part2Screen.isFinished() && !Level1Part2Screen.isFinished() && stateTimer >= 3) {
         Yes.setVisible(true);
         No.setVisible(true);
-      } else if (Main.level1IsFinished && Main.level2IsFinished ||
+      } else if (Level1Part2Screen.isFinished() && Level2Part2Screen.isFinished() ||
                  stateTimer < 3) {
         Yes.setVisible(false);
         No.setVisible(false);
@@ -169,10 +168,10 @@ public class WinScreen
     batch.dispose();
     game.dispose();
     label.dispose();
-    if (Main.level1IsFinished && Main.level2IsFinished) {
+    if (Level1Part2Screen.isFinished() && Level2Part2Screen.isFinished()) {
       Thanks.dispose();
-    } else if (Main.level1IsFinished && !Main.level2IsFinished ||
-               Main.level2IsFinished && !Main.level1IsFinished) {
+    } else if (Level1Part2Screen.isFinished() && !Level2Part2Screen.isFinished() ||
+               Level2Part2Screen.isFinished() && !Level1Part2Screen.isFinished()) {
       atlas.dispose();
       stage.dispose();
       skin.dispose();

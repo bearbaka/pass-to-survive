@@ -13,13 +13,13 @@ import com.company.passtosurvive.models.Ground;
 import com.company.passtosurvive.models.Lava;
 import com.company.passtosurvive.models.NextFloor;
 import com.company.passtosurvive.models.Spike;
-import com.company.passtosurvive.levels.Level1ScreenPart1;
-import com.company.passtosurvive.levels.Level1ScreenPart2;
-import com.company.passtosurvive.levels.Level2ScreenFloor1;
-import com.company.passtosurvive.levels.Level2ScreenFloor2;
+import com.company.passtosurvive.levels.Level1Part1Screen;
+import com.company.passtosurvive.levels.Level1Part2Screen;
+import com.company.passtosurvive.levels.Level2Part1Screen;
+import com.company.passtosurvive.levels.Level2Part2Screen;
 
 public class b2WorldCreator { // creates objects from maps for the world and its listener, in the level screens there is a Box2DDebugRenderer it draws these objects
-    public b2WorldCreator(World world, TiledMap map, Level1ScreenPart1 screen){
+    public b2WorldCreator(World world, TiledMap map, Level1Part1Screen screen){
         // creating grass
         for(MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
@@ -51,7 +51,7 @@ public class b2WorldCreator { // creates objects from maps for the world and its
             new CheckPoint(world, map, rect);
         }
     }
-    public b2WorldCreator(World world, TiledMap map, Level1ScreenPart2 screen){
+    public b2WorldCreator(World world, TiledMap map, Level1Part2Screen screen){
         // creating grass
         for(MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
@@ -78,7 +78,7 @@ public class b2WorldCreator { // creates objects from maps for the world and its
             new Lava(world, map, rect);
         }
     }
-    public b2WorldCreator(World world, TiledMap map, Level2ScreenFloor1 screen){
+    public b2WorldCreator(World world, TiledMap map, Level2Part1Screen screen){
         // creating bouncers
         for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
@@ -110,7 +110,7 @@ public class b2WorldCreator { // creates objects from maps for the world and its
             new NextPart(world, map, rect);
         }
     }
-    public b2WorldCreator(World world, TiledMap map, Level2ScreenFloor2 screen){
+    public b2WorldCreator(World world, TiledMap map, Level2Part2Screen screen){
         // creating bouncers
         for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();

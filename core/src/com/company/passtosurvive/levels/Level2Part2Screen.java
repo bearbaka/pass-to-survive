@@ -7,39 +7,61 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.company.passtosurvive.control.PlayButtons;
 import com.company.passtosurvive.models.Player;
 import com.company.passtosurvive.tools.WorldContactListener;
 import com.company.passtosurvive.tools.b2WorldCreator;
+import com.company.passtosurvive.view.DeadScreen;
 import com.company.passtosurvive.view.Main;
 
-public class Level2ScreenFloor2
+public class Level2Part2Screen
     extends PlayGameScreen {  // level 2 part 2 is triggered when the
                               // player collides with a certain object in
                               // part 1
   private Texture background; // needed so that the person is not visible when
                               // he goes to the finish line
+  private static float playerCheckpointX;
+  private static float playerCheckpointY;
+  private static boolean finished;
 
-  public Level2ScreenFloor2(final Main game, float playerTransitX) {
-    super(new Builder(game, 4)
+  public static boolean isFinished() {
+    return finished;
+  }
+
+  public static void setFinished(){
+    finished=true;
+  }
+
+  static {
+    playerCheckpointY=704/Main.PPM;
+  }
+  
+  public static void setPlayerCheckpointX(float playerCheckpointX) {
+    Level2Part2Screen.playerCheckpointX = playerCheckpointX;
+  }
+
+  @Override
+  public void setCheckpoint(float x, float y){
+    playerCheckpointX=x;
+    playerCheckpointY=y;
+  }
+
+  @Override
+  public void restart() {
+    player.reset(world, playerCheckpointX, playerCheckpointY);
+  }
+
+  public Level2Part2Screen(final Main game) {
+    super(new Builder(game)
               .setXMaxSpeed(3f)
-              .setXMaxAccel(0.3f)
               .setYMaxAccel(7f)
               .setBouncerYMaxAccel(8f).setGravity(-21));
     background = new Texture("mapBackground.png");
     cam = new OrthographicCamera();
-    if (Main.getScreenWidth() == 1794 &&
-        Main.getScreenHeight() == 1080) { // I explained this in slides
-                                    // (.pptx file)
-      Main.worldHeight = 672f;
-      Main.worldWidth = 1116f;
-    } else {
-      Main.worldHeight = 672f;
-      Main.worldWidth = 1116f / (1.66f / (Main.getScreenWidth() / Main.getScreenHeight()));
-    }
-    mapPort = new FitViewport(Main.worldWidth / Main.PPM,
-                              Main.worldHeight / Main.PPM, cam);
+    mapPort = new FitViewport(level2WorldWidth,
+                              level2WorldHeight, cam);
     mapLoader = new TmxMapLoader();
     map = mapLoader.load("map4.tmx");
     renderer = new OrthogonalTiledMapRenderer(
@@ -50,13 +72,7 @@ public class Level2ScreenFloor2
     cam.position.set(mapPort.getWorldWidth() / 2, mapPort.getWorldHeight() / 2,
                      0);
     world = new World(new Vector2(0, gravity), true);
-    if (Main.playerCheckpointY == 0 && Main.playerCheckpointX == 0) {
-      player = new Player(world, playerTransitX, 704/Main.PPM); // save the height of the
-      // previous person to make
-      // it more realistic
-    } else {
-      player = new Player(world, Main.playerCheckpointX, Main.playerCheckpointY);
-    }
+      player = new Player(world, playerCheckpointX, playerCheckpointY);
     buttons = new PlayButtons.Builder(game, player)
                   .setXMaxSpeed(xMaxSpeed)
                   .setYMaxAccel(yMaxAccel)
@@ -71,8 +87,19 @@ public class Level2ScreenFloor2
   public void render(float delta) {
     buttons.update();
     update(delta);
+    ScreenUtils.clear(0, 0, 0, 1, true); // clean up
+    renderer.render();
+    b2dr.render(world, cam.combined); // you can turn this on if you want to
+    // see a green outline around objects of world
+    batch.setProjectionMatrix(cam.combined);
+    batch.begin();
     batch.draw(background, -127, -375); // this texture is near the finish
-    super.render(delta);
+    player.draw(batch);
+    batch.end();
+    buttons.getStage().act(delta);
+    buttons.getStage().draw();
+    if (game.getScreen() instanceof DeadScreen) restart();
+    if(finished) dispose();
   }
 
   @Override

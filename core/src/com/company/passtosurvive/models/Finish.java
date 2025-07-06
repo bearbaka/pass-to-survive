@@ -3,6 +3,8 @@ package com.company.passtosurvive.models;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
+import com.company.passtosurvive.levels.Level1Part2Screen;
+import com.company.passtosurvive.levels.Level2Part2Screen;
 import com.company.passtosurvive.levels.PlayGameScreen;
 import com.company.passtosurvive.view.Main;
 import com.company.passtosurvive.view.WinScreen;
@@ -17,12 +19,8 @@ public class Finish extends TileObject {
   public void inContactAct(PlayGameScreen playGameScreen) {
     super.inContactAct(playGameScreen);
     final Main game = playGameScreen.getGame();
-    if (Main.screen <= 2) {
-      Main.level1IsFinished = true;
-    } else {
-      Main.level2IsFinished = true;
-    }
-    playGameScreen.getPlayer().setDead(true);
+    if (playGameScreen instanceof Level1Part2Screen) Level1Part2Screen.setFinished();
+    else Level2Part2Screen.setFinished();
     game.setScreen(new WinScreen(game));
   }
 }

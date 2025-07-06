@@ -14,8 +14,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.company.passtosurvive.levels.Level1ScreenPart1;
-import com.company.passtosurvive.levels.Level2ScreenFloor1;
+import com.company.passtosurvive.levels.Level1Part1Screen;
+import com.company.passtosurvive.levels.Level1Part2Screen;
+import com.company.passtosurvive.levels.Level2Part1Screen;
+import com.company.passtosurvive.levels.Level2Part2Screen;
+import com.company.passtosurvive.levels.PlayGameScreen;
+import com.company.passtosurvive.tools.MusicalAtmosphere;
 
 public class MainMenuScreen implements Screen { // the main menu starts at the beginning of the game
                                                 // through the pause menu you can return here
@@ -33,10 +37,6 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
   public MainMenuScreen(final Main game) {
     this.game = game;
     infoIsPressed = false;
-    // Main.playerX = 0;
-    // Main.playerY = 0;
-    // Main.playerCheckpointX = 0;
-    // Main.playerCheckpointY = 0;
     batch = new SpriteBatch();
     Array<TextureRegion> logoFrames = new Array<TextureRegion>();
     atlas = new TextureAtlas("Logo.pack");
@@ -84,7 +84,7 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
         soundIsOff.setVisible(false);
         sound.setVisible(true);
         Main.getMusic().mainMenuMusicPlay();
-        Main.musicIsOn = true;
+        MusicalAtmosphere.toggleMusicOn();
       }
     });
     sound.addListener(new ClickListener() { // create a listener for it that
@@ -94,7 +94,7 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
         soundIsOff.setVisible(true);
         sound.setVisible(false);
         Main.getMusic().allPause();
-        Main.musicIsOn = false;
+        MusicalAtmosphere.toggleMusicOn();
       }
     });
     info = new ImageButton(skin, "default10");
@@ -113,7 +113,14 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
       @Override
       public void clicked(InputEvent event, float x, float y) {
         dispose();
-        game.setScreen(new Level1ScreenPart1(game));
+        if(!Level1Part1Screen.isFinished()){
+          if(PlayGameScreen.getLastScreen() instanceof Level1Part1Screen) game.setScreen(PlayGameScreen.getLastScreen());
+          else game.setScreen(new Level1Part1Screen(game));
+        }
+        else{
+          if(PlayGameScreen.getLastScreen() instanceof Level1Part2Screen) game.setScreen(PlayGameScreen.getLastScreen());
+          else game.setScreen(new Level1Part2Screen(game));
+        }
       }
     });
     level2 = new ImageButton(skin, "default12");
@@ -121,7 +128,14 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
       @Override
       public void clicked(InputEvent event, float x, float y) {
         dispose();
-        game.setScreen(new Level2ScreenFloor1(game));
+        if(!Level2Part1Screen.isFinished()){
+          if(PlayGameScreen.getLastScreen() instanceof Level2Part1Screen) game.setScreen(PlayGameScreen.getLastScreen());
+          else game.setScreen(new Level2Part1Screen(game));
+        }
+        else{
+          if(PlayGameScreen.getLastScreen() instanceof Level2Part2Screen) game.setScreen(PlayGameScreen.getLastScreen());
+          else game.setScreen(new Level2Part2Screen(game));
+        }
       }
     });
     level1.setVisible(false);
@@ -148,7 +162,7 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
 
   @Override
   public void show() {
-    if (Main.musicIsOn)
+    if (MusicalAtmosphere.isMusicOn())
       Main.getMusic().mainMenuMusicPlay();
   }
 

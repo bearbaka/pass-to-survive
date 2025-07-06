@@ -3,8 +3,10 @@ package com.company.passtosurvive.models;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
-import com.company.passtosurvive.levels.Level1ScreenPart2;
-import com.company.passtosurvive.levels.Level2ScreenFloor2;
+import com.company.passtosurvive.levels.Level1Part1Screen;
+import com.company.passtosurvive.levels.Level1Part2Screen;
+import com.company.passtosurvive.levels.Level2Part1Screen;
+import com.company.passtosurvive.levels.Level2Part2Screen;
 import com.company.passtosurvive.levels.PlayGameScreen;
 import com.company.passtosurvive.view.Main;
 
@@ -19,14 +21,14 @@ public class NextPart extends TileObject {
     super.inContactAct(playGameScreen);
     Player player = playGameScreen.getPlayer();
     final Main game = playGameScreen.getGame();
-    Main.playerCheckpointX = 0;
-    Main.playerCheckpointY = 0;
-    if (Main.screen <= 2) {
-      game.setScreen(new Level1ScreenPart2(game, player.getPosY()));
-      playGameScreen.getPlayer().setDead(true);
+    if (playGameScreen instanceof Level1Part1Screen) {
+      Level1Part1Screen.setFinished();
+      Level1Part2Screen.setPlayerCheckpointY(player.getPosY());
+      game.setScreen(new Level1Part2Screen(game));
     } else {
-      game.setScreen(new Level2ScreenFloor2(game, player.getPosX()));
-      playGameScreen.getPlayer().setDead(true);
+      Level2Part1Screen.setFinished();
+      Level2Part2Screen.setPlayerCheckpointX(player.getPosX());
+      game.setScreen(new Level2Part2Screen(game));
     }
   }
 }

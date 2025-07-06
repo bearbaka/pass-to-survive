@@ -17,10 +17,9 @@ public class Spike extends TileObject {
   @Override
   public void inContactAct(PlayGameScreen playGameScreen) {
     super.inContactAct(playGameScreen);
-    if (!playGameScreen.getPlayer().isDead()) {
+    if (playGameScreen == playGameScreen.getGame().getScreen()) {
       final Main game = playGameScreen.getGame();
-      playGameScreen.getPlayer().setDead(true);
-      game.setScreen(new DeadScreen(game, false));
+      game.setScreen(new DeadScreen(game, this));
     }
   }
 }

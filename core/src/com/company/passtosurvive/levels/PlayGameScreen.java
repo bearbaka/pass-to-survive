@@ -17,72 +17,53 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.company.passtosurvive.control.PlayButtons;
 import com.company.passtosurvive.models.Player;
 import com.company.passtosurvive.models.Player.State;
+import com.company.passtosurvive.tools.MusicalAtmosphere;
 import com.company.passtosurvive.tools.WorldContactListener;
+import com.company.passtosurvive.view.DeadScreen;
 import com.company.passtosurvive.view.Main;
 
 public abstract class PlayGameScreen implements Screen { // children of this class are only level
   // screens
   private static PlayGameScreen lastScreen;
-
   private static boolean cheatsEnabled, statsEnabled;
-
-  public static boolean isStatsEnabled() {
-    return statsEnabled;
-  }
-
-  public static boolean isCheatsEnabled() {
-    return cheatsEnabled;
-  }
-
-  static {
-    cheatsEnabled = false;
-    statsEnabled = false;
-  }
-
-  public static PlayGameScreen getLastScreen() {
-    return lastScreen;
-  }
-
+  static final float level2WorldWidth, level2WorldHeight, level1WorldWidth, level1WorldHeight;
   Player player; // create Player here for WorldContactListener
-
-  public Player getPlayer() {
-    return player;
-  }
-
   final Main game;
-
-  public Main getGame() {
-    return game;
-  }
-
   Box2DDebugRenderer b2dr;
   World world;
   SpriteBatch batch;
   TiledMap map;
   WorldContactListener worldContactListener;
   TmxMapLoader mapLoader;
-  static PlayButtons buttons;
+  PlayButtons buttons;
   OrthographicCamera cam;
   OrthogonalTiledMapRenderer renderer;
   Viewport mapPort; // Viewport is still required by tiled maps
-  final float xMaxSpeed, xMaxAccel, yMaxAccel, bouncerYMaxAccel, gravity;
+  final float xMaxSpeed, yMaxAccel, bouncerYMaxAccel, gravity;
+
+  static {
+    cheatsEnabled = false;
+    statsEnabled = false;
+    level1WorldHeight = 544f / Main.PPM;
+    level1WorldWidth =
+        904f
+            / (1.661f / (Main.getScreenWidth() / Main.getScreenHeight()))
+            / Main.PPM; // ratio of the FHD screen to the aspect ratio of the screen of the device on which I run
+    level2WorldHeight = 672f / Main.PPM;
+    level2WorldWidth =
+        1116f / (1.661f / (Main.getScreenWidth() / Main.getScreenHeight())) / Main.PPM;
+  }
 
   static class Builder {
     private Main game;
-    private float xMaxSpeed, xMaxAccel, yMaxAccel, bouncerYMaxAccel, gravity;
+    private float xMaxSpeed, yMaxAccel, bouncerYMaxAccel, gravity;
 
-    Builder(Main game, int screen) {
+    Builder(Main game) {
       this.game = game;
-      Main.screen = screen;
     }
 
     Builder setXMaxSpeed(float xMaxSpeed) {
       this.xMaxSpeed = xMaxSpeed;
-      return this;
-    }
-
-    Builder setXMaxAccel(float xMaxAccel) {
-      this.xMaxAccel = xMaxAccel;
       return this;
     }
 
@@ -106,7 +87,6 @@ public abstract class PlayGameScreen implements Screen { // children of this cla
     lastScreen = this;
     this.game = builder.game;
     this.xMaxSpeed = builder.xMaxSpeed;
-    this.xMaxAccel = builder.xMaxAccel;
     this.yMaxAccel = builder.yMaxAccel;
     this.bouncerYMaxAccel = builder.bouncerYMaxAccel;
     this.gravity = builder.gravity;
@@ -116,11 +96,7 @@ public abstract class PlayGameScreen implements Screen { // children of this cla
   // needed to update the textures of the
   // Player sprite, camera, buttons, physics, collision, music, etc.
   public void update(float delta) {
-    if (Gdx.input.isKeyJustPressed(Keys.S)) {
-      if (buttons.getStats().getStage() == null) buttons.getStage().addActor(buttons.getStats());
-      else buttons.getStats().remove();
-      statsEnabled = !statsEnabled;
-    }
+    if (Gdx.input.isKeyJustPressed(Keys.S)) statsEnabled = !statsEnabled;
     if (Gdx.input.isKeyJustPressed(Keys.C)) {
       if (cheatsEnabled) {
         for (Fixture fixture : player.getPlayerBody().getFixtureList()) fixture.setSensor(false);
@@ -133,12 +109,16 @@ public abstract class PlayGameScreen implements Screen { // children of this cla
       }
       cheatsEnabled = !cheatsEnabled;
     }
-    if (Main.musicIsOn && !Main.getMusic().isAnyMusicPlaying()) {
-      if (Main.screen <= 2) Main.getMusic().level1MusicPlay();
+    if (statsEnabled && buttons.getStats().getStage() == null)
+      buttons.getStage().addActor(buttons.getStats());
+    else if (!statsEnabled && buttons.getStats().getStage() != null) buttons.getStats().remove();
+    if (MusicalAtmosphere.isMusicOn() && !Main.getMusic().isAnyMusicPlaying()) {
+      if (this instanceof Level1Part1Screen || this instanceof Level1Part2Screen)
+        Main.getMusic().level1MusicPlay();
       else Main.getMusic().level2MusicPlay();
     }
     world.step(1 / 60f, 6, 2);
-    if (Main.nextFloor) { // on this map the last bouncers at the end of this
+    if (Player.isNextFloor()) { // on this map the last bouncers at the end of this
       // part of the level are marked as nextfloor and when
       // we fall on them Main.nextFloor is set to true
       if (player.getCurrentState() != State.JUMPING) player.performJump(10f);
@@ -150,7 +130,7 @@ public abstract class PlayGameScreen implements Screen { // children of this cla
     player.update(delta, buttons.getJoyStick().getValueX());
     cam.update();
     renderer.setView(cam);
-    if (Main.touchedBouncer && player.getCurrentState() != State.JUMPING)
+    if (Player.isTouchedBouncer() && player.getCurrentState() != State.JUMPING)
       player.performJump(bouncerYMaxAccel);
   }
 
@@ -166,7 +146,7 @@ public abstract class PlayGameScreen implements Screen { // children of this cla
     batch.end();
     buttons.getStage().act(delta);
     buttons.getStage().draw();
-    if (player.isDead()) dispose();
+    if (game.getScreen() instanceof DeadScreen) restart();
   }
 
   @Override
@@ -184,7 +164,7 @@ public abstract class PlayGameScreen implements Screen { // children of this cla
     renderer.dispose();
     world.dispose();
     game.dispose();
-    player.dispose();
+    // player.dispose(); // WARN:
   }
 
   @Override
@@ -193,13 +173,38 @@ public abstract class PlayGameScreen implements Screen { // children of this cla
   }
 
   @Override
+  public void hide() {
+    buttons.getJoyStick().setUnTouched();
+    Main.getMusic().allPause();
+  }
+
+  public static boolean isStatsEnabled() {
+    return statsEnabled;
+  }
+
+  public static boolean isCheatsEnabled() {
+    return cheatsEnabled;
+  }
+
+  public static PlayGameScreen getLastScreen() {
+    return lastScreen;
+  }
+
+  public Player getPlayer() {
+    return player;
+  }
+
+  public Main getGame() {
+    return game;
+  }
+
+  @Override
   public void pause() {}
 
   @Override
   public void resume() {}
 
-  @Override
-  public void hide() {
-    Main.getMusic().allPause();
-  }
+  public abstract void restart();
+
+  public abstract void setCheckpoint(float x, float y);
 }

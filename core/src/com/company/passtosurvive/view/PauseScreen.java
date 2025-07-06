@@ -55,11 +55,9 @@ public class PauseScreen
     restart.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
-        Main.playerY = 0;
-        Main.playerX = 0;
         dispose();
-        PlayGameScreen.getLastScreen().dispose();
-        game.setPreviousLevel();
+        PlayGameScreen.getLastScreen().restart();
+        game.setScreen(PlayGameScreen.getLastScreen());
       }
     });
     mainMenu.addListener(new ClickListener() {

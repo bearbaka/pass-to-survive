@@ -43,8 +43,8 @@ public abstract class TileObject { // all objects for world and its listener
   }
 
   public void inContactAct(PlayGameScreen playGameScreen){// to determine which object is in the WorldContactListener
-    Main.touchedBouncer = this instanceof Bouncer;
-    Main.nextFloor=this instanceof NextFloor;
+    Player.setTouchedBouncer(this instanceof Bouncer);
+    Player.setNextFloor(this instanceof NextFloor);
   } 
 
   public float getX() { return body.getPosition().x; } // for checkpoint

@@ -28,8 +28,8 @@ public class PlayButtons
   private static Skin skin;
   private static TextureAtlas atlas;
   private static JoyStick joyStick;
-  private final Main GAME;
-  private final float X_MAX_SPEED, Y_MAX_SPEED;
+  private final Main game;
+  private final float xMaxSpeed, yMaxSpeed;
   private Player player;
 
   static {
@@ -96,19 +96,20 @@ public class PlayButtons
   }
 
   public PlayButtons(Builder builder) {
-    GAME = builder.game;
+    game = builder.game;
     player = builder.player;
-    X_MAX_SPEED = builder.xMaxSpeed;
-    Y_MAX_SPEED = builder.yMaxAccel;
+    xMaxSpeed = builder.xMaxSpeed;
+    yMaxSpeed = builder.yMaxAccel;
     joyStick.setUnTouched();
     pause.removeListener(pause.getClickListener());
     pause.addListener(
         new ClickListener() {
           @Override
           public void clicked(InputEvent event, float x, float y) {
-            GAME.setScreen(new PauseScreen(GAME));
+            game.setScreen(new PauseScreen(game));
           }
         });
+    updateDeaths();
   }
 
   public void updateDeaths(){
@@ -137,10 +138,10 @@ public class PlayButtons
       player
           .getPlayerBody()
           .applyLinearImpulse(
-              new Vector2(joyStick.getValueX() * X_MAX_SPEED, 0),
+              new Vector2(joyStick.getValueX() * xMaxSpeed, 0),
               player.getPlayerBody().getWorldCenter(),
               true);
-      if (jump.isPressed()) player.jump(Y_MAX_SPEED);
+      if (jump.isPressed()) player.jump(yMaxSpeed);
     } else { // cheats
       player
           .getPlayerBody()
@@ -153,7 +154,7 @@ public class PlayButtons
       player
           .getPlayerBody()
           .applyLinearImpulse(
-              new Vector2(joyStick.getValueX() * 9f, joyStick.getValueY() * 9f),
+              new Vector2(joyStick.getValueX() * 18f, joyStick.getValueY() * 9f),
               player.getPlayerBody().getWorldCenter(),
               true);
     }
@@ -161,7 +162,7 @@ public class PlayButtons
 
   @Override
   public void dispose() {
-    GAME.dispose();
+    game.dispose();
   }
 
   public Table getStats() {

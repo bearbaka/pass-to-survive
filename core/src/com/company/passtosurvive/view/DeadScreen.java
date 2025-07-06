@@ -16,7 +16,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.company.passtosurvive.levels.PlayGameScreen;
+import com.company.passtosurvive.models.Lava;
 import com.company.passtosurvive.models.Player;
+import com.company.passtosurvive.models.TileObject;
 
 public class DeadScreen
     implements Screen { // GameOver screen starts when the player falls into
@@ -33,9 +35,9 @@ public class DeadScreen
   private Animation<TextureRegion> animation;
   private boolean lavaKilled;
 
-  public DeadScreen(final Main game, boolean lavaKilled) {
+  public DeadScreen(final Main game, TileObject whoKilled) {
     this.game = game;
-    this.lavaKilled = lavaKilled;
+    this.lavaKilled = whoKilled instanceof Lava;
     Player.incrementDeaths();
     batch = new SpriteBatch();
     Array<TextureRegion> Frames = new Array<TextureRegion>();
@@ -84,7 +86,7 @@ public class DeadScreen
         @Override
         public void clicked(InputEvent event, float x, float y) {
           dispose();
-          game.setPreviousLevel();
+          game.setScreen(PlayGameScreen.getLastScreen());
         }
       });
       Main.getMusic().gameOverSoundPlay();
@@ -136,7 +138,7 @@ public class DeadScreen
       }
       if (Gdx.input.justTouched() && stateTimer >= 7) {
         dispose();
-        game.setScreen(PlayGameScreen.getLastScreen().restart());
+        game.setScreen(PlayGameScreen.getLastScreen());
       }
     }
     else {

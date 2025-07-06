@@ -6,6 +6,17 @@ import com.badlogic.gdx.audio.Sound;
 
 public class MusicalAtmosphere
     extends AssetManager { // used for music and sounds
+  private static boolean musicOn; // to check if music is enabled in settings
+  public static boolean isMusicOn() {
+    return musicOn;
+  }
+  public static void toggleMusicOn() {
+    musicOn = !musicOn;
+  }
+
+  static {
+    musicOn=true;
+  }
 
   public MusicalAtmosphere() { // loading everything
     load("Level1Sound.ogg", Music.class);

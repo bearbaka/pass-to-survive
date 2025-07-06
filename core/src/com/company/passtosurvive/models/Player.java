@@ -22,16 +22,18 @@ public class Player extends Sprite { // the player model is in every level scree
   };
 
   private static int deaths;
-  private static BodyDef bDef;
   private State
       currentState; // two statuses are needed to avoid problems with animation and to determine the
   // status in different situations
-  private static Body playerBody;
+  private Body playerBody;
+  private static BodyDef bDef;
   private static TextureAtlas atlas;
   private static TextureRegion playerJump;
   private static Animation<TextureRegion> playerRun, playerStand;
+  private static boolean nextFloor; // to start animation in level 2 of part 1
+  private static boolean touchedBouncer;
   private float stateTime;
-  private boolean toRight, headInContact, dead;
+  private boolean toRight, headInContact;
   private State previousState;
 
   static {
@@ -57,7 +59,7 @@ public class Player extends Sprite { // the player model is in every level scree
     bDef.type = BodyDef.BodyType.DynamicBody;
   }
 
-  public static void changeSkin() {
+  private static void changeSkin() {
     if (deaths == 20) {
       Array<TextureRegion> frames = new Array<TextureRegion>();
       frames.add(atlas.findRegion("playerrun1"));
@@ -73,22 +75,16 @@ public class Player extends Sprite { // the player model is in every level scree
     }
   }
 
-  public void reset(float x, float y){
+  public void reset(World world, float x, float y){
     currentState = State.STANDING;
     previousState = State.STANDING;
     stateTime = 0;
     headInContact = false;
-    dead = false;
     toRight = true; // by default the player model will always look to the right
     changeSkin();
     setPosition(x, y);
     bDef.position.set(getX(), getY());
-
-  }
-
-  public Player(World world, float x, float y) {
-    reset(x, y);
-    setBounds(0, 0, 63 / (1.4f * Main.PPM), 72 / (1.4f * Main.PPM)); // sprite's bounds
+    if(playerBody != null) world.destroyBody(playerBody);
     playerBody = world.createBody(bDef);
     FixtureDef fDef = new FixtureDef();
     EdgeShape vertice =
@@ -125,6 +121,11 @@ public class Player extends Sprite { // the player model is in every level scree
     fDef.shape = vertice;
     playerBody.createFixture(fDef).setUserData("PlayerHead");
     vertice.dispose();
+  }
+
+  public Player(World world, float x, float y) {
+    setBounds(0, 0, 63 / (1.4f * Main.PPM), 72 / (1.4f * Main.PPM)); // sprite's bounds
+    reset(world, x, y);
   }
 
   public void update(float delta, float joyStickValueX) { // needed for the sprite to move
@@ -166,7 +167,7 @@ public class Player extends Sprite { // the player model is in every level scree
   }
 
   public void jump(final float yMaxAccel) {
-    if (!Main.touchedBouncer && getCurrentState() != State.JUMPING) {
+    if (!touchedBouncer && getCurrentState() != State.JUMPING) {
       performJump(yMaxAccel);
     }
   }
@@ -188,10 +189,27 @@ public class Player extends Sprite { // the player model is in every level scree
     else return State.STANDING;
   }
 
+  // WARN:
   // @Override
   // public void dispose() {
   //   atlas.dispose();
   // }
+
+  public static boolean isTouchedBouncer() {
+    return touchedBouncer;
+  }
+
+  static void setTouchedBouncer(boolean touchedBouncer) {
+    Player.touchedBouncer = touchedBouncer;
+  }
+
+  public static boolean isNextFloor() {
+    return nextFloor;
+  }
+
+  static void setNextFloor(boolean nextFloor) {
+    Player.nextFloor = nextFloor;
+  }
 
   public void setHeadInContact(boolean headInContact) {
     this.headInContact = headInContact;
@@ -227,13 +245,5 @@ public class Player extends Sprite { // the player model is in every level scree
 
   public void setCurrentState(State currentState) {
     this.currentState = currentState;
-  }
-
-  public boolean isDead() {
-    return dead;
-  }
-
-  public void setDead(boolean dead) {
-    this.dead = dead;
   }
 }
