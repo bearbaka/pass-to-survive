@@ -30,28 +30,28 @@ public class Player extends Sprite { // the player model is in every level scree
   private static TextureAtlas atlas;
   private static TextureRegion playerJump;
   private static Animation<TextureRegion> playerRun, playerStand;
-  private static boolean
+  private boolean
       endingBouncer; // to start `interactive` animation in level 2 of part 1 to transit to part 2
-  private static boolean touchedBouncer;
-  private float stateTime;
+  private boolean touchedBouncer;
+  private float animationStateTime;
   private boolean toRight, headInContact;
   private State previousState;
 
   static {
     atlas = new TextureAtlas("Player.pack");
     Array<TextureRegion> frames = new Array<TextureRegion>();
-    frames.add(atlas.findRegion("playerrun1"));
-    frames.add(atlas.findRegion("playerrun2"));
+    frames.add(atlas.findRegion("playerRun1"));
+    frames.add(atlas.findRegion("playerRun2"));
     playerRun = new Animation(0.2f, frames);
     frames.clear();
-    frames.add(atlas.findRegion("playerstay"));
-    frames.add(atlas.findRegion("playerstay1"));
-    frames.add(atlas.findRegion("playerstay2"));
+    frames.add(atlas.findRegion("playerStay"));
+    frames.add(atlas.findRegion("playerStay1"));
+    frames.add(atlas.findRegion("playerStay2"));
     playerStand = new Animation(0.25f, frames);
     frames.clear();
     playerJump =
         new TextureRegion(
-            atlas.findRegion("playerfall"),
+            atlas.findRegion("playerFall"),
             0,
             0,
             78,
@@ -63,82 +63,77 @@ public class Player extends Sprite { // the player model is in every level scree
   private static void changeSkin() {
     if (deaths == 20) {
       Array<TextureRegion> frames = new Array<TextureRegion>();
-      frames.add(atlas.findRegion("playerrun1"));
-      frames.add(atlas.findRegion("playerrun2"));
+      frames.add(atlas.findRegion("ghoulRun1"));
+      frames.add(atlas.findRegion("ghoulRun2"));
       playerRun = new Animation(0.2f, frames);
       frames.clear();
-      frames.add(atlas.findRegion("playerstay"));
-      frames.add(atlas.findRegion("playerstay1"));
-      frames.add(atlas.findRegion("playerstay2"));
+      frames.add(atlas.findRegion("ghoulStay"));
+      frames.add(atlas.findRegion("ghoulStay1"));
+      frames.add(atlas.findRegion("ghoulStay2"));
       playerStand = new Animation(0.25f, frames);
       frames.clear();
-      playerJump.setRegion(atlas.findRegion("ghoulfall"));
+      playerJump.setRegion(atlas.findRegion("ghoulFall"));
     }
   }
 
-  public void reset(World world, float x, float y) {
+  public void reset(float x, float y) {
     currentState = State.STANDING;
     previousState = State.STANDING;
-    stateTime = 0;
+    animationStateTime = 0;
     headInContact = false;
     toRight = true; // by default the player model will always look to the right
     changeSkin();
     setPosition(x, y);
-    bDef.position.set(getX(), getY());
-    if (playerBody != null) world.destroyBody(playerBody);
+    bDef.position.set(x, y);
+    if (playerBody != null) playerBody.setTransform(x, y, playerBody.getAngle());
+  }
+
+  public Player(World world, float x, float y) {
+    setBounds(0, 0, 63 / (1.4f * Main.PPM), 72 / (1.4f * Main.PPM)); // sprite's bounds
+    reset(x, y);
     playerBody = world.createBody(bDef);
     FixtureDef fDef = new FixtureDef();
+    fDef.friction = 0f;
     EdgeShape vertice =
         new EdgeShape(); // we need edgeshape to make it look like walls around the PlayerBody
     vertice.set(
         new Vector2(-9f / Main.PPM, -21.5f / Main.PPM),
         new Vector2(9f / Main.PPM, -21.5f / Main.PPM)); // bottom wall
     fDef.shape = vertice;
-    fDef.friction = 0f;
     playerBody.createFixture(fDef).setUserData("Player");
     vertice.set(
         new Vector2(-9f / Main.PPM, -21.5f / Main.PPM),
         new Vector2(-11.5f / Main.PPM, -19f / Main.PPM)); // part connecting bottom & side wall
     fDef.shape = vertice;
-    fDef.friction = 0f;
     playerBody.createFixture(fDef).setUserData("Player");
     vertice.set(
         new Vector2(9f / Main.PPM, -21.5f / Main.PPM),
         new Vector2(11.5f / Main.PPM, -19f / Main.PPM)); // part connecting bottom & side wall
     fDef.shape = vertice;
-    fDef.friction = 0f;
     playerBody.createFixture(fDef).setUserData("Player");
     vertice.set(
         new Vector2(11.5f / Main.PPM, -19f / Main.PPM),
         new Vector2(11.5f / Main.PPM, 21.5f / Main.PPM)); // side wall
     fDef.shape = vertice;
-    fDef.friction = 0f;
     playerBody.createFixture(fDef).setUserData("Player");
     vertice.set(
         new Vector2(-11.5f / Main.PPM, -19f / Main.PPM),
         new Vector2(-11.5f / Main.PPM, 21.5f / Main.PPM)); // side wall
     fDef.shape = vertice;
-    fDef.friction = 0f;
     playerBody.createFixture(fDef).setUserData("Player");
     vertice.set(
         new Vector2(-9f / Main.PPM, 21.5f / Main.PPM),
         new Vector2(9f / Main.PPM, 21.5f / Main.PPM)); // the top wall sensor for head, it will
     // not serve as a trigger for Game Over
     fDef.shape = vertice;
-    fDef.friction = 0f;
     playerBody.createFixture(fDef).setUserData("PlayerHead");
     vertice.dispose();
-  }
-
-  public Player(World world, float x, float y) {
-    setBounds(0, 0, 63 / (1.4f * Main.PPM), 72 / (1.4f * Main.PPM)); // sprite's bounds
-    reset(world, x, y);
   }
 
   public void update(float delta, float joyStickValueX) { // needed for the sprite to move
     // with the body of the
     // person in the world so that it is attracted to him
-    setPosition(getPosX() - getWidth() / 2, getPosY() - getHeight() / 2.3f);
+    setPosition(getBodyPositionX() - getWidth() / 2, getBodyPositionY() - getHeight() / 2.3f);
     setRegion(getFrame(delta, joyStickValueX)); // texture update
   }
 
@@ -151,11 +146,11 @@ public class Player extends Sprite { // the player model is in every level scree
         region = playerJump;
         break;
       case RUNNING:
-        region = (TextureRegion) playerRun.getKeyFrame(stateTime, true);
+        region = (TextureRegion) playerRun.getKeyFrame(animationStateTime, true);
         break;
       case STANDING:
       default:
-        region = (TextureRegion) playerStand.getKeyFrame(stateTime, true);
+        region = (TextureRegion) playerStand.getKeyFrame(animationStateTime, true);
         break;
     }
     // these conditions are needed for the sprite to be mirrored
@@ -167,29 +162,29 @@ public class Player extends Sprite { // the player model is in every level scree
       toRight = true;
     }
     if (currentState == previousState)
-      stateTime =
+      animationStateTime =
           currentState == State.STANDING
-              ? stateTime + dt
-              : stateTime
+              ? animationStateTime + dt
+              : animationStateTime
                   + dt
-                      * Math.abs(
-                          joyStickValueX); // joystick's valueX is added so that animation is
-                                           // aligned with speed
-    else stateTime = 0; // we need to avoid problems with animation
+                      * Math.abs(joyStickValueX); // joystick's valueX is added so that animation is
+    // aligned with speed
+    else animationStateTime = 0; // we need to avoid problems with animation
     previousState = currentState;
     return region;
   }
 
   public void jump(final float yMaxAccel) {
-    if (!endingBouncer && !touchedBouncer && getCurrentState() != State.JUMPING) {
+    if (!endingBouncer && !touchedBouncer) {
       performJump(yMaxAccel);
     }
   }
 
   public void performJump(final float yMaxAccel) {
-    setCurrentState(State.JUMPING);
-    playerBody.applyLinearImpulse(new Vector2(0, yMaxAccel), playerBody.getWorldCenter(), true);
-    Main.getMusic().jumpSoundPlay();
+    if (currentState != State.JUMPING) {
+      playerBody.applyLinearImpulse(new Vector2(0, yMaxAccel), playerBody.getWorldCenter(), true);
+      Main.getMusic().jumpSoundPlay();
+    }
   }
 
   public State getState() {
@@ -197,33 +192,26 @@ public class Player extends Sprite { // the player model is in every level scree
         && playerBody.getLinearVelocity().y < 0f
         && currentState != State.JUMPING) return State.SLIDING;
     else if (playerBody.getLinearVelocity().y > 0f
-            && currentState == State.JUMPING // WARN: y>0f && cs==s.jumping
         || playerBody.getLinearVelocity().y < 0f
         || headInContact) return State.JUMPING;
     else if (playerBody.getLinearVelocity().x != 0f) return State.RUNNING;
     else return State.STANDING;
   }
 
-  // WARN:
-  // @Override
-  // public void dispose() {
-  //   atlas.dispose();
-  // }
-
-  public static boolean isTouchedBouncer() {
+  public boolean isTouchedBouncer() {
     return touchedBouncer;
   }
 
-  static void setTouchedBouncer(boolean touchedBouncer) {
-    Player.touchedBouncer = touchedBouncer;
+  void setTouchedBouncer(boolean touchedBouncer) {
+    this.touchedBouncer = touchedBouncer;
   }
 
-  public static boolean isEndingBouncer() {
+  public boolean isEndingBouncer() {
     return endingBouncer;
   }
 
-  static void setEndingBouncer(boolean nextFloor) {
-    Player.endingBouncer = nextFloor;
+  void setEndingBouncer(boolean endingBouncer) {
+    this.endingBouncer = endingBouncer;
   }
 
   public void setHeadInContact(boolean headInContact) {
@@ -234,11 +222,11 @@ public class Player extends Sprite { // the player model is in every level scree
     return this.headInContact;
   }
 
-  public float getPosX() {
+  public float getBodyPositionX() {
     return playerBody.getPosition().x;
   }
 
-  public float getPosY() {
+  public float getBodyPositionY() {
     return playerBody.getPosition().y;
   }
 
@@ -252,13 +240,5 @@ public class Player extends Sprite { // the player model is in every level scree
 
   public Body getPlayerBody() {
     return playerBody;
-  }
-
-  public State getCurrentState() {
-    return currentState;
-  }
-
-  public void setCurrentState(State currentState) {
-    this.currentState = currentState;
   }
 }

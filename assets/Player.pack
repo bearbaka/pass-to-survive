@@ -4,84 +4,84 @@ size: 1024, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-ghoulfall
+ghoulFall
   rotate: false
   xy: 82, 2
   size: 78, 93
   orig: 78, 93
   offset: 0, 0
   index: -1
-ghoulrun1
+ghoulRun1
   rotate: false
   xy: 310, 29
   size: 72, 66
   orig: 72, 66
   offset: 0, 0
   index: -1
-ghoulrun2
+ghoulRun2
   rotate: false
   xy: 162, 22
   size: 72, 73
   orig: 72, 73
   offset: 0, 0
   index: -1
-ghoulstay
+ghoulStay
   rotate: false
   xy: 718, 23
   size: 63, 72
   orig: 63, 72
   offset: 0, 0
   index: -1
-ghoulstay1
+ghoulStay1
   rotate: false
   xy: 653, 23
   size: 63, 72
   orig: 63, 72
   offset: 0, 0
   index: -1
-ghoulstay2
+ghoulStay2
   rotate: false
   xy: 523, 23
   size: 63, 72
   orig: 63, 72
   offset: 0, 0
   index: -1
-playerfall
+playerFall
   rotate: false
   xy: 2, 2
   size: 78, 93
   orig: 78, 93
   offset: 0, 0
   index: -1
-playerrun1
+playerRun1
   rotate: false
   xy: 384, 29
   size: 72, 66
   orig: 72, 66
   offset: 0, 0
   index: -1
-playerrun2
+playerRun2
   rotate: false
   xy: 236, 22
   size: 72, 73
   orig: 72, 73
   offset: 0, 0
   index: -1
-playerstay
+playerStay
   rotate: false
   xy: 458, 23
   size: 63, 72
   orig: 63, 72
   offset: 0, 0
   index: -1
-playerstay1
+playerStay1
   rotate: false
   xy: 588, 23
   size: 63, 72
   orig: 63, 72
   offset: 0, 0
   index: -1
-playerstay2
+playerStay2
   rotate: false
   xy: 783, 23
   size: 63, 72

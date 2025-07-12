@@ -4,224 +4,224 @@ size: 2048, 256
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-spike1
+bloodySpike1
   rotate: false
   xy: 688, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike11
+bloodySpike11
   rotate: false
   xy: 884, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike13
+bloodySpike13
   rotate: false
   xy: 1276, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike15
+bloodySpike15
   rotate: false
   xy: 100, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike17
+bloodySpike17
   rotate: false
   xy: 394, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike19
+bloodySpike19
   rotate: false
   xy: 884, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike21
+bloodySpike21
   rotate: false
   xy: 1178, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike23
+bloodySpike23
   rotate: false
   xy: 2, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike25
+bloodySpike25
   rotate: false
   xy: 296, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike27
+bloodySpike27
   rotate: false
   xy: 786, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike29
+bloodySpike29
   rotate: false
   xy: 1080, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike3
+bloodySpike3
   rotate: false
   xy: 1080, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike31
+bloodySpike31
   rotate: false
   xy: 1472, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike33
+bloodySpike33
   rotate: false
   xy: 198, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike35
+bloodySpike35
   rotate: false
   xy: 590, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike37
+bloodySpike37
   rotate: false
   xy: 982, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike38
+bloodySpike38
   rotate: false
   xy: 394, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike39
+bloodySpike39
   rotate: false
   xy: 1374, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike40
+bloodySpike40
   rotate: false
   xy: 688, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike41
+bloodySpike41
   rotate: false
   xy: 100, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike42
+bloodySpike42
   rotate: false
   xy: 1178, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike43
+bloodySpike43
   rotate: false
   xy: 492, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike44
+bloodySpike44
   rotate: false
   xy: 1472, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike45
+bloodySpike45
   rotate: false
   xy: 786, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike46
+bloodySpike46
   rotate: false
   xy: 296, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike47
+bloodySpike47
   rotate: false
   xy: 1276, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike48
+bloodySpike48
   rotate: false
   xy: 590, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike49
+bloodySpike49
   rotate: false
   xy: 2, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike5
+bloodySpike5
   rotate: false
   xy: 1374, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike50
+bloodySpike50
   rotate: false
   xy: 982, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike7
+bloodySpike7
   rotate: false
   xy: 198, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-spike9
+bloodySpike9
   rotate: false
   xy: 492, 2
   size: 96, 96

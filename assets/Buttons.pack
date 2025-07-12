@@ -1,258 +1,229 @@
-
-AllComponents.png
+Buttons.png
 size: 2048, 2048
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-ButtonExitDown
+exitButtonDown
   rotate: false
   xy: 706, 1302
   size: 350, 140
   orig: 350, 140
   offset: 0, 0
   index: -1
-ButtonExitUp
+exitButtonUp
   rotate: false
   xy: 354, 950
   size: 350, 140
   orig: 350, 140
   offset: 0, 0
   index: -1
-ButtonJumpDown
+jumpButtonDown
   rotate: false
   xy: 1924, 1920
   size: 47, 64
   orig: 47, 64
   offset: 0, 0
   index: -1
-ButtonJumpUp
+jumpButtonUp
   rotate: false
   xy: 287, 38
   size: 47, 64
   orig: 47, 64
   offset: 0, 0
   index: -1
-ButtonMainMenuDown
+mainMenuButtonDown
   rotate: false
   xy: 706, 1030
   size: 350, 117
   orig: 350, 117
   offset: 0, 0
   index: -1
-ButtonMainMenuUp
+mainMenuButtonUp
   rotate: false
   xy: 1058, 1202
   size: 350, 117
   orig: 350, 117
   offset: 0, 0
   index: -1
-ButtonPauseDown
+pauseButtonDown
   rotate: false
   xy: 354, 290
   size: 158, 140
   orig: 158, 140
   offset: 0, 0
   index: -1
-ButtonPauseUp
+pauseButtonUp
   rotate: false
   xy: 706, 774
   size: 159, 140
   orig: 159, 140
   offset: 0, 0
   index: -1
-ButtonPlayDown
+playButtonDown
   rotate: false
   xy: 2, 246
   size: 350, 140
   orig: 350, 140
   offset: 0, 0
   index: -1
-ButtonPlayUp
+playButtonUp
   rotate: false
   xy: 354, 778
   size: 350, 140
   orig: 350, 140
   offset: 0, 0
   index: -1
-ButtonRestartDown
+restartButtonDown
   rotate: false
   xy: 706, 1172
   size: 350, 117
   orig: 350, 117
   offset: 0, 0
   index: -1
-ButtonRestartUp
+restartButtonUp
   rotate: false
   xy: 354, 648
   size: 350, 117
   orig: 350, 117
   offset: 0, 0
   index: -1
-ButtonResumeDown
+resumeButtonDown
   rotate: false
   xy: 1058, 1344
   size: 350, 117
   orig: 350, 117
   offset: 0, 0
   index: -1
-ButtonResumeUp
+resumeButtonUp
   rotate: false
   xy: 2, 116
   size: 350, 117
   orig: 350, 117
   offset: 0, 0
   index: -1
-GameOverThanks
-  rotate: false
-  xy: 2, 1781
-  size: 1920, 203
-  orig: 1920, 203
-  offset: 0, 0
-  index: -1
-InfoButtonDown
+infoButtonDown
   rotate: false
   xy: 1618, 1253
   size: 150, 117
   orig: 150, 117
   offset: 0, 0
   index: -1
-InfoButtonUp
+infoButtonUp
   rotate: false
   xy: 354, 171
   size: 150, 117
   orig: 150, 117
   offset: 0, 0
   index: -1
-Level1ButtonDown
+level1ButtonDown
   rotate: false
   xy: 2, 418
   size: 350, 350
   orig: 350, 350
   offset: 0, 0
   index: -1
-Level1ButtonUp
+level1ButtonUp
   rotate: false
   xy: 2, 1122
   size: 350, 350
   orig: 350, 350
   offset: 0, 0
   index: -1
-Level2ButtonDown
+level2ButtonDown
   rotate: false
   xy: 354, 1122
   size: 350, 350
   orig: 350, 350
   offset: 0, 0
   index: -1
-Level2ButtonUp
+level2ButtonUp
   rotate: false
   xy: 2, 770
   size: 350, 350
   orig: 350, 350
   offset: 0, 0
   index: -1
-NoButtonDown
+noButtonDown
   rotate: false
   xy: 1695, 1372
   size: 206, 100
   orig: 206, 100
   offset: 0, 0
   index: -1
-NoButtonDownWhite
+noWhiteButtonDown
   rotate: false
   xy: 354, 432
   size: 206, 100
   orig: 206, 100
   offset: 0, 0
   index: -1
-NoButtonUp
+noButtonUp
   rotate: false
   xy: 1410, 1270
   size: 206, 100
   orig: 206, 100
   offset: 0, 0
   index: -1
-NoButtonUpWhite
+noWhiteButtonUp
   rotate: false
   xy: 1058, 1088
   size: 206, 100
   orig: 206, 100
   offset: 0, 0
   index: -1
-SoundButtonDown
+soundButtonDown
   rotate: false
   xy: 1266, 1071
   size: 150, 117
   orig: 150, 117
   offset: 0, 0
   index: -1
-SoundButtonUp
+soundButtonUp
   rotate: false
   xy: 867, 797
   size: 150, 117
   orig: 150, 117
   offset: 0, 0
   index: -1
-SoundisOffDown
+soundOffButtonDown
   rotate: false
   xy: 706, 655
   size: 150, 117
   orig: 150, 117
   offset: 0, 0
   index: -1
-SoundisOffUp
+soundOffButtonUp
   rotate: false
   xy: 1770, 1253
   size: 150, 117
   orig: 150, 117
   offset: 0, 0
   index: -1
-YesButtonDown
+yesButtonDown
   rotate: false
   xy: 354, 534
   size: 283, 100
   orig: 283, 100
   offset: 0, 0
   index: -1
-YesButtonDownWhite
+yesWhiteButtonDown
   rotate: false
   xy: 2, 2
   size: 283, 100
   orig: 283, 100
   offset: 0, 0
   index: -1
-YesButtonUp
+yesButtonUp
   rotate: false
   xy: 706, 916
   size: 283, 100
   orig: 283, 100
   offset: 0, 0
   index: -1
-YesButtonUpWhite
+yesWhiteButtonUp
   rotate: false
   xy: 1410, 1372
   size: 283, 100
   orig: 283, 100
-  offset: 0, 0
-  index: -1
-continue
-  rotate: false
-  xy: 2, 1576
-  size: 1900, 100
-  orig: 1900, 100
-  offset: 0, 0
-  index: -1
-continueWhite
-  rotate: false
-  xy: 2, 1474
-  size: 1900, 100
-  orig: 1900, 100
-  offset: 0, 0
-  index: -1
-thforpl
-  rotate: false
-  xy: 2, 1678
-  size: 1920, 101
-  orig: 1920, 101
   offset: 0, 0
   index: -1

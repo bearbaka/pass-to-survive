@@ -1,68 +1,68 @@
 {
   "com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {
-    "default": {
-      "down": "ButtonPlayDown",
-      "up": "ButtonPlayUp"
+    "playButton": {
+      "down": "playButtonDown",
+      "up": "playButtonUp"
     },
-    "default1": {
-      "down": "ButtonExitDown",
-      "up": "ButtonExitUp"
+    "exitButton": {
+      "down": "exitButtonDown",
+      "up": "exitButtonUp"
     },
-    "default2": {
-      "down": "ButtonJumpDown",
-      "up": "ButtonJumpUp"
+    "jumpButton": {
+      "down": "jumpButtonDown",
+      "up": "jumpButtonUp"
     },
-    "default3": {
-      "down": "ButtonMainMenuDown",
-      "up": "ButtonMainMenuUp"
+    "mainMenuButton": {
+      "down": "mainMenuButtonDown",
+      "up": "mainMenuButtonUp"
     },
-    "default4": {
-      "down": "ButtonPauseDown",
-      "up": "ButtonPauseUp"
+    "pauseButton": {
+      "down": "pauseButtonDown",
+      "up": "pauseButtonUp"
     },
-    "default5": {
-      "down": "ButtonResumeDown",
-      "up": "ButtonResumeUp"
+    "resumeButton": {
+      "down": "resumeButtonDown",
+      "up": "resumeButtonUp"
     },
-    "default6": {
-      "down": "ButtonRestartDown",
-      "up": "ButtonRestartUp"
+    "restartButton": {
+      "down": "restartButtonDown",
+      "up": "restartButtonUp"
     },
-    "default7": {
-      "down": "NoButtonDown",
-      "up": "NoButtonUp"
+    "noButton": {
+      "down": "noButtonDown",
+      "up": "noButtonUp"
     },
-    "default8": {
-      "down": "YesButtonDown",
-      "up": "YesButtonUp"
+    "yesButton": {
+      "down": "yesButtonDown",
+      "up": "yesButtonUp"
     },
-    "default9": {
-      "down": "SoundButtonDown",
-      "up": "SoundButtonUp"
+    "soundButton": {
+      "down": "soundButtonDown",
+      "up": "soundButtonUp"
     },
-    "default10": {
-      "down": "InfoButtonDown",
-      "up": "InfoButtonUp"
+    "infoButton": {
+      "down": "infoButtonDown",
+      "up": "infoButtonUp"
     },
-    "default11": {
-      "down": "Level1ButtonDown",
-      "up": "Level1ButtonUp"
+    "level1Button": {
+      "down": "level1ButtonDown",
+      "up": "level1ButtonUp"
     },
-    "default12": {
-      "down": "Level2ButtonDown",
-      "up": "Level2ButtonUp"
+    "level2Button": {
+      "down": "level2ButtonDown",
+      "up": "level2ButtonUp"
     },
-    "default13": {
-      "down": "SoundisOffDown",
-      "up": "SoundisOffUp"
+    "soundOffButton": {
+      "down": "soundOffButtonDown",
+      "up": "soundOffButtonUp"
     },
-    "default14": {
-      "down": "YesButtonDownWhite",
-      "up": "YesButtonUpWhite"
+    "yesWhiteButton": {
+      "down": "yesWhiteButtonDown",
+      "up": "yesWhiteButtonUp"
     },
-    "default15": {
-      "down": "NoButtonDownWhite",
-      "up": "NoButtonUpWhite"
+    "noWhiteButton": {
+      "down": "noWhiteButtonDown",
+      "up": "noWhiteButtonUp"
     }
   }
 }

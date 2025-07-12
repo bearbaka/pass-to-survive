@@ -4,420 +4,420 @@ size: 2048, 256
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-Logo1
+logo1
   rotate: false
   xy: 212, 138
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo10
+logo10
   rotate: false
   xy: 2, 138
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo100
+logo100
   rotate: false
   xy: 212, 206
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo103
+logo103
   rotate: false
   xy: 1682, 138
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo106
+logo106
   rotate: false
   xy: 632, 2
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo109
+logo109
   rotate: false
   xy: 1262, 172
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo112
+logo112
   rotate: false
   xy: 632, 104
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo115
+logo115
   rotate: false
   xy: 212, 70
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo118
+logo118
   rotate: false
   xy: 422, 172
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo121
+logo121
   rotate: false
   xy: 1472, 36
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo124
+logo124
   rotate: false
   xy: 842, 2
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo127
+logo127
   rotate: false
   xy: 1052, 104
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo13
+logo13
   rotate: false
   xy: 1052, 2
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo130
+logo130
   rotate: false
   xy: 422, 36
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo133
+logo133
   rotate: false
   xy: 1052, 206
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo136
+logo136
   rotate: false
   xy: 422, 138
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo139
+logo139
   rotate: false
   xy: 212, 172
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo142
+logo142
   rotate: false
   xy: 1262, 36
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo145
+logo145
   rotate: false
   xy: 1052, 70
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo148
+logo148
   rotate: false
   xy: 422, 2
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo151
+logo151
   rotate: false
   xy: 1052, 172
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo154
+logo154
   rotate: false
   xy: 632, 138
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo157
+logo157
   rotate: false
   xy: 2, 70
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo16
+logo16
   rotate: false
   xy: 842, 36
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo160
+logo160
   rotate: false
   xy: 2, 206
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo163
+logo163
   rotate: false
   xy: 1262, 70
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo166
+logo166
   rotate: false
   xy: 1472, 172
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo169
+logo169
   rotate: false
   xy: 842, 104
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo172
+logo172
   rotate: false
   xy: 212, 36
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo175
+logo175
   rotate: false
   xy: 842, 206
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo177
+logo177
   rotate: false
   xy: 212, 2
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo19
+logo19
   rotate: false
   xy: 1472, 206
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo22
+logo22
   rotate: false
   xy: 842, 138
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo25
+logo25
   rotate: false
   xy: 422, 104
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo28
+logo28
   rotate: false
   xy: 632, 206
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo31
+logo31
   rotate: false
   xy: 1682, 70
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo34
+logo34
   rotate: false
   xy: 1052, 36
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo37
+logo37
   rotate: false
   xy: 1262, 138
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo4
+logo4
   rotate: false
   xy: 1262, 2
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo40
+logo40
   rotate: false
   xy: 632, 70
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo43
+logo43
   rotate: false
   xy: 2, 2
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo46
+logo46
   rotate: false
   xy: 632, 172
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo49
+logo49
   rotate: false
   xy: 422, 206
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo52
+logo52
   rotate: false
   xy: 1472, 70
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo55
+logo55
   rotate: false
   xy: 1262, 104
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo58
+logo58
   rotate: false
   xy: 632, 36
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo61
+logo61
   rotate: false
   xy: 1262, 206
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo64
+logo64
   rotate: false
   xy: 842, 172
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo67
+logo67
   rotate: false
   xy: 212, 104
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo7
+logo7
   rotate: false
   xy: 1682, 172
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo70
+logo70
   rotate: false
   xy: 2, 172
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo73
+logo73
   rotate: false
   xy: 1472, 104
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo76
+logo76
   rotate: false
   xy: 1682, 206
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo79
+logo79
   rotate: false
   xy: 1052, 138
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo82
+logo82
   rotate: false
   xy: 422, 70
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo85
+logo85
   rotate: false
   xy: 2, 36
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo88
+logo88
   rotate: false
   xy: 2, 104
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo91
+logo91
   rotate: false
   xy: 1682, 104
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo94
+logo94
   rotate: false
   xy: 1472, 138
   size: 208, 32
   orig: 208, 32
   offset: 0, 0
   index: -1
-Logo97
+logo97
   rotate: false
   xy: 842, 70
   size: 208, 32

@@ -25,7 +25,7 @@ public class MusicalAtmosphere
     load("GameOverSound.wav", Sound.class);
     load("PlayerJump.wav", Sound.class);
     load("WinSound.wav", Sound.class);
-    load("ghoulSound.wav", Sound.class);
+    load("GhoulSound.wav", Sound.class);
     load("End.wav", Sound.class);
     finishLoading();
   }
@@ -56,7 +56,7 @@ public class MusicalAtmosphere
 
   public void winSoundPlay() { get("WinSound.wav", Sound.class).play(); }
 
-  public void ghoulSoundPlay() { get("ghoulSound.wav", Sound.class).play(); }
+  public void ghoulSoundPlay() { get("GhoulSound.wav", Sound.class).play(); }
 
   public void mainMenuMusicPause() {
     get("MainMenuSound.ogg", Music.class).pause();
@@ -86,7 +86,7 @@ public class MusicalAtmosphere
     unload("GameOverSound.wav");
     unload("PlayerJump.wav");
     unload("WinSound.wav");
-    unload("ghoulSound.wav");
+    unload("GhoulSound.wav");
     unload("End.wav");
     super.dispose();
   }

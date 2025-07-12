@@ -11,7 +11,7 @@ import com.company.passtosurvive.models.Finish;
 import com.company.passtosurvive.models.NextPart;
 import com.company.passtosurvive.models.Ground;
 import com.company.passtosurvive.models.Lava;
-import com.company.passtosurvive.models.NextFloor;
+import com.company.passtosurvive.models.EndingBouncer;
 import com.company.passtosurvive.models.Spike;
 import com.company.passtosurvive.levels.Level1Part1Screen;
 import com.company.passtosurvive.levels.Level1Part2Screen;
@@ -62,7 +62,7 @@ public class b2WorldCreator { // creates objects from maps for the world and its
             Rectangle rect=((RectangleMapObject) object).getRectangle();
             new Spike(world, rect);
         }
-        // creating chest
+        // creating chest (ending, finish)
         for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
             new Finish(world, rect);
@@ -97,7 +97,7 @@ public class b2WorldCreator { // creates objects from maps for the world and its
         // create an object that serves to run the script (in Level2ScreenFloor1)
         for(MapObject object: map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect=((RectangleMapObject) object).getRectangle();
-            new NextFloor(world, rect);
+            new EndingBouncer(world, rect);
         }
         // creating checkpoints
         for(MapObject object: map.getLayers().get(9).getObjects().getByType(RectangleMapObject.class)){

@@ -9,7 +9,7 @@ import com.company.passtosurvive.view.Main;
 public class JoyStick extends Actor {
   private static final Texture JoyStick;
   private static final Texture curJoyStick;
-  private boolean isJoyStickDown;
+  private boolean JoyStickDown;
   private final float radius;
   private final float borderRadius;
   private final float cursorRadius;
@@ -21,7 +21,7 @@ public class JoyStick extends Actor {
 
   static {
     JoyStick = new Texture(Gdx.files.internal("JoyStick.png"));
-    curJoyStick = new Texture(Gdx.files.internal("curJoyStick.png"));
+    curJoyStick = new Texture(Gdx.files.internal("CurJoyStick.png"));
   }
 
   public float getValueX() {
@@ -33,11 +33,11 @@ public class JoyStick extends Actor {
   } // valueY we need to use joystick for cheats in levels
 
   public boolean isJoyStickDown() {
-    return isJoyStickDown;
+    return JoyStickDown;
   }
 
   public JoyStick() {
-    isJoyStickDown = false;
+    JoyStickDown = false;
     CurJoyStickX = 0;
     CurJoyStickY = 0;
     valueX = 0;
@@ -54,15 +54,17 @@ public class JoyStick extends Actor {
   }
 
   public void setTouched() {
-    isJoyStickDown = true;
+    Gdx.input.vibrate(100);
+    JoyStickDown = true;
   }
 
   public void setUnTouched() {
+    Gdx.input.vibrate(100);
     valueX = 0;
     valueY = 0;
     CurJoyStickX = 0;
     CurJoyStickY = 0;
-    isJoyStickDown = false;
+    JoyStickDown = false;
   }
 
   @Override

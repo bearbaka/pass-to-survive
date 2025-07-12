@@ -4,91 +4,91 @@ size: 4096, 4096
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-Ghoul1
+ghoul1
   rotate: false
   xy: 2566, 2890
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-Ghoul10
+ghoul10
   rotate: false
   xy: 1284, 2
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-Ghoul11
+ghoul11
   rotate: false
   xy: 1284, 1446
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-Ghoul12
+ghoul12
   rotate: false
   xy: 1284, 2890
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-Ghoul13
+ghoul13
   rotate: false
   xy: 1284, 724
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-Ghoul2
+ghoul2
   rotate: false
   xy: 2, 2890
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-Ghoul3
+ghoul3
   rotate: false
   xy: 2566, 2168
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-Ghoul4
+ghoul4
   rotate: false
   xy: 2, 1446
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-Ghoul5
+ghoul5
   rotate: false
   xy: 2566, 1446
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-Ghoul6
+ghoul6
   rotate: false
   xy: 2, 724
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-Ghoul7
+ghoul7
   rotate: false
   xy: 2, 2168
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-Ghoul8
+ghoul8
   rotate: false
   xy: 2, 2
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-Ghoul9
+ghoul9
   rotate: false
   xy: 1284, 2168
   size: 1280, 720

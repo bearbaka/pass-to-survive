@@ -12,14 +12,10 @@ import com.company.passtosurvive.view.Main;
 public abstract class TileObject { // all objects for world and its listener
   // except Player are inherited from this
   // class
-  World world;
-  Rectangle rect;
-  Body body;
+  private Body body;
 
   public TileObject(World world, Rectangle rect) { // everything is taken from
     // b2WorldCreator
-    this.world = world;
-    this.rect = rect;
     BodyDef bDef = new BodyDef();
     FixtureDef fDef = new FixtureDef();
     PolygonShape shape = new PolygonShape();
@@ -37,8 +33,9 @@ public abstract class TileObject { // all objects for world and its listener
 
   public void inContactAct(
       PlayGameScreen playGameScreen) { // to determine which object is in the WorldContactListener
-    Player.setTouchedBouncer(this instanceof Bouncer);
-    Player.setEndingBouncer(this instanceof NextFloor);
+    Player player = playGameScreen.getPlayer();
+    player.setTouchedBouncer(this instanceof Bouncer);
+    player.setEndingBouncer(this instanceof EndingBouncer);
   }
 
   public float getX() {

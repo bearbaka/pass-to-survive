@@ -5,38 +5,33 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.company.passtosurvive.levels.PlayGameScreen;
 
 public class PauseScreen
     implements Screen { // the pause menu is launched when the pause button is
                         // pressed in the game
-  final Main game;
-  private TextureAtlas atlas;
-  private Skin skin;
+  private Main game;
   private Stage stage;
   private ImageButton resume, restart, mainMenu;
 
   public PauseScreen(final Main game) {
     this.game = game;
     stage = new Stage();
-    atlas = new TextureAtlas("AllComponents.pack");
-    skin = new Skin(Gdx.files.internal("Buttons.json"), atlas);
-    resume = new ImageButton(skin, "default5");
-    restart = new ImageButton(skin, "default6");
-    mainMenu = new ImageButton(skin, "default3");
+    resume = new ImageButton(Main.getButtonSkin(), "resumeButton");
+    restart = new ImageButton(Main.getButtonSkin(), "restartButton");
+    mainMenu = new ImageButton(Main.getButtonSkin(), "mainMenuButton");
     Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
     pixmap.setColor(Color.BLACK);
     pixmap.fillRectangle(0, 0, 1, 1);
     Texture blackBackground = new Texture(pixmap);
     pixmap.dispose();
     Image transparentBlackBackground = new Image(blackBackground);
+    blackBackground.dispose();
     transparentBlackBackground.setSize(Main.getScreenWidth(), Main.getScreenHeight());
     transparentBlackBackground.getColor().a = .1f;
     stage.addActor(transparentBlackBackground);
@@ -48,7 +43,6 @@ public class PauseScreen
       @Override
       public void clicked(InputEvent event, float x, float y) {
         dispose();
-        // game.setPreviousLevel();
         game.setScreen(PlayGameScreen.getLastScreen());
       }
     });
@@ -68,9 +62,6 @@ public class PauseScreen
       }
     });
   }
-
-  @Override
-  public void show() {}
 
   @Override
   public void render(float delta) {
@@ -100,6 +91,15 @@ public class PauseScreen
   }
 
   @Override
+  public void dispose() {
+    stage.dispose();
+    game.dispose();
+  }
+
+  @Override
+  public void show() {}
+
+  @Override
   public void pause() {}
 
   @Override
@@ -107,12 +107,4 @@ public class PauseScreen
 
   @Override
   public void hide() {}
-
-  @Override
-  public void dispose() {
-    stage.dispose();
-    atlas.dispose();
-    skin.dispose();
-    game.dispose();
-  }
 }

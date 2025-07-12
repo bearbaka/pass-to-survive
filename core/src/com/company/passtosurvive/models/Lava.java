@@ -15,7 +15,7 @@ public class Lava extends TileObject {
   public void inContactAct(PlayGameScreen playGameScreen) {
     super.inContactAct(playGameScreen);
     if (playGameScreen == playGameScreen.getGame().getScreen()) {
-      final Main game = playGameScreen.getGame();
+      Main game = playGameScreen.getGame();
       game.setScreen(new DeadScreen(game, this));
     }
   }

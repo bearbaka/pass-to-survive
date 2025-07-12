@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="403" height="17" tilewidth="32" tileheight="32" nextobjectid="3294">
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" tilecount="702">
-  <image source="tileset1.png" width="832" height="864"/>
+  <image source="Tileset1.png" width="832" height="864"/>
  </tileset>
  <tileset firstgid="703" name="2Dpalm" tilewidth="32" tileheight="32" tilecount="35">
   <image source="2DPalm.png" width="160" height="224"/>
  </tileset>
  <tileset firstgid="738" name="chest" tilewidth="32" tileheight="32" tilecount="6">
-  <image source="chest.png" width="96" height="64"/>
+  <image source="Chest.png" width="96" height="64"/>
  </tileset>
  <tileset firstgid="744" name="Blocks" tilewidth="32" tileheight="32" tilecount="4">
   <image source="Blocks.png" width="64" height="64"/>
  </tileset>
  <tileset firstgid="748" name="checkpoint" tilewidth="32" tileheight="32" tilecount="6">
-  <image source="checkpoint.png" width="96" height="64"/>
+  <image source="Checkpoint.png" width="96" height="64"/>
  </tileset>
  <layer name="background" width="403" height="17">
   <data encoding="base64" compression="zlib">
@@ -424,8 +424,8 @@
   <object id="3289" x="12747.9" y="191.818" width="7.96988" height="32.9352"/>
  </objectgroup>
  <objectgroup name="checkpoint">
-  <object id="676" x="4128" y="480.8" width="160" height="32"/>
-  <object id="3291" x="9088" y="384.8" width="96" height="32"/>
+  <object id="676" x="4128" y="481" width="160" height="32"/>
+  <object id="3291" x="9088" y="385" width="96" height="32"/>
  </objectgroup>
  <objectgroup name="continue">
   <object id="2655" x="12896" y="-107" width="496.961" height="320"/>

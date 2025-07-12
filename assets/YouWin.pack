@@ -1,108 +1,108 @@
 
-YOUWIN.png
+YouWin.png
 size: 4096, 4096
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-YOUWIN1
+youWin1
   rotate: false
   xy: 1924, 706
   size: 1920, 350
   orig: 1920, 350
   offset: 0, 0
   index: -1
-YOUWIN10
+youWin10
   rotate: false
   xy: 2, 1762
   size: 1920, 350
   orig: 1920, 350
   offset: 0, 0
   index: -1
-YOUWIN11
+youWin11
   rotate: false
   xy: 2, 2
   size: 1920, 350
   orig: 1920, 350
   offset: 0, 0
   index: -1
-YOUWIN12
+youWin12
   rotate: false
   xy: 2, 1058
   size: 1920, 350
   orig: 1920, 350
   offset: 0, 0
   index: -1
-YOUWIN13
+youWin13
   rotate: false
   xy: 2, 2114
   size: 1920, 350
   orig: 1920, 350
   offset: 0, 0
   index: -1
-YOUWIN14
+youWin14
   rotate: false
   xy: 1924, 1058
   size: 1920, 350
   orig: 1920, 350
   offset: 0, 0
   index: -1
-YOUWIN15
+youWin15
   rotate: false
   xy: 2, 1410
   size: 1920, 350
   orig: 1920, 350
   offset: 0, 0
   index: -1
-YOUWIN2
+youWin2
   rotate: false
   xy: 1924, 1762
   size: 1920, 350
   orig: 1920, 350
   offset: 0, 0
   index: -1
-YOUWIN3
+youWin3
   rotate: false
   xy: 2, 2466
   size: 1920, 350
   orig: 1920, 350
   offset: 0, 0
   index: -1
-YOUWIN4
+youWin4
   rotate: false
   xy: 2, 706
   size: 1920, 350
   orig: 1920, 350
   offset: 0, 0
   index: -1
-YOUWIN5
+youWin5
   rotate: false
   xy: 1924, 2114
   size: 1920, 350
   orig: 1920, 350
   offset: 0, 0
   index: -1
-YOUWIN6
+youWin6
   rotate: false
   xy: 1924, 354
   size: 1920, 350
   orig: 1920, 350
   offset: 0, 0
   index: -1
-YOUWIN7
+youWin7
   rotate: false
   xy: 1924, 1410
   size: 1920, 350
   orig: 1920, 350
   offset: 0, 0
   index: -1
-YOUWIN8
+youWin8
   rotate: false
   xy: 1924, 2466
   size: 1920, 350
   orig: 1920, 350
   offset: 0, 0
   index: -1
-YOUWIN9
+youWin9
   rotate: false
   xy: 2, 354
   size: 1920, 350

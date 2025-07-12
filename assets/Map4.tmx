@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="450" height="21" tilewidth="32" tileheight="32" nextobjectid="11519">
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" tilecount="702">
-  <image source="tileset1.png" width="832" height="864"/>
+  <image source="Tileset1.png" width="832" height="864"/>
  </tileset>
  <tileset firstgid="703" name="tileset4" tilewidth="32" tileheight="32" tilecount="56">
-  <image source="tileset2.png" width="256" height="224"/>
+  <image source="Tileset2.png" width="256" height="224"/>
  </tileset>
  <tileset firstgid="759" name="checkpoint" tilewidth="32" tileheight="32" tilecount="6">
-  <image source="checkpoint.png" width="96" height="64"/>
+  <image source="Checkpoint.png" width="96" height="64"/>
  </tileset>
  <layer name="background" width="450" height="21">
   <data encoding="base64" compression="zlib">
@@ -298,8 +298,8 @@
   <object id="2568" x="-127" y="-375.723" width="48.0669" height="1083.82"/>
  </objectgroup>
  <objectgroup name="checkpoint">
-  <object id="8372" x="14144" y="544.8" width="288" height="64"/>
-  <object id="10676" x="6848" y="544.8" width="416" height="64"/>
-  <object id="11514" x="4960" y="480.8" width="416" height="64"/>
+  <object id="8372" x="14144" y="545" width="288" height="64"/>
+  <object id="10676" x="6848" y="545" width="416" height="64"/>
+  <object id="11514" x="4960" y="481" width="416" height="64"/>
  </objectgroup>
 </map>

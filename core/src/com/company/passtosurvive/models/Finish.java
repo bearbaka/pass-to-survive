@@ -16,9 +16,11 @@ public class Finish extends TileObject {
   @Override
   public void inContactAct(PlayGameScreen playGameScreen) {
     super.inContactAct(playGameScreen);
-    final Main game = playGameScreen.getGame();
-    if (playGameScreen instanceof Level1Part2Screen) Level1Part2Screen.setFinished();
-    else Level2Part2Screen.setFinished();
-    game.setScreen(new WinScreen(game));
+    if (playGameScreen == playGameScreen.getGame().getScreen()) {
+      Main game = playGameScreen.getGame();
+      if (playGameScreen instanceof Level1Part2Screen) Level1Part2Screen.setFinished();
+      else Level2Part2Screen.setFinished();
+      game.setScreen(new WinScreen(game));
+    }
   }
 }
