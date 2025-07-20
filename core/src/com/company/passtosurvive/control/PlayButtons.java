@@ -15,19 +15,20 @@ import com.company.passtosurvive.models.Player;
 import com.company.passtosurvive.view.Main;
 import com.company.passtosurvive.view.PauseScreen;
 
+import lombok.Getter;
+
+@lombok.Builder
 public class PlayButtons
     implements Disposable { // has all the buttons and sticks for level screens, only they have this
-  // class
-  private static Stage stage;
-  private static Table stats, table;
+                            // class
+  @Getter private static Stage stage;
+  @Getter private static Table stats;
+  private static Table table;
   private static Label deaths, position, speed;
-  private static ImageButton pause, jump;
-  private static JoyStick joyStick;
+  @Getter private static ImageButton jump;
+  private static ImageButton pause;
+  @Getter private static JoyStick joyStick;
   private static BitmapFont font;
-  private Main game;
-  private final float xMaxSpeed, yMaxSpeed;
-  private Player player;
-
   static {
     stage = new Stage();
     pause = new ImageButton(Main.getButtonSkin(), "pauseButton");
@@ -41,8 +42,7 @@ public class PlayButtons
     stage.addActor(jump);
     stage.addActor(joyStick);
     font = new BitmapFont();
-    Label label =
-        new Label("DEATHS", new Label.LabelStyle(font, new Color(0, 191, 0, 1)));
+    Label label = new Label("DEATHS", new Label.LabelStyle(font, new Color(0, 191, 0, 1)));
     label.setFontScale(4f * Main.getScreenHeight() / 1080);
     deaths =
         new Label(
@@ -57,48 +57,6 @@ public class PlayButtons
     table.add(deaths).right().padRight(10f * Main.getScreenWidth() / 1794);
     stage.addActor(table);
   }
-
-  public static class Builder {
-    private final Main game;
-    private Player player;
-    private float xMaxSpeed, yMaxAccel;
-
-    public Builder(final Main game, Player player) {
-      this.game = game;
-      this.player = player;
-    }
-
-    public Builder setXMaxSpeed(float xMaxSpeed) {
-      this.xMaxSpeed = xMaxSpeed;
-      return this;
-    }
-
-    public Builder setYMaxAccel(float yMaxAccel) {
-      this.yMaxAccel = yMaxAccel;
-      return this;
-    }
-
-    public PlayButtons build() {
-      return new PlayButtons(this);
-    }
-  }
-
-  public PlayButtons(Builder builder) {
-    game = builder.game;
-    player = builder.player;
-    xMaxSpeed = builder.xMaxSpeed;
-    yMaxSpeed = builder.yMaxAccel;
-    joyStick.setUnTouched();
-    pause.removeListener(pause.getClickListener());
-    pause.addListener(
-        new ClickListener() {
-          @Override
-          public void clicked(InputEvent event, float x, float y) {
-            game.setScreen(new PauseScreen(game));
-          }
-        });
-  }
-
   public static void createStats() {
     stats = new Table();
     stats.top();
@@ -111,6 +69,29 @@ public class PlayButtons
     stats.row();
     stats.add(speed);
   }
+  private Main game;
+
+  private final float xMaxSpeed, yMaxAccel;
+
+  private Player player;
+
+  public PlayButtons(Main game, float xMaxSpeed, float yMaxAccel, Player player) {
+    this.game = game;
+    this.player = player;
+    this.xMaxSpeed = xMaxSpeed;
+    this.yMaxAccel = yMaxAccel;
+    joyStick.setVisible(true);
+    jump.setVisible(true);
+    joyStick.setUnTouched();
+    pause.removeListener(pause.getClickListener());
+    pause.addListener(
+        new ClickListener() {
+          @Override
+          public void clicked(InputEvent event, float x, float y) {
+            game.setScreen(new PauseScreen(game));
+          }
+        });
+  }
 
   public void updateDeaths() {
     deaths.setText(Integer.toString(Player.getDeaths()));
@@ -120,45 +101,31 @@ public class PlayButtons
     if (position == null & speed == null) createStats();
     position.setText(
         String.format(
-            "Position:(%.3f,%.3f)", player.getBodyPositionX(), player.getBodyPositionY()));
+            "Position:(%.3f,%.3f)", player.getPosition().x, player.getPosition().y));
     speed.setText(
         String.format(
             "Speed:[%.3f,%.3f]",
-            player.getPlayerBody().getLinearVelocity().x,
-            player.getPlayerBody().getLinearVelocity().y));
+            player.getLinearVelocity().x,
+            player.getLinearVelocity().y));
   }
 
   // method for controlling the player model & updating stats
   public void update() {
     if (!PlayGameScreen.isCheatsEnabled()) {
       player
-          .getPlayerBody()
           .applyLinearImpulse(
-              new Vector2(-player.getPlayerBody().getLinearVelocity().x, 0),
-              player.getPlayerBody().getWorldCenter(),
+              new Vector2(-player.getLinearVelocity().x, 0),
+              player.getWorldCenter(),
               true); // we need the player to stop immediately after releasing the joystick
       player
-          .getPlayerBody()
           .applyLinearImpulse(
               new Vector2(joyStick.getValueX() * xMaxSpeed, 0),
-              player.getPlayerBody().getWorldCenter(),
+              player.getWorldCenter(),
               true);
-      if (jump.isPressed()) player.jump(yMaxSpeed);
+      if (jump.isPressed()) player.jump(yMaxAccel);
     } else { // cheats
       player
-          .getPlayerBody()
-          .applyLinearImpulse(
-              new Vector2(
-                  -player.getPlayerBody().getLinearVelocity().x,
-                  -player.getPlayerBody().getLinearVelocity().y),
-              player.getPlayerBody().getWorldCenter(),
-              true);
-      player
-          .getPlayerBody()
-          .applyLinearImpulse(
-              new Vector2(joyStick.getValueX() * 18f, joyStick.getValueY() * 9f),
-              player.getPlayerBody().getWorldCenter(),
-              true);
+          .setLinearVelocity(joyStick.getValueX() * 18f, joyStick.getValueY() * 9f);
     }
     if (PlayGameScreen.isStatsEnabled()) updateStats();
   }
@@ -166,21 +133,5 @@ public class PlayButtons
   @Override
   public void dispose() {
     game.dispose();
-  }
-
-  public Table getStats() {
-    return stats;
-  }
-
-  public Stage getStage() {
-    return stage;
-  }
-
-  public ImageButton getJump() {
-    return jump;
-  }
-
-  public JoyStick getJoyStick() {
-    return joyStick;
   }
 }

@@ -7,10 +7,11 @@ import com.company.passtosurvive.models.Player;
 import com.company.passtosurvive.tools.b2WorldCreator;
 import com.company.passtosurvive.view.Main;
 
+import lombok.Getter;
+
 public class Level2Part1Screen extends PlayGameScreen { // level 2 part 1 starts in the main menu
-  private static float playerCheckpointX;
-  private static float playerCheckpointY;
-  private static boolean finished;
+  private static float playerCheckpointX, playerCheckpointY;
+  @Getter private static boolean finished;
 
   static {
     // default spawn
@@ -27,25 +28,29 @@ public class Level2Part1Screen extends PlayGameScreen { // level 2 part 1 starts
     // playerCheckpointY=400/Main.PPM;
   }
 
+  public static void setFinished() {
+    finished = true;
+  }
+
   public Level2Part1Screen(final Main game) {
-    super(
-        new Builder(game)
-            .setXMaxSpeed(3f)
-            .setYMaxAccel(8f)
-            .setBouncerYMaxAccel(10f)
-            .setGravity(-21));
+    super(new Builder(game).xMaxSpeed(4f).yMaxAccel(8f).bouncerYMaxAccel(10f).gravity(-21));
     mapPort = new FitViewport(level2WorldWidth, level2WorldHeight, cam);
     cam.position.set(mapPort.getWorldWidth() / 2, mapPort.getWorldHeight() / 2, 0);
     map = mapLoader.load("Map3.tmx");
-    renderer = new OrthogonalTiledMapRenderer(map, 1 / Main.PPM); // I divide almost all values
-                                                                  // associated with the map by
-                                                                  // PPM so that there are no
-                                                                  // problems with units of vector2, force, velocity, etc
+    renderer =
+        new OrthogonalTiledMapRenderer(
+            map,
+            1
+                / Main
+                    .PPM); // I divide almost all values associated with the map by PPM so that
+                           // there are no problems with units of vector2, force, velocity, etc
     player = new Player(world, playerCheckpointX, playerCheckpointY);
     buttons =
-        new PlayButtons.Builder(game, player)
-            .setXMaxSpeed(xMaxSpeed)
-            .setYMaxAccel(yMaxAccel)
+        PlayButtons.builder()
+            .game(game)
+            .player(player)
+            .xMaxSpeed(xMaxSpeed)
+            .yMaxAccel(yMaxAccel)
             .build();
     new b2WorldCreator(world, map, this);
   }
@@ -68,13 +73,5 @@ public class Level2Part1Screen extends PlayGameScreen { // level 2 part 1 starts
   public void restart() {
     super.restart();
     player.reset(playerCheckpointX, playerCheckpointY);
-  }
-
-  public static boolean isFinished() {
-    return finished;
-  }
-
-  public static void setFinished() {
-    finished = true;
   }
 }

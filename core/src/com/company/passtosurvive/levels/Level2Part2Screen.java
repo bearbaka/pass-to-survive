@@ -7,23 +7,32 @@ import com.company.passtosurvive.models.Player;
 import com.company.passtosurvive.tools.b2WorldCreator;
 import com.company.passtosurvive.view.Main;
 
+import lombok.Getter;
+
 public class Level2Part2Screen
     extends PlayGameScreen {  // level 2 part 2 is triggered when the
                               // player collides with a certain object in
                               // part 1
-  private static float playerCheckpointX;
-  private static float playerCheckpointY;
-  private static boolean finished;
+  private static float playerCheckpointX, playerCheckpointY;
+  @Getter private static boolean finished;
 
   static {
     playerCheckpointY=704/Main.PPM;
   }
 
+  public static void setFinished(){
+    finished=true;
+  }
+
+  public static void setPlayerCheckpointX(float playerCheckpointX) {
+    Level2Part2Screen.playerCheckpointX = playerCheckpointX;
+  }
+
   public Level2Part2Screen(final Main game) {
     super(new Builder(game)
-              .setXMaxSpeed(3f)
-              .setYMaxAccel(7f)
-              .setBouncerYMaxAccel(8f).setGravity(-21));
+              .xMaxSpeed(4f)
+              .yMaxAccel(7f)
+              .bouncerYMaxAccel(8f).gravity(-21));
     mapPort = new FitViewport(level2WorldWidth,
                               level2WorldHeight, cam);
     cam.position.set(mapPort.getWorldWidth() / 2, mapPort.getWorldHeight() / 2, 0);
@@ -33,31 +42,22 @@ public class Level2Part2Screen
                                                                   // PPM so that there are no
                                                                   // problems with units of vector2, force, velocity, etc
     player = new Player(world, playerCheckpointX, playerCheckpointY);
-    buttons = new PlayButtons.Builder(game, player)
-                  .setXMaxSpeed(xMaxSpeed)
-                  .setYMaxAccel(yMaxAccel)
-                  .build();
+    buttons =
+        PlayButtons.builder()
+            .game(game)
+            .player(player)
+            .xMaxSpeed(xMaxSpeed)
+            .yMaxAccel(yMaxAccel)
+            .build();
     new b2WorldCreator(world, map, this);
   }
-
+  
   @Override
   public void render(float delta) {
     buttons.update();
     update(delta);
     super.render(delta);
     if(finished) dispose();
-  }
-
-  public static boolean isFinished() {
-    return finished;
-  }
-
-  public static void setFinished(){
-    finished=true;
-  }
-  
-  public static void setPlayerCheckpointX(float playerCheckpointX) {
-    Level2Part2Screen.playerCheckpointX = playerCheckpointX;
   }
 
   @Override

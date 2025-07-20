@@ -13,8 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.company.passtosurvive.levels.PlayGameScreen;
 
 public class PauseScreen
-    implements Screen { // the pause menu is launched when the pause button is
-                        // pressed in the game
+    implements Screen { // the pause menu is launched when the pause button is pressed in the game
   private Main game;
   private Stage stage;
   private ImageButton resume, restart, mainMenu;
@@ -39,28 +38,31 @@ public class PauseScreen
     stage.addActor(resume);
     stage.addActor(mainMenu);
     Gdx.input.setInputProcessor(stage);
-    resume.addListener(new ClickListener() {
-      @Override
-      public void clicked(InputEvent event, float x, float y) {
-        dispose();
-        game.setScreen(PlayGameScreen.getLastScreen());
-      }
-    });
-    restart.addListener(new ClickListener() {
-      @Override
-      public void clicked(InputEvent event, float x, float y) {
-        dispose();
-        PlayGameScreen.getLastScreen().restart();
-        game.setScreen(PlayGameScreen.getLastScreen());
-      }
-    });
-    mainMenu.addListener(new ClickListener() {
-      @Override
-      public void clicked(InputEvent event, float x, float y) {
-        dispose();
-        game.setScreen(new MainMenuScreen(game));
-      }
-    });
+    resume.addListener(
+        new ClickListener() {
+          @Override
+          public void clicked(InputEvent event, float x, float y) {
+            dispose();
+            game.setScreen(PlayGameScreen.getLastScreen());
+          }
+        });
+    restart.addListener(
+        new ClickListener() {
+          @Override
+          public void clicked(InputEvent event, float x, float y) {
+            dispose();
+            PlayGameScreen.getLastScreen().restart();
+            game.setScreen(PlayGameScreen.getLastScreen());
+          }
+        });
+    mainMenu.addListener(
+        new ClickListener() {
+          @Override
+          public void clicked(InputEvent event, float x, float y) {
+            dispose();
+            game.setScreen(new MainMenuScreen(game));
+          }
+        });
   }
 
   @Override
@@ -70,24 +72,21 @@ public class PauseScreen
   }
 
   @Override
-  public void resize(int width,
-                     int height) { // in the presentation I explained
-                                   // why I divide 1794 by Main.getScreenWidth()
-    resume.setSize(700 / (1794 / Main.getScreenWidth()),
-                   234f / (1794 / Main.getScreenWidth()));
-    restart.setSize(700 / (1794 / Main.getScreenWidth()),
-                    234f / (1794 / Main.getScreenWidth()));
-    mainMenu.setSize(700 / (1794 / Main.getScreenWidth()),
-                     234f / (1794 / Main.getScreenWidth()));
-    resume.setPosition((Main.getScreenWidth() / 2) - ((resume.getWidth()) / 2),
-                       (Main.getScreenHeight() / 2) +
-                           150f / (1794 / Main.getScreenWidth()));
-    restart.setPosition((Main.getScreenWidth() / 2) - ((resume.getWidth()) / 2),
-                        (Main.getScreenHeight() / 2) -
-                            100f / (1794 / Main.getScreenWidth()));
-    mainMenu.setPosition((Main.getScreenWidth() / 2) - ((resume.getWidth()) / 2),
-                         (Main.getScreenHeight() / 2) -
-                             350f / (1794 / Main.getScreenWidth()));
+  public void resize(
+      int width,
+      int height) { // Explained in Github repo
+    resume.setSize(700 / (1794 / Main.getScreenWidth()), 234f / (1794 / Main.getScreenWidth()));
+    restart.setSize(700 / (1794 / Main.getScreenWidth()), 234f / (1794 / Main.getScreenWidth()));
+    mainMenu.setSize(700 / (1794 / Main.getScreenWidth()), 234f / (1794 / Main.getScreenWidth()));
+    resume.setPosition(
+        (Main.getScreenWidth() / 2) - ((resume.getWidth()) / 2),
+        (Main.getScreenHeight() / 2) + 150f / (1794 / Main.getScreenWidth()));
+    restart.setPosition(
+        (Main.getScreenWidth() / 2) - ((resume.getWidth()) / 2),
+        (Main.getScreenHeight() / 2) - 100f / (1794 / Main.getScreenWidth()));
+    mainMenu.setPosition(
+        (Main.getScreenWidth() / 2) - ((resume.getWidth()) / 2),
+        (Main.getScreenHeight() / 2) - 350f / (1794 / Main.getScreenWidth()));
   }
 
   @Override

@@ -3,19 +3,17 @@ package com.company.passtosurvive.tools;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import lombok.Getter;
 
-public class MusicalAtmosphere
-    extends AssetManager { // used for music and sounds
-  private static boolean musicOn; // to check if music is enabled in settings
-  public static boolean isMusicOn() {
-    return musicOn;
-  }
+public class MusicalAtmosphere extends AssetManager { // used for music and sounds
+  @Getter private static boolean musicOn; // to check if music is enabled in settings
+
   public static void toggleMusicOn() {
     musicOn = !musicOn;
   }
 
   static {
-    musicOn=true;
+    musicOn = true;
   }
 
   public MusicalAtmosphere() { // loading everything
@@ -48,28 +46,42 @@ public class MusicalAtmosphere
     get("Level2Sound.ogg", Music.class).play();
   }
 
-  public void jumpSoundPlay() { get("PlayerJump.wav", Sound.class).play(); }
+  public void jumpSoundPlay() {
+    get("PlayerJump.wav", Sound.class).play();
+  }
 
   public void gameOverSoundPlay() {
     get("GameOverSound.wav", Sound.class).play();
   }
 
-  public void winSoundPlay() { get("WinSound.wav", Sound.class).play(); }
+  public void winSoundPlay() {
+    get("WinSound.wav", Sound.class).play();
+  }
 
-  public void ghoulSoundPlay() { get("GhoulSound.wav", Sound.class).play(); }
+  public void ghoulSoundPlay() {
+    get("GhoulSound.wav", Sound.class).play();
+  }
 
   public void mainMenuMusicPause() {
     get("MainMenuSound.ogg", Music.class).pause();
   }
 
-  public void level1MusicPause() { get("Level1Sound.ogg", Music.class).pause(); }
+  public void level1MusicPause() {
+    get("Level1Sound.ogg", Music.class).pause();
+  }
 
-  public void level2MusicPause() { get("Level2Sound.ogg", Music.class).pause(); }
+  public void level2MusicPause() {
+    get("Level2Sound.ogg", Music.class).pause();
+  }
 
-  public void endSoundPlay() { get("End.wav", Sound.class).play(); }
+  public void endSoundPlay() {
+    get("End.wav", Sound.class).play();
+  }
 
-  public boolean isAnyMusicPlaying(){
-    return get("MainMenuSound.ogg", Music.class).isPlaying() || get("Level2Sound.ogg", Music.class).isPlaying() || get("Level1Sound.ogg", Music.class).isPlaying();
+  public boolean isAnyMusicPlaying() {
+    return get("MainMenuSound.ogg", Music.class).isPlaying()
+        || get("Level2Sound.ogg", Music.class).isPlaying()
+        || get("Level1Sound.ogg", Music.class).isPlaying();
   }
 
   public void allPause() {

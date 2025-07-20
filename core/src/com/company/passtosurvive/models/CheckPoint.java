@@ -12,6 +12,6 @@ public class CheckPoint extends TileObject {
   @Override
   public void inContactAct(PlayGameScreen playGameScreen) {
     super.inContactAct(playGameScreen);
-    playGameScreen.setCheckpoint(getX(), getY()+0.3f);
+    playGameScreen.setCheckpoint(getBody().getPosition().x, getBody().getPosition().y + 0.3f);
   }
 }

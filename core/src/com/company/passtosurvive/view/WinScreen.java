@@ -18,8 +18,8 @@ import com.company.passtosurvive.levels.Level1Part2Screen;
 import com.company.passtosurvive.levels.Level2Part1Screen;
 import com.company.passtosurvive.levels.Level2Part2Screen;
 
-public class WinScreen implements Screen { // the victory screen is launched after completing the
-  // level completely
+public class WinScreen
+    implements Screen { // the victory screen is launched after completing the level completely
   private Main game;
   private Texture label, thanks;
   private SpriteBatch batch;
@@ -33,13 +33,11 @@ public class WinScreen implements Screen { // the victory screen is launched aft
     this.game = game;
     batch = new SpriteBatch();
     if (Level1Part2Screen.isFinished()
-        && Level2Part2Screen.isFinished()) { // when player have completely completed
-      // the game
+        && Level2Part2Screen.isFinished()) { // when player have completely completed the game
       label = new Texture("GameOverThanks.png");
       thanks = new Texture("ThanksForPlaying.png");
     } else if (Level1Part2Screen.isFinished()
-        ^ Level2Part2Screen.isFinished()) { // when one of the levels has
-      // passed
+        ^ Level2Part2Screen.isFinished()) { // when one of the levels has passed
       stage = new Stage();
       label = new Texture("ContinueWhite.png");
       animationAtlas = new TextureAtlas("YouWin.pack");

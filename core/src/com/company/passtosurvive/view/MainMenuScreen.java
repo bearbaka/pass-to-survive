@@ -20,8 +20,9 @@ import com.company.passtosurvive.levels.Level2Part2Screen;
 import com.company.passtosurvive.levels.PlayGameScreen;
 import com.company.passtosurvive.tools.MusicalAtmosphere;
 
-public class MainMenuScreen implements Screen { // the main menu starts at the beginning of the game
-  // through the pause menu you can return here
+public class MainMenuScreen
+    implements Screen { // the main menu starts at the beginning of the game through the pause menu
+                        // you can return here
   private Main game;
   private SpriteBatch batch;
   private Texture background, information;
@@ -40,8 +41,11 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
     animationLogoAtlas = new TextureAtlas("Logo.pack");
     information = new Texture("GameInfo.png");
     for (int i = 1; i <= 175; i += 3) {
-      frames.add(animationLogoAtlas.findRegion("logo" + i)); // I increase i here by 3 because there are
-      // too many textures in the atlas (177)
+      frames.add(
+          animationLogoAtlas.findRegion(
+              "logo"
+                  + i)); // I increase i here by 3 because there are too many textures in the atlas
+                         // (177)
     }
     frames.add(animationLogoAtlas.findRegion("logo177"));
     animation = new Animation(0.05f, frames);
@@ -50,8 +54,7 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
     stage = new Stage();
     play = new ImageButton(Main.getButtonSkin(), "playButton");
     play.addListener(
-        new ClickListener() { // create a listener for it that will
-          // read keystrokes
+        new ClickListener() { // create a listener for it that will read keystrokes
           @Override
           public void clicked(InputEvent event, float x, float y) {
             level1.setVisible(true);
@@ -65,8 +68,7 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
         });
     exit = new ImageButton(Main.getButtonSkin(), "exitButton");
     exit.addListener(
-        new ClickListener() { // create a listener for it that will
-          // read keystrokes
+        new ClickListener() { // create a listener for it that will read keystrokes
           @Override
           public void clicked(InputEvent event, float x, float y) {
             dispose();
@@ -76,8 +78,7 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
     sound = new ImageButton(Main.getButtonSkin(), "soundButton");
     soundIsOff = new ImageButton(Main.getButtonSkin(), "soundOffButton");
     soundIsOff.addListener(
-        new ClickListener() { // create a listener for it
-          // that will read keystrokes
+        new ClickListener() { // create a listener for it that will read keystrokes
           @Override
           public void clicked(InputEvent event, float x, float y) {
             soundIsOff.setVisible(false);
@@ -87,8 +88,7 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
           }
         });
     sound.addListener(
-        new ClickListener() { // create a listener for it that
-          // will read keystrokes
+        new ClickListener() { // create a listener for it that will read keystrokes
           @Override
           public void clicked(InputEvent event, float x, float y) {
             soundIsOff.setVisible(true);
@@ -99,8 +99,7 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
         });
     info = new ImageButton(Main.getButtonSkin(), "infoButton");
     info.addListener(
-        new ClickListener() { // create a listener for it that will
-          // read keystrokes
+        new ClickListener() { // create a listener for it that will read keystrokes
           @Override
           public void clicked(InputEvent event, float x, float y) {
             infoIsPressed = !infoIsPressed;
@@ -110,8 +109,7 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
         });
     level1 = new ImageButton(Main.getButtonSkin(), "level1Button");
     level1.addListener(
-        new ClickListener() { // create a listener for it that
-          // will read keystrokes
+        new ClickListener() { // create a listener for it that will read keystrokes
           @Override
           public void clicked(InputEvent event, float x, float y) {
             dispose();
@@ -119,14 +117,16 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
               if (PlayGameScreen.getLastScreen() instanceof Level1Part1Screen)
                 game.setScreen(PlayGameScreen.getLastScreen());
               else {
-                if(PlayGameScreen.getLastScreen()!=null) PlayGameScreen.getLastScreen().dispose();
+                if (PlayGameScreen.getLastScreen() != null)
+                  PlayGameScreen.getLastScreen().dispose();
                 game.setScreen(new Level1Part1Screen(game));
               }
             } else {
               if (PlayGameScreen.getLastScreen() instanceof Level1Part2Screen)
                 game.setScreen(PlayGameScreen.getLastScreen());
               else {
-                if(PlayGameScreen.getLastScreen()!=null) PlayGameScreen.getLastScreen().dispose();
+                if (PlayGameScreen.getLastScreen() != null)
+                  PlayGameScreen.getLastScreen().dispose();
                 game.setScreen(new Level1Part2Screen(game));
               }
             }
@@ -142,14 +142,16 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
               if (PlayGameScreen.getLastScreen() instanceof Level2Part1Screen)
                 game.setScreen(PlayGameScreen.getLastScreen());
               else {
-                if(PlayGameScreen.getLastScreen()!=null) PlayGameScreen.getLastScreen().dispose();
+                if (PlayGameScreen.getLastScreen() != null)
+                  PlayGameScreen.getLastScreen().dispose();
                 game.setScreen(new Level2Part1Screen(game));
               }
             } else {
               if (PlayGameScreen.getLastScreen() instanceof Level2Part2Screen)
                 game.setScreen(PlayGameScreen.getLastScreen());
               else {
-                if(PlayGameScreen.getLastScreen()!=null) PlayGameScreen.getLastScreen().dispose();
+                if (PlayGameScreen.getLastScreen() != null)
+                  PlayGameScreen.getLastScreen().dispose();
                 game.setScreen(new Level2Part2Screen(game));
               }
             }
@@ -168,8 +170,8 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
     Gdx.input.setInputProcessor(stage); // so that clicks are processed only by stage
   }
 
-  public void titleAnimationRender() { // in the presentation I explained why I divide 1920
-    // / by the screen size of the device on which I run
+  public void
+      titleAnimationRender() { // Explained in Github repo
     logoAnimationStateTime += Gdx.graphics.getDeltaTime();
     batch.draw(
         animation.getKeyFrame(logoAnimationStateTime, true),
@@ -200,8 +202,10 @@ public class MainMenuScreen implements Screen { // the main menu starts at the b
   }
 
   @Override
-  public void resize(int width, int height) { // in the presentation I explained why I optimize the
-    // sizes of buttons for the screen in my own way
+  public void resize(
+      int width,
+      int
+          height) { // Explained in Github repo
     sound.setSize(150 / (1794 / Main.getScreenWidth()), 117 / (1794 / Main.getScreenWidth()));
     sound.setPosition(0, Main.getScreenHeight() / 2 + 100 / (1080 / Main.getScreenHeight()));
     soundIsOff.setSize(150 / (1794 / Main.getScreenWidth()), 117 / (1794 / Main.getScreenWidth()));

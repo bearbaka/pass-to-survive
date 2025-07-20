@@ -4,6 +4,9 @@ java {
         languageVersion = JavaLanguageVersion.of(11)
     }
 }
+dependencies {
+    implementation files('../android/libs/lombok-api.jar')
+}
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 sourceSets.main.java.srcDirs = [ "src/" ]

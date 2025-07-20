@@ -21,7 +21,7 @@ android {
     defaultConfig {
         applicationId "com.company.passtosurvive"
         namespace "com.company.passtosurvive"
-        minSdkVersion 14
+        minSdk 14
         targetSdk 35
         versionCode 1
         versionName '2.0'

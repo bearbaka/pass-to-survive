@@ -19,8 +19,8 @@ import com.company.passtosurvive.models.Player;
 import com.company.passtosurvive.models.TileObject;
 
 public class DeadScreen
-    implements Screen { // GameOver screen starts when the player falls into
-                        // lava or dies from spikes
+    implements Screen { // GameOver screen starts when the player falls into lava or dies from
+                        // spikes
   private Main game;
   private Texture gameOver, label;
   private SpriteBatch batch;
@@ -38,28 +38,26 @@ public class DeadScreen
     Player.incrementDeaths();
     batch = new SpriteBatch();
     Array<TextureRegion> frames = new Array<TextureRegion>();
-    if (Player.getDeaths()==20) {
+    if (Player.getDeaths() == 20) {
       label = new Texture("ClickOnScreen.png");
       animationAtlas = new TextureAtlas("Ghoul.pack");
-      for (int i = 1; i <= 13; i++)
-        frames.add(animationAtlas.findRegion("ghoul" + i));
+      for (int i = 1; i <= 13; i++) frames.add(animationAtlas.findRegion("ghoul" + i));
       animation = new Animation(0.08f, frames);
       frames.clear();
     } else {
       if (lavaKilled) {
         animationAtlas = new TextureAtlas("Fire.pack");
-        for (int i = 1; i <= 6; i++)
-          frames.add(animationAtlas.findRegion("fire" + i));
+        for (int i = 1; i <= 6; i++) frames.add(animationAtlas.findRegion("fire" + i));
         animation = new Animation(0.15f, frames);
         frames.clear();
       } else {
         gameOver = new Texture("GameOver.png");
         animationAtlas = new TextureAtlas("BloodySpikes.pack");
-        for (int i = 1; i <= 37; i += 2) // skipped some frames on purpose
-                                         // because the drop would fall too slow
-          frames.add(animationAtlas.findRegion("bloodySpike" + i));
-        for (int i = 38; i <= 48; i++)
-          frames.add(animationAtlas.findRegion("bloodySpike" + i));
+        for (int i = 1;
+            i <= 37;
+            i += 2) // skipped some frames on purpose because the drop would fall too slow
+        frames.add(animationAtlas.findRegion("bloodySpike" + i));
+        for (int i = 38; i <= 48; i++) frames.add(animationAtlas.findRegion("bloodySpike" + i));
         animation = new Animation(0.05f, frames);
         frames.clear();
       }
@@ -70,44 +68,56 @@ public class DeadScreen
       stage.addActor(Yes);
       stage.addActor(No);
       Gdx.input.setInputProcessor(stage);
-      No.addListener(new ClickListener() {
-        @Override
-        public void clicked(InputEvent event, float x, float y) {
-          dispose();
-          game.setScreen(new MainMenuScreen(game));
-        }
-      });
-      Yes.addListener(new ClickListener() {
-        @Override
-        public void clicked(InputEvent event, float x, float y) {
-          dispose();
-          game.setScreen(PlayGameScreen.getLastScreen());
-        }
-      });
+      No.addListener(
+          new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+              dispose();
+              game.setScreen(new MainMenuScreen(game));
+            }
+          });
+      Yes.addListener(
+          new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+              dispose();
+              game.setScreen(PlayGameScreen.getLastScreen());
+            }
+          });
       Main.getMusic().gameOverSoundPlay();
     }
   }
 
   public void fireRender() { // I explained this in slides (.pptx file)
     animationStateTime += Gdx.graphics.getDeltaTime();
-    batch.draw(animation.getKeyFrame(animationStateTime, true), 0, Main.getScreenHeight() / 2,
-               Main.getScreenWidth(), Main.getScreenHeight() / 3f);
+    batch.draw(
+        animation.getKeyFrame(animationStateTime, true),
+        0,
+        Main.getScreenHeight() / 2,
+        Main.getScreenWidth(),
+        Main.getScreenHeight() / 3f);
   }
 
   public void bloodySpikeRender() { // I explained this in slides (.pptx file)
     animationStateTime += Gdx.graphics.getDeltaTime();
-    batch.draw(animation.getKeyFrame(animationStateTime, false),
-               Main.getScreenWidth() / 2 - (168 / (1794 / Main.getScreenWidth())),
-               Main.getScreenHeight() / 2 - 80 / (1080 / Main.getScreenHeight()) +
-                   Main.getScreenHeight() / 5.1f,
-               336 / (1794 / Main.getScreenWidth()), 336 / (1794 / Main.getScreenWidth()));
+    batch.draw(
+        animation.getKeyFrame(animationStateTime, false),
+        Main.getScreenWidth() / 2 - (168 / (1794 / Main.getScreenWidth())),
+        Main.getScreenHeight() / 2
+            - 80 / (1080 / Main.getScreenHeight())
+            + Main.getScreenHeight() / 5.1f,
+        336 / (1794 / Main.getScreenWidth()),
+        336 / (1794 / Main.getScreenWidth()));
   }
 
   public void handRender() { // I explained this in slides (.pptx file)
     animationStateTime += Gdx.graphics.getDeltaTime();
-    batch.draw(animation.getKeyFrame(animationStateTime, false),
-               -640 / (720 / Main.getScreenHeight()) + (Main.getScreenWidth() / 2), 0,
-               1280 / (720 / Main.getScreenHeight()), 720 / (720 / Main.getScreenHeight()));
+    batch.draw(
+        animation.getKeyFrame(animationStateTime, false),
+        -640 / (720 / Main.getScreenHeight()) + (Main.getScreenWidth() / 2),
+        0,
+        1280 / (720 / Main.getScreenHeight()),
+        720 / (720 / Main.getScreenHeight()));
   }
 
   @Override
@@ -121,9 +131,11 @@ public class DeadScreen
       }
       if (timer >= 7) {
         batch.draw(
-            label, Main.getScreenWidth() / 2 - (467.5f / (1794 / Main.getScreenWidth())),
+            label,
+            Main.getScreenWidth() / 2 - (467.5f / (1794 / Main.getScreenWidth())),
             Main.getScreenHeight() / 2 + 200 / (1080 / Main.getScreenHeight()),
-            935 / (1794 / Main.getScreenWidth()), 50.5f / (1794 / Main.getScreenWidth()));
+            935 / (1794 / Main.getScreenWidth()),
+            50.5f / (1794 / Main.getScreenWidth()));
       } else if (timer >= 3.9f && !played) {
         Main.getMusic().ghoulSoundPlay();
         played = true;
@@ -132,46 +144,49 @@ public class DeadScreen
         dispose();
         game.setScreen(PlayGameScreen.getLastScreen());
       }
-    }
-    else {
+    } else {
       if (lavaKilled) {
         fireRender();
         if (timer >= 3) {
-          batch.draw(label,
-                     Main.getScreenWidth() / 2 -
-                         ((1266.7f / (1794 / Main.getScreenWidth())) / 2),
-                     Main.getScreenHeight() / 2 - 66.6f / (1794 / Main.getScreenWidth()) -
-                         50 / (1080 / Main.getScreenHeight()),
-                     1266.7f / (1794 / Main.getScreenWidth()),
-                     66.6f / (1794 / Main.getScreenWidth()));
+          batch.draw(
+              label,
+              Main.getScreenWidth() / 2 - ((1266.7f / (1794 / Main.getScreenWidth())) / 2),
+              Main.getScreenHeight() / 2
+                  - 66.6f / (1794 / Main.getScreenWidth())
+                  - 50 / (1080 / Main.getScreenHeight()),
+              1266.7f / (1794 / Main.getScreenWidth()),
+              66.6f / (1794 / Main.getScreenWidth()));
         }
       } else if (!lavaKilled) {
-        batch.draw(gameOver, 0,
-                   Main.getScreenHeight() / 2 - 80 / (1080 / Main.getScreenHeight()),
-                   Main.getScreenWidth(), Main.getScreenHeight() / 3f);
+        batch.draw(
+            gameOver,
+            0,
+            Main.getScreenHeight() / 2 - 80 / (1080 / Main.getScreenHeight()),
+            Main.getScreenWidth(),
+            Main.getScreenHeight() / 3f);
         bloodySpikeRender();
         if (timer >= 3) {
-          batch.draw(label,
-                     Main.getScreenWidth() / 2 -
-                         ((1266.7f / (1794 / Main.getScreenWidth())) / 2),
-                     Main.getScreenHeight() / 2 - 80 / (1080 / Main.getScreenHeight()) -
-                         66.6f / (1794 / Main.getScreenWidth()) -
-                         50 / (1080 / Main.getScreenHeight()),
-                     1266.7f / (1794 / Main.getScreenWidth()),
-                     66.6f / (1794 / Main.getScreenWidth()));
+          batch.draw(
+              label,
+              Main.getScreenWidth() / 2 - ((1266.7f / (1794 / Main.getScreenWidth())) / 2),
+              Main.getScreenHeight() / 2
+                  - 80 / (1080 / Main.getScreenHeight())
+                  - 66.6f / (1794 / Main.getScreenWidth())
+                  - 50 / (1080 / Main.getScreenHeight()),
+              1266.7f / (1794 / Main.getScreenWidth()),
+              66.6f / (1794 / Main.getScreenWidth()));
         }
       }
     }
     batch.end();
     if (Player.getDeaths() != 20) {
-      if (!lavaKilled && !animation.isAnimationFinished(animationStateTime) ||
-          timer < 3) {
+      if (!lavaKilled && !animation.isAnimationFinished(animationStateTime) || timer < 3) {
         Yes.setVisible(false);
         No.setVisible(false);
       } else if (timer >= 3) {
-          // to auto-click `yes` button
-        dispose();
-        game.setScreen(PlayGameScreen.getLastScreen());
+        // to auto-click `yes` button
+        // dispose();
+        // game.setScreen(PlayGameScreen.getLastScreen());
         Yes.setVisible(true);
         No.setVisible(true);
       }
@@ -181,33 +196,32 @@ public class DeadScreen
   }
 
   @Override
-  public void resize(int width,
-                     int height) { // I explained this in slides (.pptx file)
+  public void resize(int width, int height) { // I explained this in slides (.pptx file)
     if (Player.getDeaths() != 20) {
-      Yes.setSize(141.5f / (1794 / Main.getScreenWidth()),
-                  50 / (1794 / Main.getScreenWidth()));
-      No.setSize(141.5f / (1794 / Main.getScreenWidth()),
-                 50 / (1794 / Main.getScreenWidth()));
+      Yes.setSize(141.5f / (1794 / Main.getScreenWidth()), 50 / (1794 / Main.getScreenWidth()));
+      No.setSize(141.5f / (1794 / Main.getScreenWidth()), 50 / (1794 / Main.getScreenWidth()));
       Yes.setPosition(
           (Main.getScreenWidth() / 2) - (341.5f / (1794 / Main.getScreenWidth())),
-          (Main.getScreenHeight() / 2) - (66.6f / (1794 / Main.getScreenWidth())) -
-              (180 / (1080 / Main.getScreenHeight())) -
-              (100 / (1080 / Main.getScreenHeight())));
-      No.setPosition((Main.getScreenWidth() / 2) + (200f / (1794 / Main.getScreenWidth())),
-                     (Main.getScreenHeight() / 2) -
-                         (66.6f / (1794 / Main.getScreenWidth())) -
-                         (180 / (1080 / Main.getScreenHeight())) -
-                         (100 / (1080 / Main.getScreenHeight())));
+          (Main.getScreenHeight() / 2)
+              - (66.6f / (1794 / Main.getScreenWidth()))
+              - (180 / (1080 / Main.getScreenHeight()))
+              - (100 / (1080 / Main.getScreenHeight())));
+      No.setPosition(
+          (Main.getScreenWidth() / 2) + (200f / (1794 / Main.getScreenWidth())),
+          (Main.getScreenHeight() / 2)
+              - (66.6f / (1794 / Main.getScreenWidth()))
+              - (180 / (1080 / Main.getScreenHeight()))
+              - (100 / (1080 / Main.getScreenHeight())));
     }
   }
 
   @Override
   public void dispose() {
     label.dispose();
-    if(gameOver!=null) gameOver.dispose();
+    if (gameOver != null) gameOver.dispose();
     animationAtlas.dispose();
     batch.dispose();
-    if(stage!=null) stage.dispose();
+    if (stage != null) stage.dispose();
     game.dispose();
   }
 

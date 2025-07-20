@@ -22,11 +22,11 @@ public class NextPart extends TileObject {
       Main game = playGameScreen.getGame();
       if (playGameScreen instanceof Level1Part1Screen) {
         Level1Part1Screen.setFinished();
-        Level1Part2Screen.setPlayerCheckpointY(player.getBodyPositionY());
+        Level1Part2Screen.setPlayerCheckpointY(player.getPosition().y);
         game.setScreen(new Level1Part2Screen(game));
       } else {
         Level2Part1Screen.setFinished();
-        Level2Part2Screen.setPlayerCheckpointX(player.getBodyPositionX());
+        Level2Part2Screen.setPlayerCheckpointX(player.getPosition().x);
         game.setScreen(new Level2Part2Screen(game));
       }
     }
