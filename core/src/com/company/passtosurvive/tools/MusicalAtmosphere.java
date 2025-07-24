@@ -3,14 +3,12 @@ package com.company.passtosurvive.tools;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+
 import lombok.Getter;
+import lombok.Setter;
 
 public class MusicalAtmosphere extends AssetManager { // used for music and sounds
-  @Getter private static boolean musicOn; // to check if music is enabled in settings
-
-  public static void toggleMusicOn() {
-    musicOn = !musicOn;
-  }
+  @Getter @Setter private static boolean musicOn; // to check if music is enabled in settings
 
   static {
     musicOn = true;
@@ -23,7 +21,7 @@ public class MusicalAtmosphere extends AssetManager { // used for music and soun
     load("GameOverSound.wav", Sound.class);
     load("PlayerJump.wav", Sound.class);
     load("WinSound.wav", Sound.class);
-    load("GhoulSound.wav", Sound.class);
+    load("HandSound.wav", Sound.class);
     load("End.wav", Sound.class);
     finishLoading();
   }
@@ -58,8 +56,8 @@ public class MusicalAtmosphere extends AssetManager { // used for music and soun
     get("WinSound.wav", Sound.class).play();
   }
 
-  public void ghoulSoundPlay() {
-    get("GhoulSound.wav", Sound.class).play();
+  public void handSoundPlay() {
+    get("HandSound.wav", Sound.class).play();
   }
 
   public void mainMenuMusicPause() {
@@ -98,7 +96,7 @@ public class MusicalAtmosphere extends AssetManager { // used for music and soun
     unload("GameOverSound.wav");
     unload("PlayerJump.wav");
     unload("WinSound.wav");
-    unload("GhoulSound.wav");
+    unload("HandSound.wav");
     unload("End.wav");
     super.dispose();
   }

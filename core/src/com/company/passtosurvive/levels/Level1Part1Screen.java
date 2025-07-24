@@ -17,7 +17,7 @@ public class Level1Part1Screen extends PlayGameScreen { // level 1 part 1 starts
     // default
     playerCheckpointX = 96 / Main.PPM;
     playerCheckpointY = 96 / Main.PPM;
-    // spawn below the lava to test stability for constant deaths
+    // spawn below the lava to test stability for constant restarts
     // playerCheckpointX=400/Main.PPM;
     // playerCheckpointY=500/Main.PPM;
     // check the roof bug when jumping

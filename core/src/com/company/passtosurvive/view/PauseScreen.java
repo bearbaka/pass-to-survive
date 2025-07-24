@@ -14,9 +14,9 @@ import com.company.passtosurvive.levels.PlayGameScreen;
 
 public class PauseScreen
     implements Screen { // the pause menu is launched when the pause button is pressed in the game
-  private Main game;
-  private Stage stage;
-  private ImageButton resume, restart, mainMenu;
+  private final Main game;
+  private final Stage stage;
+  private final ImageButton resume, restart, mainMenu;
 
   public PauseScreen(final Main game) {
     this.game = game;
@@ -24,12 +24,12 @@ public class PauseScreen
     resume = new ImageButton(Main.getButtonSkin(), "resumeButton");
     restart = new ImageButton(Main.getButtonSkin(), "restartButton");
     mainMenu = new ImageButton(Main.getButtonSkin(), "mainMenuButton");
-    Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+    final Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
     pixmap.setColor(Color.BLACK);
     pixmap.fillRectangle(0, 0, 1, 1);
-    Texture blackBackground = new Texture(pixmap);
+    final Texture blackBackground = new Texture(pixmap);
     pixmap.dispose();
-    Image transparentBlackBackground = new Image(blackBackground);
+    final Image transparentBlackBackground = new Image(blackBackground);
     blackBackground.dispose();
     transparentBlackBackground.setSize(Main.getScreenWidth(), Main.getScreenHeight());
     transparentBlackBackground.getColor().a = .1f;
@@ -41,7 +41,7 @@ public class PauseScreen
     resume.addListener(
         new ClickListener() {
           @Override
-          public void clicked(InputEvent event, float x, float y) {
+          public void clicked(final InputEvent event, final float x, final float y) {
             dispose();
             game.setScreen(PlayGameScreen.getLastScreen());
           }
@@ -49,7 +49,7 @@ public class PauseScreen
     restart.addListener(
         new ClickListener() {
           @Override
-          public void clicked(InputEvent event, float x, float y) {
+          public void clicked(final InputEvent event, final float x, final float y) {
             dispose();
             PlayGameScreen.getLastScreen().restart();
             game.setScreen(PlayGameScreen.getLastScreen());
@@ -58,7 +58,7 @@ public class PauseScreen
     mainMenu.addListener(
         new ClickListener() {
           @Override
-          public void clicked(InputEvent event, float x, float y) {
+          public void clicked(final InputEvent event, final float x, final float y) {
             dispose();
             game.setScreen(new MainMenuScreen(game));
           }
@@ -66,15 +66,15 @@ public class PauseScreen
   }
 
   @Override
-  public void render(float delta) {
+  public void render(final float delta) {
     stage.act(delta);
     stage.draw();
   }
 
   @Override
   public void resize(
-      int width,
-      int height) { // Explained in Github repo
+      final int width,
+      final int height) { // Explained in Github repo
     resume.setSize(700 / (1794 / Main.getScreenWidth()), 234f / (1794 / Main.getScreenWidth()));
     restart.setSize(700 / (1794 / Main.getScreenWidth()), 234f / (1794 / Main.getScreenWidth()));
     mainMenu.setSize(700 / (1794 / Main.getScreenWidth()), 234f / (1794 / Main.getScreenWidth()));

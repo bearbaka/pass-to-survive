@@ -18,46 +18,45 @@ import com.company.passtosurvive.models.Lava;
 import com.company.passtosurvive.models.Player;
 import com.company.passtosurvive.models.TileObject;
 
-public class DeadScreen
-    implements Screen { // GameOver screen starts when the player falls into lava or dies from
-                        // spikes
-  private Main game;
+public class GameOverScreen
+    implements Screen { 
+  private final Main game;
   private Texture gameOver, label;
-  private SpriteBatch batch;
+  private final SpriteBatch batch;
   private TextureAtlas animationAtlas;
   private Stage stage;
   private ImageButton Yes, No;
   private float animationStateTime, timer;
   private boolean played; // needed to start sound at a certain moment
   private Animation<TextureRegion> animation;
-  private boolean lavaKilled;
+  private final boolean lavaRestarted;
 
-  public DeadScreen(final Main game, TileObject whoKilled) {
+  public GameOverScreen(final Main game, final TileObject whoRestarted) {
     this.game = game;
-    this.lavaKilled = whoKilled instanceof Lava;
-    Player.incrementDeaths();
+    this.lavaRestarted = whoRestarted instanceof Lava;
+    Player.incrementRestarts();
     batch = new SpriteBatch();
-    Array<TextureRegion> frames = new Array<TextureRegion>();
-    if (Player.getDeaths() == 20) {
+    final Array<TextureRegion> frames = new Array<TextureRegion>();
+    if (Player.getRestarts() == 20) {
       label = new Texture("ClickOnScreen.png");
-      animationAtlas = new TextureAtlas("Ghoul.pack");
-      for (int i = 1; i <= 13; i++) frames.add(animationAtlas.findRegion("ghoul" + i));
+      animationAtlas = new TextureAtlas("Hands.pack");
+      for (int i = 1; i <= 13; i++) frames.add(animationAtlas.findRegion("hand" + i));
       animation = new Animation(0.08f, frames);
       frames.clear();
     } else {
-      if (lavaKilled) {
+      if (lavaRestarted) {
         animationAtlas = new TextureAtlas("Fire.pack");
         for (int i = 1; i <= 6; i++) frames.add(animationAtlas.findRegion("fire" + i));
         animation = new Animation(0.15f, frames);
         frames.clear();
       } else {
         gameOver = new Texture("GameOver.png");
-        animationAtlas = new TextureAtlas("BloodySpikes.pack");
+        animationAtlas = new TextureAtlas("Spikes.pack");
         for (int i = 1;
             i <= 37;
             i += 2) // skipped some frames on purpose because the drop would fall too slow
-        frames.add(animationAtlas.findRegion("bloodySpike" + i));
-        for (int i = 38; i <= 48; i++) frames.add(animationAtlas.findRegion("bloodySpike" + i));
+        frames.add(animationAtlas.findRegion("spike" + i));
+        for (int i = 38; i <= 48; i++) frames.add(animationAtlas.findRegion("spike" + i));
         animation = new Animation(0.05f, frames);
         frames.clear();
       }
@@ -71,7 +70,7 @@ public class DeadScreen
       No.addListener(
           new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void clicked(final InputEvent event, final float x, final float y) {
               dispose();
               game.setScreen(new MainMenuScreen(game));
             }
@@ -79,7 +78,7 @@ public class DeadScreen
       Yes.addListener(
           new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void clicked(final InputEvent event, final float x, final float y) {
               dispose();
               game.setScreen(PlayGameScreen.getLastScreen());
             }
@@ -95,17 +94,17 @@ public class DeadScreen
         0,
         Main.getScreenHeight() / 2,
         Main.getScreenWidth(),
-        Main.getScreenHeight() / 3f);
+        Main.getScreenWidth()*0.18f);
   }
 
-  public void bloodySpikeRender() { // I explained this in slides (.pptx file)
+  public void spikeRender() { // I explained this in slides (.pptx file)
     animationStateTime += Gdx.graphics.getDeltaTime();
     batch.draw(
         animation.getKeyFrame(animationStateTime, false),
         Main.getScreenWidth() / 2 - (168 / (1794 / Main.getScreenWidth())),
         Main.getScreenHeight() / 2
             - 80 / (1080 / Main.getScreenHeight())
-            + Main.getScreenHeight() / 5.1f,
+            + Main.getScreenWidth()*0.106f,
         336 / (1794 / Main.getScreenWidth()),
         336 / (1794 / Main.getScreenWidth()));
   }
@@ -121,11 +120,11 @@ public class DeadScreen
   }
 
   @Override
-  public void render(float delta) {
+  public void render(final float delta) {
     ScreenUtils.clear(0, 0, 0, 1, true); // clean up
     batch.begin();
     timer += delta;
-    if (Player.getDeaths() == 20) {
+    if (Player.getRestarts() == 20) {
       if (timer >= 3) {
         handRender();
       }
@@ -137,7 +136,7 @@ public class DeadScreen
             935 / (1794 / Main.getScreenWidth()),
             50.5f / (1794 / Main.getScreenWidth()));
       } else if (timer >= 3.9f && !played) {
-        Main.getMusic().ghoulSoundPlay();
+        Main.getMusic().handSoundPlay();
         played = true;
       }
       if (Gdx.input.justTouched() && timer >= 7) {
@@ -145,7 +144,7 @@ public class DeadScreen
         game.setScreen(PlayGameScreen.getLastScreen());
       }
     } else {
-      if (lavaKilled) {
+      if (lavaRestarted) {
         fireRender();
         if (timer >= 3) {
           batch.draw(
@@ -157,14 +156,14 @@ public class DeadScreen
               1266.7f / (1794 / Main.getScreenWidth()),
               66.6f / (1794 / Main.getScreenWidth()));
         }
-      } else if (!lavaKilled) {
+      } else if (!lavaRestarted) {
         batch.draw(
             gameOver,
             0,
             Main.getScreenHeight() / 2 - 80 / (1080 / Main.getScreenHeight()),
             Main.getScreenWidth(),
-            Main.getScreenHeight() / 3f);
-        bloodySpikeRender();
+            Main.getScreenWidth()*0.106f);
+        spikeRender();
         if (timer >= 3) {
           batch.draw(
               label,
@@ -179,8 +178,8 @@ public class DeadScreen
       }
     }
     batch.end();
-    if (Player.getDeaths() != 20) {
-      if (!lavaKilled && !animation.isAnimationFinished(animationStateTime) || timer < 3) {
+    if (Player.getRestarts() != 20) {
+      if (!lavaRestarted && !animation.isAnimationFinished(animationStateTime) || timer < 3) {
         Yes.setVisible(false);
         No.setVisible(false);
       } else if (timer >= 3) {
@@ -196,8 +195,8 @@ public class DeadScreen
   }
 
   @Override
-  public void resize(int width, int height) { // I explained this in slides (.pptx file)
-    if (Player.getDeaths() != 20) {
+  public void resize(final int width, final int height) { // I explained this in slides (.pptx file)
+    if (Player.getRestarts() != 20) {
       Yes.setSize(141.5f / (1794 / Main.getScreenWidth()), 50 / (1794 / Main.getScreenWidth()));
       No.setSize(141.5f / (1794 / Main.getScreenWidth()), 50 / (1794 / Main.getScreenWidth()));
       Yes.setPosition(

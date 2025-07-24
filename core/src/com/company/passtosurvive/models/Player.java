@@ -26,7 +26,7 @@ public class Player extends Sprite { // the player model is in every level scree
     SLIDING
   };
 
-  @Getter private static int deaths;
+  @Getter private static int restarts;
   private static BodyDef bDef;
   private static TextureAtlas atlas;
   private static TextureRegion playerJump;
@@ -35,18 +35,18 @@ public class Player extends Sprite { // the player model is in every level scree
   static {
     atlas = new TextureAtlas("Player.pack");
     final Array<TextureRegion> frames = new Array<TextureRegion>();
-    frames.add(atlas.findRegion("playerRun1"));
-    frames.add(atlas.findRegion("playerRun2"));
+    frames.add(atlas.findRegion("player1Run1"));
+    frames.add(atlas.findRegion("player1Run2"));
     playerRun = new Animation<TextureRegion>(0.2f, frames);
     frames.clear();
-    frames.add(atlas.findRegion("playerStay"));
-    frames.add(atlas.findRegion("playerStay1"));
-    frames.add(atlas.findRegion("playerStay2"));
+    frames.add(atlas.findRegion("player1Stay"));
+    frames.add(atlas.findRegion("player1Stay1"));
+    frames.add(atlas.findRegion("player1Stay2"));
     playerStand = new Animation<TextureRegion>(0.25f, frames);
     frames.clear();
     playerJump =
         new TextureRegion(
-            atlas.findRegion("playerFall"),
+            atlas.findRegion("player1Fall"),
             0,
             0,
             78,
@@ -55,23 +55,23 @@ public class Player extends Sprite { // the player model is in every level scree
     bDef.type = BodyDef.BodyType.DynamicBody;
   }
 
-  public static void incrementDeaths() {
-    Player.deaths++;
+  public static void incrementRestarts() {
+    Player.restarts++;
   }
 
   private static void changeSkin() {
-    if (deaths == 20) {
+    if (restarts == 20) {
       final Array<TextureRegion> frames = new Array<TextureRegion>();
-      frames.add(atlas.findRegion("ghoulRun1"));
-      frames.add(atlas.findRegion("ghoulRun2"));
+      frames.add(atlas.findRegion("player2Run1"));
+      frames.add(atlas.findRegion("player2Run2"));
       playerRun = new Animation<TextureRegion>(0.2f, frames);
       frames.clear();
-      frames.add(atlas.findRegion("ghoulStay"));
-      frames.add(atlas.findRegion("ghoulStay1"));
-      frames.add(atlas.findRegion("ghoulStay2"));
+      frames.add(atlas.findRegion("player2Stay"));
+      frames.add(atlas.findRegion("player2Stay1"));
+      frames.add(atlas.findRegion("player2Stay2"));
       playerStand = new Animation<TextureRegion>(0.25f, frames);
       frames.clear();
-      playerJump.setRegion(atlas.findRegion("ghoulFall"));
+      playerJump.setRegion(atlas.findRegion("player2Fall"));
     }
   }
 

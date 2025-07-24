@@ -23,21 +23,25 @@ import com.company.passtosurvive.tools.MusicalAtmosphere;
 public class MainMenuScreen
     implements Screen { // the main menu starts at the beginning of the game through the pause menu
                         // you can return here
-  private Main game;
-  private SpriteBatch batch;
-  private Texture background, information;
+  private final Main game;
+  private final SpriteBatch batch;
+  private final Texture background, information;
   private float logoAnimationStateTime;
-  private Stage stage;
-  private ImageButton exit, sound, info, play, level1, level2, soundIsOff;
-  private TextureAtlas animationLogoAtlas;
-  private Animation<TextureRegion> animation;
+  private final Stage stage;
+  private ImageButton exit, soundIsOn, info;
+  private final ImageButton play;
+  private ImageButton level1;
+  private ImageButton level2;
+  private ImageButton soundIsOff;
+  private final TextureAtlas animationLogoAtlas;
+  private final Animation<TextureRegion> animation;
   private boolean infoIsPressed;
 
   public MainMenuScreen(final Main game) {
     this.game = game;
     infoIsPressed = false;
     batch = new SpriteBatch();
-    Array<TextureRegion> frames = new Array<TextureRegion>();
+    final Array<TextureRegion> frames = new Array<TextureRegion>();
     animationLogoAtlas = new TextureAtlas("Logo.pack");
     information = new Texture("GameInfo.png");
     for (int i = 1; i <= 175; i += 3) {
@@ -56,52 +60,44 @@ public class MainMenuScreen
     play.addListener(
         new ClickListener() { // create a listener for it that will read keystrokes
           @Override
-          public void clicked(InputEvent event, float x, float y) {
+          public void clicked(final InputEvent event, final float x, final float y) {
             level1.setVisible(true);
             level2.setVisible(true);
             exit.setVisible(false);
             play.setVisible(false);
             info.setVisible(false);
-            sound.setVisible(false);
-            soundIsOff.setVisible(false);
           }
         });
     exit = new ImageButton(Main.getButtonSkin(), "exitButton");
     exit.addListener(
         new ClickListener() { // create a listener for it that will read keystrokes
           @Override
-          public void clicked(InputEvent event, float x, float y) {
+          public void clicked(final InputEvent event, final float x, final float y) {
             dispose();
             Gdx.app.exit();
           }
         });
-    sound = new ImageButton(Main.getButtonSkin(), "soundButton");
+    soundIsOn = new ImageButton(Main.getButtonSkin(), "soundButton");
     soundIsOff = new ImageButton(Main.getButtonSkin(), "soundOffButton");
     soundIsOff.addListener(
         new ClickListener() { // create a listener for it that will read keystrokes
           @Override
-          public void clicked(InputEvent event, float x, float y) {
-            soundIsOff.setVisible(false);
-            sound.setVisible(true);
-            Main.getMusic().mainMenuMusicPlay();
-            MusicalAtmosphere.toggleMusicOn();
+          public void clicked(final InputEvent event, final float x, final float y) {
+            MusicalAtmosphere.setMusicOn(true);
           }
         });
-    sound.addListener(
+    soundIsOn.addListener(
         new ClickListener() { // create a listener for it that will read keystrokes
           @Override
-          public void clicked(InputEvent event, float x, float y) {
-            soundIsOff.setVisible(true);
-            sound.setVisible(false);
-            Main.getMusic().allPause();
-            MusicalAtmosphere.toggleMusicOn();
+          public void clicked(final InputEvent event, final float x, final float y) {
+            MusicalAtmosphere.setMusicOn(false);
           }
         });
     info = new ImageButton(Main.getButtonSkin(), "infoButton");
     info.addListener(
         new ClickListener() { // create a listener for it that will read keystrokes
           @Override
-          public void clicked(InputEvent event, float x, float y) {
+          public void clicked(final InputEvent event, final float x, final float y) {
             infoIsPressed = !infoIsPressed;
             exit.setVisible(!exit.isVisible());
             play.setVisible(!play.isVisible());
@@ -111,7 +107,7 @@ public class MainMenuScreen
     level1.addListener(
         new ClickListener() { // create a listener for it that will read keystrokes
           @Override
-          public void clicked(InputEvent event, float x, float y) {
+          public void clicked(final InputEvent event, final float x, final float y) {
             dispose();
             if (!Level1Part1Screen.isFinished()) {
               if (PlayGameScreen.getLastScreen() instanceof Level1Part1Screen)
@@ -136,7 +132,7 @@ public class MainMenuScreen
     level2.addListener(
         new ClickListener() {
           @Override
-          public void clicked(InputEvent event, float x, float y) {
+          public void clicked(final InputEvent event, final float x, final float y) {
             dispose();
             if (!Level2Part1Screen.isFinished()) {
               if (PlayGameScreen.getLastScreen() instanceof Level2Part1Screen)
@@ -163,7 +159,7 @@ public class MainMenuScreen
     stage.addActor(exit);
     stage.addActor(play);
     stage.addActor(info);
-    stage.addActor(sound);
+    stage.addActor(soundIsOn);
     stage.addActor(soundIsOff);
     stage.addActor(level1);
     stage.addActor(level2);
@@ -182,7 +178,17 @@ public class MainMenuScreen
   }
 
   @Override
-  public void render(float delta) {
+  public void render(final float delta) {
+    if (MusicalAtmosphere.isMusicOn()){
+      soundIsOff.setVisible(false);
+      soundIsOn.setVisible(true);
+      Main.getMusic().mainMenuMusicPlay();
+    }
+    else {
+      soundIsOff.setVisible(true);
+      soundIsOn.setVisible(false);
+      Main.getMusic().allPause();
+    }
     ScreenUtils.clear(0, 0, 0, 1, true); // clean up
     batch.begin();
     batch.draw(background, 0, 0, Main.getScreenWidth(), Main.getScreenHeight());
@@ -203,11 +209,11 @@ public class MainMenuScreen
 
   @Override
   public void resize(
-      int width,
-      int
+      final int width,
+      final int
           height) { // Explained in Github repo
-    sound.setSize(150 / (1794 / Main.getScreenWidth()), 117 / (1794 / Main.getScreenWidth()));
-    sound.setPosition(0, Main.getScreenHeight() / 2 + 100 / (1080 / Main.getScreenHeight()));
+    soundIsOn.setSize(150 / (1794 / Main.getScreenWidth()), 117 / (1794 / Main.getScreenWidth()));
+    soundIsOn.setPosition(0, Main.getScreenHeight() / 2 + 100 / (1080 / Main.getScreenHeight()));
     soundIsOff.setSize(150 / (1794 / Main.getScreenWidth()), 117 / (1794 / Main.getScreenWidth()));
     soundIsOff.setPosition(0, Main.getScreenHeight() / 2 + 100 / (1080 / Main.getScreenHeight()));
     info.setSize(150 / (1794 / Main.getScreenWidth()), 117 / (1794 / Main.getScreenWidth()));
@@ -251,7 +257,6 @@ public class MainMenuScreen
 
   @Override
   public void show() {
-    if (MusicalAtmosphere.isMusicOn()) Main.getMusic().mainMenuMusicPlay();
   }
 
   @Override

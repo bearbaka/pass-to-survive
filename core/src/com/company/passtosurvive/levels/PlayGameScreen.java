@@ -17,7 +17,7 @@ import com.company.passtosurvive.control.PlayButtons;
 import com.company.passtosurvive.models.Player;
 import com.company.passtosurvive.tools.MusicalAtmosphere;
 import com.company.passtosurvive.tools.WorldContactListener;
-import com.company.passtosurvive.view.DeadScreen;
+import com.company.passtosurvive.view.GameOverScreen;
 import com.company.passtosurvive.view.Main;
 
 import lombok.Getter;
@@ -126,7 +126,7 @@ public abstract class PlayGameScreen
         Main.getMusic().level1MusicPlay();
       else Main.getMusic().level2MusicPlay();
     }
-    world.step(1 / 60f, 6, 2);
+    world.step(Gdx.graphics.getDeltaTime(), 6, 2);
     if (player.isEndingBouncer()) { // invoked when last two bouncers are touched by player
       player.performJump(bouncerYMaxAccel);
       cam.position.y = player.getPosition().y;
@@ -157,7 +157,7 @@ public abstract class PlayGameScreen
     batch.end();
     PlayButtons.getStage().act(delta);
     PlayButtons.getStage().draw();
-    if (game.getScreen() instanceof DeadScreen) restart();
+    if (game.getScreen() instanceof GameOverScreen) restart();
   }
 
   @Override
@@ -190,7 +190,7 @@ public abstract class PlayGameScreen
   }
 
   public void restart() {
-    buttons.updateDeaths();
+    buttons.updateRestarts();
   }
 
   public abstract void setCheckpoint(float x, float y);

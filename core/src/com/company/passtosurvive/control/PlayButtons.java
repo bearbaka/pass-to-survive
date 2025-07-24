@@ -16,15 +16,16 @@ import com.company.passtosurvive.view.Main;
 import com.company.passtosurvive.view.PauseScreen;
 
 import lombok.Getter;
+import lombok.Builder;
 
-@lombok.Builder
+@Builder
 public class PlayButtons
     implements Disposable { // has all the buttons and sticks for level screens, only they have this
                             // class
   @Getter private static Stage stage;
   @Getter private static Table stats;
   private static Table table;
-  private static Label deaths, position, speed;
+  private static Label restarts, position, speed;
   @Getter private static ImageButton jump;
   private static ImageButton pause;
   @Getter private static JoyStick joyStick;
@@ -42,19 +43,19 @@ public class PlayButtons
     stage.addActor(jump);
     stage.addActor(joyStick);
     font = new BitmapFont();
-    Label label = new Label("DEATHS", new Label.LabelStyle(font, new Color(0, 191, 0, 1)));
+    Label label = new Label("RESTARTS", new Label.LabelStyle(font, new Color(0, 191, 0, 1)));
     label.setFontScale(4f * Main.getScreenHeight() / 1080);
-    deaths =
+    restarts =
         new Label(
-            Integer.toString(Player.getDeaths()),
+            Integer.toString(Player.getRestarts()),
             new Label.LabelStyle(font, new Color(253, 238, 0, 1)));
-    deaths.setFontScale(4f * Main.getScreenHeight() / 1080);
+    restarts.setFontScale(4f * Main.getScreenHeight() / 1080);
     table = new Table();
     table.right().top();
     table.setFillParent(true);
     table.add(label).right().padRight(10f * Main.getScreenWidth() / 1794);
     table.row();
-    table.add(deaths).right().padRight(10f * Main.getScreenWidth() / 1794);
+    table.add(restarts).right().padRight(10f * Main.getScreenWidth() / 1794);
     stage.addActor(table);
   }
   public static void createStats() {
@@ -93,8 +94,8 @@ public class PlayButtons
         });
   }
 
-  public void updateDeaths() {
-    deaths.setText(Integer.toString(Player.getDeaths()));
+  public void updateRestarts() {
+    restarts.setText(Integer.toString(Player.getRestarts()));
   }
 
   public void updateStats() {

@@ -33,7 +33,7 @@ public class Level2Part1Screen extends PlayGameScreen { // level 2 part 1 starts
   }
 
   public Level2Part1Screen(final Main game) {
-    super(new Builder(game).xMaxSpeed(4f).yMaxAccel(8f).bouncerYMaxAccel(10f).gravity(-21));
+    super(new Builder(game).xMaxSpeed(4f).yMaxAccel(7.5f).bouncerYMaxAccel(10f).gravity(-21));
     mapPort = new FitViewport(level2WorldWidth, level2WorldHeight, cam);
     cam.position.set(mapPort.getWorldWidth() / 2, mapPort.getWorldHeight() / 2, 0);
     map = mapLoader.load("Map3.tmx");

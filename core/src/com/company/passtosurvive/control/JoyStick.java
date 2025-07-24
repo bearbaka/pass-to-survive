@@ -37,12 +37,11 @@ public class JoyStick extends Actor {
   }
 
   public void setTouched() {
-    Gdx.input.vibrate(100);
+    Gdx.input.vibrate(50);
     JoyStickDown = true;
   }
 
   public void setUnTouched() {
-    Gdx.input.vibrate(100);
     valueX = 0;
     valueY = 0;
     CurJoyStickX = 0;

@@ -5,7 +5,9 @@ java {
     }
 }
 dependencies {
-    implementation files('../android/libs/lombok-api.jar')
+    compileOnly "org.projectlombok:lombok:1.18.38"
+    annotationProcessor 'org.projectlombok:lombok:1.18.38'
+    // implementation files('../android/libs/lombok-api.jar')
 }
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 

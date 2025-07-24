@@ -10,7 +10,7 @@ import com.company.passtosurvive.view.WinScreen;
 
 public class Finish extends TileObject {
   public Finish(World world, Rectangle rect) {
-    super(world, rect);
+    super(world, rect, 0f);
   }
 
   @Override

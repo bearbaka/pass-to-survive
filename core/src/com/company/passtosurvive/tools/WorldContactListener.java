@@ -1,5 +1,7 @@
 package com.company.passtosurvive.tools;
 
+import java.util.regex.Pattern;
+
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -7,30 +9,29 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.company.passtosurvive.levels.PlayGameScreen;
 import com.company.passtosurvive.models.TileObject;
-import java.util.regex.Pattern;
 
 public class WorldContactListener
     implements ContactListener { // Serves as a Collision Listener for two objects in the game
-  private PlayGameScreen
+  private final PlayGameScreen
       playGameScreen; // I created Player in PlayGameScreen so that there would be one listener for
                       // all level screens
 
-  public WorldContactListener(PlayGameScreen playGameScreen) {
+  public WorldContactListener(final PlayGameScreen playGameScreen) {
     this.playGameScreen = playGameScreen;
   }
 
   @Override
-  public void beginContact(Contact contact) { // the start of collision
-    Fixture fixA = contact.getFixtureA(); // first object
-    Fixture fixB = contact.getFixtureB(); // second object
+  public void beginContact(final Contact contact) { // the start of collision
+    final Fixture fixA = contact.getFixtureA(); // first object
+    final Fixture fixB = contact.getFixtureB(); // second object
     if (Pattern.matches("Player.*", fixA.getUserData().toString())
         || Pattern.matches(
             "Player.*", fixB.getUserData().toString())) { // check if one of the objects is player
-      Fixture player =
+      final Fixture player =
           Pattern.matches("Player.*", fixA.getUserData().toString())
               ? fixA
               : fixB; // which one is player
-      Fixture object = player == fixA ? fixB : fixA; // which one is not player
+      final Fixture object = player == fixA ? fixB : fixA; // which one is not player
       if (TileObject.class.isAssignableFrom(
           object
               .getUserData()
@@ -45,13 +46,13 @@ public class WorldContactListener
   }
 
   @Override
-  public void endContact(Contact contact) { // end of collision
-    Fixture fixA = contact.getFixtureA();
-    Fixture fixB = contact.getFixtureB();
+  public void endContact(final Contact contact) { // end of collision
+    final Fixture fixA = contact.getFixtureA();
+    final Fixture fixB = contact.getFixtureB();
     if (Pattern.matches("Player.*", fixA.getUserData().toString())
         || Pattern.matches("Player.*", fixB.getUserData().toString())) {
-      Fixture player = Pattern.matches("Player.*", fixA.getUserData().toString()) ? fixA : fixB;
-      Fixture object = player == fixA ? fixB : fixA;
+      final Fixture player = Pattern.matches("Player.*", fixA.getUserData().toString()) ? fixA : fixB;
+      final Fixture object = player == fixA ? fixB : fixA;
       if (TileObject.class.isAssignableFrom(object.getUserData().getClass())) {
         if (player.getUserData() == "PlayerHead"
             && playGameScreen
@@ -64,8 +65,8 @@ public class WorldContactListener
   }
 
   @Override
-  public void preSolve(Contact contact, Manifold oldManifold) {}
+  public void preSolve(final Contact contact, final Manifold oldManifold) {}
 
   @Override
-  public void postSolve(Contact contact, ContactImpulse impulse) {}
+  public void postSolve(final Contact contact, final ContactImpulse impulse) {}
 }

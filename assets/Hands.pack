@@ -1,94 +1,94 @@
 
-Ghoul.png
+Hands.png
 size: 4096, 4096
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-ghoul1
+hand1
   rotate: false
   xy: 2566, 2890
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-ghoul10
+hand10
   rotate: false
   xy: 1284, 2
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-ghoul11
+hand11
   rotate: false
   xy: 1284, 1446
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-ghoul12
+hand12
   rotate: false
   xy: 1284, 2890
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-ghoul13
+hand13
   rotate: false
   xy: 1284, 724
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-ghoul2
+hand2
   rotate: false
   xy: 2, 2890
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-ghoul3
+hand3
   rotate: false
   xy: 2566, 2168
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-ghoul4
+hand4
   rotate: false
   xy: 2, 1446
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-ghoul5
+hand5
   rotate: false
   xy: 2566, 1446
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-ghoul6
+hand6
   rotate: false
   xy: 2, 724
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-ghoul7
+hand7
   rotate: false
   xy: 2, 2168
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-ghoul8
+hand8
   rotate: false
   xy: 2, 2
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
-ghoul9
+hand9
   rotate: false
   xy: 1284, 2168
   size: 1280, 720

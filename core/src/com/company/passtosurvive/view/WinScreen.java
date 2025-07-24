@@ -20,14 +20,15 @@ import com.company.passtosurvive.levels.Level2Part2Screen;
 
 public class WinScreen
     implements Screen { // the victory screen is launched after completing the level completely
-  private Main game;
+  private final Main game;
   private Texture label, thanks;
-  private SpriteBatch batch;
+  private final SpriteBatch batch;
   private TextureAtlas animationAtlas;
   private Stage stage;
   private ImageButton Yes, No;
   private float animationStateTime, timer;
   private Animation<TextureRegion> animation;
+  private boolean played;
 
   public WinScreen(final Main game) {
     this.game = game;
@@ -41,7 +42,7 @@ public class WinScreen
       stage = new Stage();
       label = new Texture("ContinueWhite.png");
       animationAtlas = new TextureAtlas("YouWin.pack");
-      Array<TextureRegion> frames = new Array<TextureRegion>();
+      final Array<TextureRegion> frames = new Array<TextureRegion>();
       for (int i = 1; i <= 15; i++) frames.add(animationAtlas.findRegion("youWin" + i));
       animation = new Animation(0.2f, frames);
       frames.clear();
@@ -49,7 +50,7 @@ public class WinScreen
       Yes.addListener(
           new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void clicked(final InputEvent event, final float x, final float y) {
               dispose();
               if (Level1Part2Screen.isFinished()) {
                 game.setScreen(new Level2Part1Screen(game));
@@ -62,7 +63,7 @@ public class WinScreen
       No.addListener(
           new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void clicked(final InputEvent event, final float x, final float y) {
               dispose();
               game.setScreen(new MainMenuScreen(game));
             }
@@ -87,7 +88,7 @@ public class WinScreen
   }
 
   @Override
-  public void render(float delta) {
+  public void render(final float delta) {
     ScreenUtils.clear(0, 0, 0, 1, true); // clean up
     batch.begin();
     timer += delta;
@@ -112,7 +113,10 @@ public class WinScreen
           Main.getScreenWidth(),
           203 / (1794 / Main.getScreenWidth()));
       if (timer >= 7) {
-        if (timer == 7) Main.getMusic().endSoundPlay();
+        if (!played) {
+          Main.getMusic().endSoundPlay();
+          played=true;
+        }
         batch.draw(
             thanks,
             Main.getScreenWidth() / 2 - ((1266.7f / (1794 / Main.getScreenWidth())) / 2),
@@ -139,7 +143,7 @@ public class WinScreen
   }
 
   @Override
-  public void resize(int width, int height) { // I explained this in slides (.pptx file)
+  public void resize(final int width, final int height) { // I explained this in slides (.pptx file)
     if (Level1Part2Screen.isFinished() ^ Level2Part2Screen.isFinished()) {
       Yes.setSize(141.5f / (1794 / Main.getScreenWidth()), 50 / (1794 / Main.getScreenWidth()));
       No.setSize(141.5f / (1794 / Main.getScreenWidth()), 50 / (1794 / Main.getScreenWidth()));

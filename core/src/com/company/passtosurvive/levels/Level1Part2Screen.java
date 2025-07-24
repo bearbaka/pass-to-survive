@@ -50,7 +50,7 @@ public class Level1Part2Screen
   public void transitionToPart2() {
     if (player.getPosition().x < 280 / Main.PPM
         && playerCheckpointX
-            == 0) { // This script will not work after death because There is a checkpoint at
+            == 0) { // This script will not work after restart because There is a checkpoint at
                     // position 280 so as not to repeat
       PlayButtons.getJoyStick().setVisible(false);
       PlayButtons.getJump().setVisible(false);

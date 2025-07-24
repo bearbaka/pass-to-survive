@@ -6,13 +6,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.company.passtosurvive.tools.MusicalAtmosphere;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 
 public class Main extends Game { // the very first class at startup
   
   @Getter private static float screenWidth, screenHeight; // dimensions of the screen on which we launch
   public static final float PPM = 100; // for conversions, pixels per meter
-  @Getter private static MusicalAtmosphere music;
+  @Getter(AccessLevel.PUBLIC) private static MusicalAtmosphere music;
   private static TextureAtlas buttonAtlas;
   @Getter private static Skin buttonSkin;
 
