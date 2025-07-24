@@ -134,7 +134,7 @@ public abstract class PlayGameScreen
       cam.position.y = mapPort.getWorldHeight() / 2; // camera returns to original position Y
     }
     cam.position.x = player.getPosition().x; // camera moves with player
-    player.update(delta, PlayButtons.getJoyStick().getValueX());
+    player.update(delta, PlayButtons.getJoystick().getValueX());
     cam.update();
     renderer.setView(cam);
     if (player.isTouchedBouncer()) player.performJump(bouncerYMaxAccel);
@@ -185,7 +185,7 @@ public abstract class PlayGameScreen
 
   @Override
   public void hide() {
-    PlayButtons.getJoyStick().setUnTouched();
+    PlayButtons.getJoystick().setUnTouched();
     Main.getMusic().allPause();
   }
 

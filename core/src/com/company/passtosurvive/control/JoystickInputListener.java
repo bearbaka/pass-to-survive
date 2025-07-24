@@ -3,10 +3,10 @@ package com.company.passtosurvive.control;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
-public class JoyStickInputListener extends InputListener {
-  private final JoyStick joyStick;
+public class JoystickInputListener extends InputListener {
+  private final Joystick joyStick;
 
-  public JoyStickInputListener(final JoyStick joyStick) {
+  public JoystickInputListener(final Joystick joyStick) {
     this.joyStick = joyStick;
   }
 

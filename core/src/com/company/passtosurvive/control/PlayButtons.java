@@ -28,20 +28,20 @@ public class PlayButtons
   private static Label restarts, position, speed;
   @Getter private static ImageButton jump;
   private static ImageButton pause;
-  @Getter private static JoyStick joyStick;
+  @Getter private static Joystick joystick;
   private static BitmapFont font;
   static {
     stage = new Stage();
     pause = new ImageButton(Main.getButtonSkin(), "pauseButton");
     jump = new ImageButton(Main.getButtonSkin(), "jumpButton");
-    joyStick = new JoyStick();
+    joystick = new Joystick();
     pause.setSize(158 * Main.getScreenWidth() / 1794, 140 * Main.getScreenHeight() / 1080);
     pause.setPosition(0, 940 * Main.getScreenHeight() / 1080);
     jump.setSize(235 * Main.getScreenWidth() / 1794, 320 * Main.getScreenHeight() / 1080);
     jump.setPosition(1270 * Main.getScreenWidth() / 1794, 40 * Main.getScreenHeight() / 1080);
     stage.addActor(pause);
     stage.addActor(jump);
-    stage.addActor(joyStick);
+    stage.addActor(joystick);
     font = new BitmapFont();
     Label label = new Label("RESTARTS", new Label.LabelStyle(font, new Color(0, 191, 0, 1)));
     label.setFontScale(4f * Main.getScreenHeight() / 1080);
@@ -81,9 +81,9 @@ public class PlayButtons
     this.player = player;
     this.xMaxSpeed = xMaxSpeed;
     this.yMaxAccel = yMaxAccel;
-    joyStick.setVisible(true);
+    joystick.setVisible(true);
     jump.setVisible(true);
-    joyStick.setUnTouched();
+    joystick.setUnTouched();
     pause.removeListener(pause.getClickListener());
     pause.addListener(
         new ClickListener() {
@@ -120,13 +120,13 @@ public class PlayButtons
               true); // we need the player to stop immediately after releasing the joystick
       player
           .applyLinearImpulse(
-              new Vector2(joyStick.getValueX() * xMaxSpeed, 0),
+              new Vector2(joystick.getValueX() * xMaxSpeed, 0),
               player.getWorldCenter(),
               true);
       if (jump.isPressed()) player.jump(yMaxAccel);
     } else { // cheats
       player
-          .setLinearVelocity(joyStick.getValueX() * 18f, joyStick.getValueY() * 9f);
+          .setLinearVelocity(joystick.getValueX() * 18f, joystick.getValueY() * 9f);
     }
     if (PlayGameScreen.isStatsEnabled()) updateStats();
   }

@@ -52,13 +52,13 @@ public class Level1Part2Screen
         && playerCheckpointX
             == 0) { // This script will not work after restart because There is a checkpoint at
                     // position 280 so as not to repeat
-      PlayButtons.getJoyStick().setVisible(false);
+      PlayButtons.getJoystick().setVisible(false);
       PlayButtons.getJump().setVisible(false);
       player.jump(2f);
       player
           .applyLinearImpulse(new Vector2(2f, 0), player.getWorldCenter(), true);
     } else {
-      PlayButtons.getJoyStick().setVisible(true);
+      PlayButtons.getJoystick().setVisible(true);
       PlayButtons.getJump().setVisible(true);
     }
   }
