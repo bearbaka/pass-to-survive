@@ -11,7 +11,7 @@ import com.company.passtosurvive.view.Main;
 
 public class NextPart extends TileObject {
   public NextPart(World world, Rectangle rect) {
-    super(world, rect, 0f);
+    super(world, rect);
   }
 
   @Override

@@ -6,7 +6,7 @@ import com.company.passtosurvive.levels.PlayGameScreen;
 
 public class CheckPoint extends TileObject {
   public CheckPoint(World world, Rectangle rect) {
-    super(world, rect, 0f);
+    super(world, rect);
   }
 
   @Override

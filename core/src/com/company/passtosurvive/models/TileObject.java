@@ -18,7 +18,7 @@ class TileObject { // all objects for world and its listener except Player are i
   @Getter(AccessLevel.PACKAGE)
   private Body body;
 
-  public TileObject(World world, Rectangle rect, float friction) { // everything is taken from b2WorldCreator
+  public TileObject(World world, Rectangle rect) { // everything is taken from b2WorldCreator
     BodyDef bDef = new BodyDef();
     FixtureDef fDef = new FixtureDef();
     PolygonShape shape = new PolygonShape();
@@ -29,7 +29,7 @@ class TileObject { // all objects for world and its listener except Player are i
     body = world.createBody(bDef); // add into world
     shape.setAsBox((rect.getWidth() / 2) / Main.PPM, (rect.getHeight() / 2) / Main.PPM);
     fDef.shape = shape;
-    fDef.friction = friction;
+    fDef.friction = 0f;
     body.createFixture(fDef).setUserData(this); // add the shape
     shape.dispose();
   }
