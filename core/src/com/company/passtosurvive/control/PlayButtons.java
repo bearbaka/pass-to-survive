@@ -1,12 +1,15 @@
 package com.company.passtosurvive.control;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Disposable;
@@ -18,22 +21,48 @@ import com.company.passtosurvive.view.PauseScreen;
 import lombok.Getter;
 import lombok.Builder;
 
-@Builder
 public class PlayButtons
     implements Disposable { // has all the buttons and sticks for level screens, only they have this
                             // class
-  @Getter private static Stage stage;
-  @Getter private static Table stats;
-  private static Table table;
-  private static Label restarts, position, speed;
-  @Getter private static ImageButton jump;
-  private static ImageButton pause;
-  @Getter private static Joystick joystick;
-  private static BitmapFont font;
-  static {
+  @Getter private Stage stage;
+  @Getter private Table stats;
+  private Table table;
+  private Label restarts, position, speed;
+  private TextureAtlas buttonAtlas;
+  private Skin buttonSkin;
+  @Getter private ImageButton jump;
+  private ImageButton pause;
+  @Getter private Joystick joystick;
+  private BitmapFont font;
+  public void createStats() {
+    stats = new Table();
+    stats.top();
+    stats.setFillParent(true);
+    position = new Label("", new Label.LabelStyle(font, Color.WHITE));
+    position.setFontScale(4f * Main.getScreenHeight() / 1080);
+    speed = new Label("", new Label.LabelStyle(font, Color.WHITE));
+    speed.setFontScale(4f * Main.getScreenHeight() / 1080);
+    stats.add(position);
+    stats.row();
+    stats.add(speed);
+  }
+  private Main game;
+
+  private final float xMaxSpeed, yMaxAccel;
+
+  private Player player;
+
+  @Builder
+  public PlayButtons(Main game, float xMaxSpeed, float yMaxAccel, Player player) {
+    this.game = game;
+    this.player = player;
+    this.xMaxSpeed = xMaxSpeed;
+    this.yMaxAccel = yMaxAccel;
+    buttonAtlas = new TextureAtlas("Buttons.pack");
+    buttonSkin = new Skin(Gdx.files.internal("Buttons.json"), buttonAtlas);
     stage = new Stage();
-    pause = new ImageButton(Main.getButtonSkin(), "pauseButton");
-    jump = new ImageButton(Main.getButtonSkin(), "jumpButton");
+    pause = new ImageButton(buttonSkin, "pauseButton");
+    jump = new ImageButton(buttonSkin, "jumpButton");
     joystick = new Joystick();
     pause.setSize(158 * Main.getScreenWidth() / 1794, 140 * Main.getScreenHeight() / 1080);
     pause.setPosition(0, 940 * Main.getScreenHeight() / 1080);
@@ -57,32 +86,6 @@ public class PlayButtons
     table.row();
     table.add(restarts).right().padRight(10f * Main.getScreenWidth() / 1794);
     stage.addActor(table);
-  }
-  public static void createStats() {
-    stats = new Table();
-    stats.top();
-    stats.setFillParent(true);
-    position = new Label("", new Label.LabelStyle(font, Color.WHITE));
-    position.setFontScale(4f * Main.getScreenHeight() / 1080);
-    speed = new Label("", new Label.LabelStyle(font, Color.WHITE));
-    speed.setFontScale(4f * Main.getScreenHeight() / 1080);
-    stats.add(position);
-    stats.row();
-    stats.add(speed);
-  }
-  private Main game;
-
-  private final float xMaxSpeed, yMaxAccel;
-
-  private Player player;
-
-  public PlayButtons(Main game, float xMaxSpeed, float yMaxAccel, Player player) {
-    this.game = game;
-    this.player = player;
-    this.xMaxSpeed = xMaxSpeed;
-    this.yMaxAccel = yMaxAccel;
-    joystick.setVisible(true);
-    jump.setVisible(true);
     joystick.setUnTouched();
     pause.removeListener(pause.getClickListener());
     pause.addListener(
@@ -94,7 +97,16 @@ public class PlayButtons
         });
   }
 
-  public void updateRestarts() {
+  public void reset() {
+    joystick.remove();
+    joystick.dispose();
+    joystick=new Joystick();
+    jump.remove();
+    jump = new ImageButton(buttonSkin, "jumpButton");
+    jump.setSize(235 * Main.getScreenWidth() / 1794, 320 * Main.getScreenHeight() / 1080);
+    jump.setPosition(1270 * Main.getScreenWidth() / 1794, 40 * Main.getScreenHeight() / 1080);
+    stage.addActor(joystick);
+    stage.addActor(jump);
     restarts.setText(Integer.toString(Player.getRestarts()));
   }
 
@@ -130,9 +142,13 @@ public class PlayButtons
     }
     if (PlayGameScreen.isStatsEnabled()) updateStats();
   }
-
   @Override
   public void dispose() {
+    buttonSkin.dispose();
+    buttonAtlas.dispose();
+    joystick.dispose();
+    font.dispose();
+    stage.dispose();
     game.dispose();
   }
 }

@@ -61,7 +61,7 @@ project(":android") {
         compileOnly "org.projectlombok:lombok:1.18.38"
         annotationProcessor 'org.projectlombok:lombok:1.18.38'
         // debugImplementation because LeakCanary should only run in debug builds.
-        // debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
+        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
     }
 }
 

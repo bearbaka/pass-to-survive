@@ -5,6 +5,6 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class EndingBouncer extends TileObject {
   public EndingBouncer(World world, Rectangle rect) {
-    super(world, rect, 1000f);
+    super(world, rect, 100000f);
   }
 }

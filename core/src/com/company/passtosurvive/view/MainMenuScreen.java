@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -33,12 +34,15 @@ public class MainMenuScreen
   private ImageButton level1;
   private ImageButton level2;
   private ImageButton soundIsOff;
-  private final TextureAtlas animationLogoAtlas;
+  private final TextureAtlas animationLogoAtlas, buttonAtlas;
+  private Skin buttonSkin;
   private final Animation<TextureRegion> animation;
   private boolean infoIsPressed;
 
   public MainMenuScreen(final Main game) {
     this.game = game;
+    buttonAtlas = new TextureAtlas("Buttons.pack");
+    buttonSkin = new Skin(Gdx.files.internal("Buttons.json"), buttonAtlas);
     infoIsPressed = false;
     batch = new SpriteBatch();
     final Array<TextureRegion> frames = new Array<TextureRegion>();
@@ -56,7 +60,7 @@ public class MainMenuScreen
     frames.clear();
     background = new Texture(Gdx.files.internal("BackgroundMainMenu.png"));
     stage = new Stage();
-    play = new ImageButton(Main.getButtonSkin(), "playButton");
+    play = new ImageButton(buttonSkin, "playButton");
     play.addListener(
         new ClickListener() { // create a listener for it that will read keystrokes
           @Override
@@ -68,17 +72,18 @@ public class MainMenuScreen
             info.setVisible(false);
           }
         });
-    exit = new ImageButton(Main.getButtonSkin(), "exitButton");
+    exit = new ImageButton(buttonSkin, "exitButton");
     exit.addListener(
         new ClickListener() { // create a listener for it that will read keystrokes
           @Override
           public void clicked(final InputEvent event, final float x, final float y) {
             dispose();
+            PlayGameScreen.resetLastScreen();
             Gdx.app.exit();
           }
         });
-    soundIsOn = new ImageButton(Main.getButtonSkin(), "soundButton");
-    soundIsOff = new ImageButton(Main.getButtonSkin(), "soundOffButton");
+    soundIsOn = new ImageButton(buttonSkin, "soundButton");
+    soundIsOff = new ImageButton(buttonSkin, "soundOffButton");
     soundIsOff.addListener(
         new ClickListener() { // create a listener for it that will read keystrokes
           @Override
@@ -93,7 +98,7 @@ public class MainMenuScreen
             MusicalAtmosphere.setMusicOn(false);
           }
         });
-    info = new ImageButton(Main.getButtonSkin(), "infoButton");
+    info = new ImageButton(buttonSkin, "infoButton");
     info.addListener(
         new ClickListener() { // create a listener for it that will read keystrokes
           @Override
@@ -103,55 +108,53 @@ public class MainMenuScreen
             play.setVisible(!play.isVisible());
           }
         });
-    level1 = new ImageButton(Main.getButtonSkin(), "level1Button");
+    level1 = new ImageButton(buttonSkin, "level1Button");
     level1.addListener(
         new ClickListener() { // create a listener for it that will read keystrokes
           @Override
           public void clicked(final InputEvent event, final float x, final float y) {
+          if(!Level1Part1Screen.isFinished() || !Level1Part2Screen.isFinished()){
             dispose();
             if (!Level1Part1Screen.isFinished()) {
               if (PlayGameScreen.getLastScreen() instanceof Level1Part1Screen)
                 game.setScreen(PlayGameScreen.getLastScreen());
               else {
-                if (PlayGameScreen.getLastScreen() != null)
-                  PlayGameScreen.getLastScreen().dispose();
+              PlayGameScreen.resetLastScreen();
                 game.setScreen(new Level1Part1Screen(game));
               }
             } else {
               if (PlayGameScreen.getLastScreen() instanceof Level1Part2Screen)
                 game.setScreen(PlayGameScreen.getLastScreen());
               else {
-                if (PlayGameScreen.getLastScreen() != null)
-                  PlayGameScreen.getLastScreen().dispose();
+              PlayGameScreen.resetLastScreen();
                 game.setScreen(new Level1Part2Screen(game));
               }
             }
-          }
+          }}
         });
-    level2 = new ImageButton(Main.getButtonSkin(), "level2Button");
+    level2 = new ImageButton(buttonSkin, "level2Button");
     level2.addListener(
         new ClickListener() {
           @Override
           public void clicked(final InputEvent event, final float x, final float y) {
+          if(!Level2Part1Screen.isFinished() || !Level2Part2Screen.isFinished()){
             dispose();
             if (!Level2Part1Screen.isFinished()) {
               if (PlayGameScreen.getLastScreen() instanceof Level2Part1Screen)
                 game.setScreen(PlayGameScreen.getLastScreen());
               else {
-                if (PlayGameScreen.getLastScreen() != null)
-                  PlayGameScreen.getLastScreen().dispose();
+              PlayGameScreen.resetLastScreen();
                 game.setScreen(new Level2Part1Screen(game));
               }
             } else {
               if (PlayGameScreen.getLastScreen() instanceof Level2Part2Screen)
                 game.setScreen(PlayGameScreen.getLastScreen());
               else {
-                if (PlayGameScreen.getLastScreen() != null)
-                  PlayGameScreen.getLastScreen().dispose();
+              PlayGameScreen.resetLastScreen();
                 game.setScreen(new Level2Part2Screen(game));
               }
             }
-          }
+          }}
         });
     level1.setVisible(false);
     level2.setVisible(false);
@@ -247,6 +250,8 @@ public class MainMenuScreen
   @Override
   public void dispose() {
     Main.getMusic().allPause();
+    buttonSkin.dispose();
+    buttonAtlas.dispose();
     background.dispose();
     information.dispose();
     animationLogoAtlas.dispose();

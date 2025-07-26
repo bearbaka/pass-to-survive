@@ -4,28 +4,27 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Disposable;
 import com.company.passtosurvive.view.Main;
 
 import lombok.Getter;
 
-public class Joystick extends Actor {
-  private static final Texture JoyStick, curJoyStick;
-  static {
-    JoyStick = new Texture(Gdx.files.internal("JoyStick.png"));
-    curJoyStick = new Texture(Gdx.files.internal("CurJoyStick.png"));
-  }
-  @Getter private boolean JoyStickDown;
+public class Joystick extends Actor implements Disposable {
+  private final Texture joystick, curJoystick;
+  @Getter private boolean joystickDown;
   private final float radius, borderRadius, cursorRadius, effectiveRadius;
   private float CurJoyStickX, CurJoyStickY;
 
   @Getter private float valueX, valueY;
 
   public Joystick() {
-    JoyStickDown = false;
+    joystickDown = false;
     CurJoyStickX = 0;
     CurJoyStickY = 0;
     valueX = 0;
     valueY = 0;
+    joystick = new Texture(Gdx.files.internal("JoyStick.png"));
+    curJoystick = new Texture(Gdx.files.internal("CurJoyStick.png"));
     addListener(new JoystickInputListener(this));
     setX(140 * Main.getScreenWidth() / 1794);
     setY(40 * Main.getScreenHeight() / 1080);
@@ -38,7 +37,7 @@ public class Joystick extends Actor {
 
   public void setTouched() {
     Gdx.input.vibrate(50);
-    JoyStickDown = true;
+    joystickDown = true;
   }
 
   public void setUnTouched() {
@@ -46,7 +45,7 @@ public class Joystick extends Actor {
     valueY = 0;
     CurJoyStickX = 0;
     CurJoyStickY = 0;
-    JoyStickDown = false;
+    joystickDown = false;
   }
 
   @Override
@@ -111,16 +110,21 @@ public class Joystick extends Actor {
   public void draw(
       final Batch batch, final float parentAlpha) { // stage will run this method using its draw method
     batch.draw(
-        JoyStick,
+        joystick,
         this.getX(),
         this.getY(),
         this.getWidth(),
         this.getHeight()); // joystick is static
     batch.draw(
-        curJoyStick,
+        curJoystick,
         this.getX() + radius - cursorRadius + CurJoyStickX,
         this.getY() + radius - cursorRadius + CurJoyStickY,
         2 * cursorRadius,
         2 * cursorRadius);
+  }
+  @Override
+  public void dispose() {
+    joystick.dispose();
+    curJoystick.dispose();
   }
 }

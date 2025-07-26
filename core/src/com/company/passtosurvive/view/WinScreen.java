@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -23,7 +24,8 @@ public class WinScreen
   private final Main game;
   private Texture label, thanks;
   private final SpriteBatch batch;
-  private TextureAtlas animationAtlas;
+  private TextureAtlas animationAtlas, buttonAtlas;
+  private Skin buttonSkin;
   private Stage stage;
   private ImageButton Yes, No;
   private float animationStateTime, timer;
@@ -39,6 +41,8 @@ public class WinScreen
       thanks = new Texture("ThanksForPlaying.png");
     } else if (Level1Part2Screen.isFinished()
         ^ Level2Part2Screen.isFinished()) { // when one of the levels has passed
+      buttonAtlas = new TextureAtlas("Buttons.pack");
+      buttonSkin = new Skin(Gdx.files.internal("Buttons.json"), buttonAtlas);
       stage = new Stage();
       label = new Texture("ContinueWhite.png");
       animationAtlas = new TextureAtlas("YouWin.pack");
@@ -46,20 +50,28 @@ public class WinScreen
       for (int i = 1; i <= 15; i++) frames.add(animationAtlas.findRegion("youWin" + i));
       animation = new Animation(0.2f, frames);
       frames.clear();
-      Yes = new ImageButton(Main.getButtonSkin(), "yesWhiteButton");
+      Yes = new ImageButton(buttonSkin, "yesWhiteButton");
       Yes.addListener(
           new ClickListener() {
             @Override
             public void clicked(final InputEvent event, final float x, final float y) {
               dispose();
               if (Level1Part2Screen.isFinished()) {
-                game.setScreen(new Level2Part1Screen(game));
+                if (!Level2Part1Screen.isFinished()) {
+                  game.setScreen(new Level2Part1Screen(game));
+                } else {
+                  game.setScreen(new Level2Part2Screen(game));
+                }
               } else if (Level2Part2Screen.isFinished()) {
-                game.setScreen(new Level1Part1Screen(game));
+                if (!Level1Part1Screen.isFinished()) {
+                  game.setScreen(new Level1Part1Screen(game));
+                } else {
+                  game.setScreen(new Level1Part2Screen(game));
+                }
               }
             }
           });
-      No = new ImageButton(Main.getButtonSkin(), "noWhiteButton");
+      No = new ImageButton(buttonSkin, "noWhiteButton");
       No.addListener(
           new ClickListener() {
             @Override
@@ -84,7 +96,7 @@ public class WinScreen
         0,
         Main.getScreenHeight() / 2,
         Main.getScreenWidth(),
-        Main.getScreenHeight() / 3f);
+        350f / (1920f / Main.getScreenWidth()));
   }
 
   @Override
@@ -111,11 +123,11 @@ public class WinScreen
           0,
           Main.getScreenHeight() / 2,
           Main.getScreenWidth(),
-          203 / (1794 / Main.getScreenWidth()));
+          203f / (1920f / Main.getScreenWidth()));
       if (timer >= 7) {
         if (!played) {
           Main.getMusic().endSoundPlay();
-          played=true;
+          played = true;
         }
         batch.draw(
             thanks,
@@ -164,6 +176,8 @@ public class WinScreen
 
   @Override
   public void dispose() {
+    if (buttonSkin != null) buttonSkin.dispose();
+    if (buttonAtlas != null) buttonAtlas.dispose();
     label.dispose();
     if (thanks != null) thanks.dispose();
     if (animationAtlas != null) animationAtlas.dispose();

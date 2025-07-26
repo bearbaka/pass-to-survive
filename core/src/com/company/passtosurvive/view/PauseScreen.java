@@ -5,10 +5,12 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.company.passtosurvive.levels.PlayGameScreen;
 
@@ -16,14 +18,18 @@ public class PauseScreen
     implements Screen { // the pause menu is launched when the pause button is pressed in the game
   private final Main game;
   private final Stage stage;
+  private TextureAtlas buttonAtlas;
+  private Skin buttonSkin;
   private final ImageButton resume, restart, mainMenu;
 
   public PauseScreen(final Main game) {
     this.game = game;
+    buttonAtlas = new TextureAtlas("Buttons.pack");
+    buttonSkin = new Skin(Gdx.files.internal("Buttons.json"), buttonAtlas);
     stage = new Stage();
-    resume = new ImageButton(Main.getButtonSkin(), "resumeButton");
-    restart = new ImageButton(Main.getButtonSkin(), "restartButton");
-    mainMenu = new ImageButton(Main.getButtonSkin(), "mainMenuButton");
+    resume = new ImageButton(buttonSkin, "resumeButton");
+    restart = new ImageButton(buttonSkin, "restartButton");
+    mainMenu = new ImageButton(buttonSkin, "mainMenuButton");
     final Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
     pixmap.setColor(Color.BLACK);
     pixmap.fillRectangle(0, 0, 1, 1);
@@ -91,6 +97,8 @@ public class PauseScreen
 
   @Override
   public void dispose() {
+    buttonSkin.dispose();
+    buttonAtlas.dispose();
     stage.dispose();
     game.dispose();
   }

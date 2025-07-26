@@ -53,6 +53,11 @@ public abstract class PlayGameScreen
     }
   }
   @Getter private static PlayGameScreen lastScreen;
+
+  public static void resetLastScreen(){
+    if(lastScreen!=null) lastScreen.dispose();
+    lastScreen=null;
+  }
   @Getter private static boolean cheatsEnabled, statsEnabled;
   static final float level2WorldWidth, level2WorldHeight, level1WorldWidth, level1WorldHeight;
   static {
@@ -116,11 +121,11 @@ public abstract class PlayGameScreen
       }
       cheatsEnabled = !cheatsEnabled;
     }
-    if (statsEnabled && PlayButtons.getStats() != null && PlayButtons.getStats().getStage() == null)
-      PlayButtons.getStage().addActor(PlayButtons.getStats());
+    if (statsEnabled && buttons.getStats() != null && buttons.getStats().getStage() == null)
+      buttons.getStage().addActor(buttons.getStats());
     else if (!statsEnabled
-        && PlayButtons.getStats() != null
-        && PlayButtons.getStats().getStage() != null) PlayButtons.getStats().remove();
+        && buttons.getStats() != null
+        && buttons.getStats().getStage() != null) buttons.getStats().remove();
     if (MusicalAtmosphere.isMusicOn() && !Main.getMusic().isAnyMusicPlaying()) {
       if (this instanceof Level1Part1Screen || this instanceof Level1Part2Screen)
         Main.getMusic().level1MusicPlay();
@@ -134,7 +139,7 @@ public abstract class PlayGameScreen
       cam.position.y = mapPort.getWorldHeight() / 2; // camera returns to original position Y
     }
     cam.position.x = player.getPosition().x; // camera moves with player
-    player.update(delta, PlayButtons.getJoystick().getValueX());
+    player.update(delta, buttons.getJoystick().getValueX());
     cam.update();
     renderer.setView(cam);
     if (player.isTouchedBouncer()) player.performJump(bouncerYMaxAccel);
@@ -155,8 +160,8 @@ public abstract class PlayGameScreen
     batch.begin();
     player.draw(batch);
     batch.end();
-    PlayButtons.getStage().act(delta);
-    PlayButtons.getStage().draw();
+    buttons.getStage().act(delta);
+    buttons.getStage().draw();
     if (game.getScreen() instanceof GameOverScreen) restart();
   }
 
@@ -170,6 +175,7 @@ public abstract class PlayGameScreen
     hide();
     buttons.dispose();
     if (b2dr != null) b2dr.dispose();
+    player.dispose();
     batch.dispose();
     map.dispose();
     renderer.dispose();
@@ -180,17 +186,17 @@ public abstract class PlayGameScreen
   @Override
   public void show() {
     Gdx.input.setInputProcessor(
-        PlayButtons.getStage()); // so that clicks are processed only by stage
+        buttons.getStage()); // so that clicks are processed only by stage
   }
 
   @Override
   public void hide() {
-    PlayButtons.getJoystick().setUnTouched();
+    buttons.getJoystick().setUnTouched();
     Main.getMusic().allPause();
   }
 
   public void restart() {
-    buttons.updateRestarts();
+    buttons.reset();
   }
 
   public abstract void setCheckpoint(float x, float y);

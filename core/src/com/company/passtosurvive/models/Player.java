@@ -12,13 +12,14 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import com.company.passtosurvive.view.Main;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Player extends Sprite { // the player model is in every level screen
+public class Player extends Sprite implements Disposable { // the player model is in every level screen
   public enum State { // statuses are needed to change the texture of a person
     JUMPING,
     RUNNING,
@@ -27,52 +28,28 @@ public class Player extends Sprite { // the player model is in every level scree
   };
 
   @Getter private static int restarts;
-  private static BodyDef bDef;
-  private static TextureAtlas atlas;
-  private static TextureRegion playerJump;
-  private static Animation<TextureRegion> playerRun, playerStand;
-
-  static {
-    atlas = new TextureAtlas("Player.pack");
-    final Array<TextureRegion> frames = new Array<TextureRegion>();
-    frames.add(atlas.findRegion("player1Run1"));
-    frames.add(atlas.findRegion("player1Run2"));
-    playerRun = new Animation<TextureRegion>(0.2f, frames);
-    frames.clear();
-    frames.add(atlas.findRegion("player1Stay"));
-    frames.add(atlas.findRegion("player1Stay1"));
-    frames.add(atlas.findRegion("player1Stay2"));
-    playerStand = new Animation<TextureRegion>(0.25f, frames);
-    frames.clear();
-    playerJump =
-        new TextureRegion(
-            atlas.findRegion("player1Fall"),
-            0,
-            0,
-            78,
-            93); // for jumping and falling I have one frame so this is not animation
-    bDef = new BodyDef();
-    bDef.type = BodyDef.BodyType.DynamicBody;
-  }
+  private BodyDef bDef;
+  private TextureAtlas atlas;
+  private TextureRegion playerJump;
+  private Animation<TextureRegion> playerRun, playerStand;
 
   public static void incrementRestarts() {
     Player.restarts++;
   }
-
-  private static void changeSkin() {
-    if (restarts == 20) {
+  
+  private void setPlayerSkin(int n) {
       final Array<TextureRegion> frames = new Array<TextureRegion>();
-      frames.add(atlas.findRegion("player2Run1"));
-      frames.add(atlas.findRegion("player2Run2"));
+      frames.add(atlas.findRegion("player"+n+"Run1"));
+      frames.add(atlas.findRegion("player"+n+"Run2"));
       playerRun = new Animation<TextureRegion>(0.2f, frames);
       frames.clear();
-      frames.add(atlas.findRegion("player2Stay"));
-      frames.add(atlas.findRegion("player2Stay1"));
-      frames.add(atlas.findRegion("player2Stay2"));
+      frames.add(atlas.findRegion("player"+n+"Stay"));
+      frames.add(atlas.findRegion("player"+n+"Stay1"));
+      frames.add(atlas.findRegion("player"+n+"Stay2"));
       playerStand = new Animation<TextureRegion>(0.25f, frames);
       frames.clear();
-      playerJump.setRegion(atlas.findRegion("player2Fall"));
-    }
+      if( playerJump!=null ) playerJump.setRegion(atlas.findRegion("player"+n+"Fall"));// for jumping and falling I have one frame so this is not animation
+      else playerJump = new TextureRegion(atlas.findRegion("player"+n+"Fall"), 0, 0, 78, 93);
   }
 
   private State
@@ -113,6 +90,10 @@ public class Player extends Sprite { // the player model is in every level scree
   private State previousState;
 
   public Player(final World world, final float x, final float y) {
+    atlas = new TextureAtlas("Player.pack");
+    setPlayerSkin(restarts>=20? 2:1);
+    bDef = new BodyDef();
+    bDef.type = BodyDef.BodyType.DynamicBody;
     setBounds(0, 0, 63 / (1.4f * Main.PPM), 72 / (1.4f * Main.PPM)); // sprite's bounds
     reset(x, y);
     playerBody = world.createBody(bDef);
@@ -159,7 +140,7 @@ public class Player extends Sprite { // the player model is in every level scree
     animationStateTime = 0;
     headInContact = false;
     toRight = true; // by default the player model will always look to the right
-    changeSkin();
+    if (restarts == 20) setPlayerSkin(2);
     setPosition(x, y);
     bDef.position.set(x, y);
     if (playerBody != null) playerBody.setTransform(x, y, playerBody.getAngle());
@@ -240,5 +221,10 @@ public class Player extends Sprite { // the player model is in every level scree
         || headInContact) return State.JUMPING;
     else if (playerBody.getLinearVelocity().x != 0f) return State.RUNNING;
     else return State.STANDING;
+  }
+
+  @Override
+  public void dispose() {
+    atlas.dispose();
   }
 }

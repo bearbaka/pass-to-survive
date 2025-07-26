@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -23,9 +24,10 @@ public class GameOverScreen
   private final Main game;
   private Texture gameOver, label;
   private final SpriteBatch batch;
-  private TextureAtlas animationAtlas;
+  private TextureAtlas animationAtlas, buttonAtlas;
   private Stage stage;
   private ImageButton Yes, No;
+  private Skin buttonSkin;
   private float animationStateTime, timer;
   private boolean played; // needed to start sound at a certain moment
   private Animation<TextureRegion> animation;
@@ -62,8 +64,10 @@ public class GameOverScreen
       }
       stage = new Stage();
       label = new Texture("Continue.png");
-      Yes = new ImageButton(Main.getButtonSkin(), "yesButton");
-      No = new ImageButton(Main.getButtonSkin(), "noButton");
+    buttonAtlas = new TextureAtlas("Buttons.pack");
+    buttonSkin = new Skin(Gdx.files.internal("Buttons.json"), buttonAtlas);
+      Yes = new ImageButton(buttonSkin, "yesButton");
+      No = new ImageButton(buttonSkin, "noButton");
       stage.addActor(Yes);
       stage.addActor(No);
       Gdx.input.setInputProcessor(stage);
@@ -94,7 +98,7 @@ public class GameOverScreen
         0,
         Main.getScreenHeight() / 2,
         Main.getScreenWidth(),
-        Main.getScreenWidth()*0.18f);
+        350f / (1920f / Main.getScreenWidth()));
   }
 
   public void spikeRender() { // I explained this in slides (.pptx file)
@@ -104,7 +108,7 @@ public class GameOverScreen
         Main.getScreenWidth() / 2 - (168 / (1794 / Main.getScreenWidth())),
         Main.getScreenHeight() / 2
             - 80 / (1080 / Main.getScreenHeight())
-            + Main.getScreenWidth()*0.106f,
+            + 203f / (1920f /Main.getScreenWidth()),
         336 / (1794 / Main.getScreenWidth()),
         336 / (1794 / Main.getScreenWidth()));
   }
@@ -162,7 +166,7 @@ public class GameOverScreen
             0,
             Main.getScreenHeight() / 2 - 80 / (1080 / Main.getScreenHeight()),
             Main.getScreenWidth(),
-            Main.getScreenWidth()*0.106f);
+            203f / (1920f /Main.getScreenWidth()));
         spikeRender();
         if (timer >= 3) {
           batch.draw(
@@ -216,6 +220,8 @@ public class GameOverScreen
 
   @Override
   public void dispose() {
+    if(buttonSkin!=null) buttonSkin.dispose();
+    if(buttonAtlas!=null) buttonAtlas.dispose();
     label.dispose();
     if (gameOver != null) gameOver.dispose();
     animationAtlas.dispose();
