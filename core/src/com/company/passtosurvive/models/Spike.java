@@ -8,7 +8,7 @@ import com.company.passtosurvive.view.Main;
 
 public class Spike extends TileObject {
   public Spike(World world, Rectangle rect) {
-    super(world, rect);
+    super(world, rect, 0f);
   }
 
   @Override

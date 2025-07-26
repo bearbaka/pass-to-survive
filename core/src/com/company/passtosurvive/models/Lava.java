@@ -8,7 +8,7 @@ import com.company.passtosurvive.view.Main;
 
 public class Lava extends TileObject {
   public Lava(World world, Rectangle rect) {
-    super(world, rect);
+    super(world, rect, 0f);
   }
 
   @Override
